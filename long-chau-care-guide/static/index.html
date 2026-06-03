@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Châu Care Guide - AI OTC Product Finder</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Chat Dashboard -->
+        <main class="chat-section">
+            <header class="chat-header">
+                <div class="brand">
+                    <div class="logo-orb">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="brand-info">
+                        <h1>Long Châu Care Guide</h1>
+                        <div class="status-indicator">
+                            <span class="pulse-dot"></span>
+                            <span class="status-text">Trợ lý Dược sĩ AI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="clear-chat-btn" title="Xóa lịch sử trò chuyện">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span>Làm mới</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Chat Message Window -->
+            <div class="chat-messages" id="chat-messages-container">
+                <!-- Welcome Message -->
+                <div class="message system-message">
+                    <div class="avatar">🤖</div>
+                    <div class="message-bubble">
+                        <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
+                        <p>Hãy mô tả triệu chứng của bạn (ví dụ: <em>"Tôi bị ho khan, đau họng nhẹ 2 ngày nay..."</em>). Tôi sẽ giúp trích xuất triệu chứng, gợi ý nhóm sản phẩm không kê đơn (OTC) phù hợp và đưa ra lời khuyên an toàn.</p>
+                        <div class="hint-chips">
+                            <button class="hint-chip" onclick="setInputValue('Tôi bị ho rát họng và sổ mũi')">Ho & sổ mũi</button>
+                            <button class="hint-chip" onclick="setInputValue('Tôi bị nổi mẩn ngứa dị ứng da')">Nổi mẩn ngứa</button>
+                            <button class="hint-chip" onclick="setInputValue('Tôi mệt quá')">Thấy mệt trong người</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Box -->
+            <footer class="chat-input-area">
+                <form id="chat-form" class="input-container">
+                    <input type="text" id="user-input" placeholder="Mô tả triệu chứng của bạn ở đây..." autocomplete="off" required>
+                    <button type="submit" id="send-btn" title="Gửi tin nhắn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </footer>
+        </main>
+
+        <!-- Sidebar Panel for Demo Control -->
+        <aside class="control-panel">
+            <div class="panel-header">
+                <h2>Bảng Điều Khiển Demo</h2>
+                <p>Thử nghiệm nhanh các kịch bản kiểm thử (Day 05/06)</p>
+            </div>
+
+            <!-- Scenarios Section -->
+            <section class="panel-section">
+                <h3>1. KỊCH BẢN MẪU (PRESETS)</h3>
+                <div class="preset-buttons">
+                    <button class="preset-btn happy" id="preset-happy">
+                        <span class="icon">🟢</span>
+                        <div class="btn-text">
+                            <strong>Happy Path</strong>
+                            <span>Ho khan + Đau họng nhẹ</span>
+                        </div>
+                    </button>
+                    <button class="preset-btn low-conf" id="preset-low-conf">
+                        <span class="icon">🟡</span>
+                        <div class="btn-text">
+                            <strong>Low Confidence</strong>
+                            <span>"Tôi thấy người không ổn"</span>
+                        </div>
+                    </button>
+                    <button class="preset-btn safety" id="preset-safety">
+                        <span class="icon">🔴</span>
+                        <div class="btn-text">
+                            <strong>Safety Case (Red Flag)</strong>
+                            <span>"Khó thở, đau ngực"</span>
+                        </div>
+                    </button>
+                    <button class="preset-btn correction" id="preset-correction">
+                        <span class="icon">🔵</span>
+                        <div class="btn-text">
+                            <strong>Correction Path</strong>
+                            <span>Ho rát họng → Nổi mẩn đỏ</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Configuration Section -->
+            <section class="panel-section">
+                <h3>2. CẤU HÌNH AI ENGINE</h3>
+                <div class="settings-group">
+                    <label for="ai-provider">Mô hình AI:</label>
+                    <select id="ai-provider">
+                        <option value="mock">Mô phỏng (Mock Engine - Khuyên dùng)</option>
+                        <option value="gemini">Google Gemini 1.5 Flash</option>
+                        <option value="openai">OpenAI GPT-4o Mini</option>
+                    </select>
+                </div>
+                
+                <div class="settings-group api-key-group" id="api-key-container" style="display: none;">
+                    <label for="api-key">API Key:</label>
+                    <input type="password" id="api-key" placeholder="Nhập API Key của bạn...">
+                    <small>Lưu cục bộ trong trình duyệt của bạn (localStorage).</small>
+                </div>
+            </section>
+
+            <!-- Logger Section -->
+            <section class="panel-section logger-section">
+                <div class="logger-header">
+                    <h3>3. LOGS PHÂN TÍCH HỆ THỐNG</h3>
+                    <button id="clear-logs-btn">Xóa logs</button>
+                </div>
+                <div class="log-console" id="log-console">
+                    <div class="log-line system">[System] Sẵn sàng kiểm thử. Vui lòng chọn preset hoặc nhập triệu chứng.</div>
+                </div>
+            </section>
+
+            <footer class="panel-footer">
+                <p>Long Châu Care Guide · Prototype Day 05 · AI Product Labs</p>
+            </footer>
+        </aside>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
