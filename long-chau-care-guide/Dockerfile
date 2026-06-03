@@ -11,10 +11,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy file requirements và cài đặt
-COPY vector_db/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy toàn bộ code dự án (để có quyền truy cập vào data/ và vector_db/)
+# Copy toàn bộ code dự án
 COPY . .
 
 # Biến môi trường để Python không tạo file .pyc
@@ -22,5 +22,5 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Mặc định khi chạy container sẽ build lại DB từ data hiện có
-# Sau đó có thể dùng để chạy API hoặc giữ container sống
+# Sau đó có thể chạy ứng dụng chính (main.py)
 CMD ["python", "vector_db/build_vector_db.py"]

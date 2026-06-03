@@ -1,3 +1,0 @@
-chromadb>=0.4.0
-sentence-transformers
-pydantic>=2.0.0
