@@ -1,0 +1,1 @@
+link doc https://gemini.google.com/share/d13ceacab6ac
