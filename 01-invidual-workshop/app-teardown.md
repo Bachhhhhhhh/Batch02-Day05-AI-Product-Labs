@@ -1,90 +1,58 @@
 # Workshop — Mổ App AI Thật
 
-**Thời gian:** 35-45 phút  
-**Hình thức:** cá nhân trước, chia sẻ theo nhóm sau  
-**Output:** finding note + sketch `as-is / to-be`
-
-Mục tiêu không phải chấm "UI đẹp hay xấu". Mục tiêu là dùng sản phẩm thật như một bài needfinding: tìm chỗ product gãy trong workflow thật, rồi viết finding đó thành quyết định product.
+**Học viên:** Trần Trung Kiên - 2a202600850
+**Sản phẩm phân tích:** V-AI (Vin AI Assistant)
+**Thời gian:** 03/06/2026
+**Output:** Finding note + 4 Paths Analysis
 
 ## 1. Chọn một sản phẩm để dùng thử
 
-| Sản phẩm | AI feature | Cách truy cập |
-|---|---|---|
-| MoMo — Moni | Trợ thủ tài chính, phân tích chi tiêu, chatbot | App MoMo |
-| Vietnam Airlines — NEO | Chatbot hỗ trợ vé, hành lý, khiếu nại | Website/Zalo VNA |
-| V-App — V-AI | Trợ lý voice/text, gợi ý theo ngữ cảnh | App V-App |
+- **Sản phẩm:** V-AI
+- **AI feature:** Trợ lý đa năng (Thông tin tập đoàn, hỗ trợ khẩn cấp, tra cứu pháp luật/chủ quyền).
+- **Cách truy cập:** App V-App.
 
 ## 2. Dùng thử: promise vs reality
 
-Ghi nhanh:
+- **Product hứa gì?** Trợ lý thông minh, hiểu biết sâu rộng về hệ sinh thái Vingroup và tuân thủ pháp luật Việt Nam.
+- **User nào được hứa sẽ được giúp?** Cư dân Vinhomes, khách hàng VinFast, và người dùng phổ thông tại Việt Nam.
+- **Kỳ vọng:** AI trả lời nhanh, chính xác thông tin doanh nghiệp và có phản ứng phù hợp với các tình huống nhạy cảm hoặc khẩn cấp.
+- **Thực tế (Reality):** 
+    - AI cung cấp thông tin cực kỳ chi tiết về Vingroup (đến tận 2026).
+    - AI có cơ chế "Safety Guardrail" rất tốt khi từ chối các câu hỏi nhạy cảm về chủ quyền nhưng vẫn khẳng định lập trường pháp lý.
+    - Điểm gãy: Trong tình huống khẩn cấp ("bị tấn công"), AI chỉ đưa ra văn bản hướng dẫn dài, có thể gây khó khăn cho user đang hoảng loạn.
 
-- Product hứa gì?
-- User nào được hứa sẽ được giúp?
-- Bạn kỳ vọng AI làm được task nào?
-- Khi dùng thật, điểm gãy xuất hiện ở đâu?
-
-Evidence cần có:
-
-- screenshot,
-- quote từ app/web/review,
-- prompt/input đã thử,
-- hành vi quan sát được.
+**Evidence (Ảnh đã phân loại):** 
+- `images/TranTrungKien/v-ai-vingroup-info.jpg` (Kịch bản hỏi về Vingroup)
+- `images/TranTrungKien/v-ai-safety-policy.jpg` (Kịch bản hỏi về chủ quyền)
+- `images/TranTrungKien/v-ai-emergency-113.jpg` (Kịch bản khẩn cấp)
 
 ## 3. Vẽ 4 paths
 
-| Path | Câu hỏi cần trả lời |
+| Path | Phân tích từ kịch bản của Kiên |
 |---|---|
-| Happy | Khi AI đúng và tự tin, user thấy gì? |
-| Low-confidence | Khi AI không chắc, hệ thống có hỏi lại, show options hoặc chuyển người không? |
-| Failure | Khi AI sai, user biết bằng cách nào và sửa thế nào? |
-| Correction | Khi user sửa, correction có được lưu/log/học lại không hay biến mất? |
+| **Happy** | Khi hỏi về "Vin group la", AI cung cấp data đầy đủ, có dẫn nguồn [1][2], thông tin cập nhật đến 14/04/2026 (Green SM). |
+| **Low-confidence** | (Chưa thể hiện rõ trong kịch bản này, nhưng AI có xu hướng trả lời thẳng dựa trên data-văn bản có sẵn). |
+| **Failure** | Khi hỏi về chủ quyền nhạy cảm, AI không "đoán" mà chuyển sang chế độ Safety: Từ chối trả lời trực tiếp nhưng đưa ra thông tin pháp lý chính thống. |
+| **Correction** | Trong kịch bản khẩn cấp, AI cung cấp số 113 và gợi ý liên hệ An ninh Vinhomes (hành vi gợi ý dựa trên ngữ cảnh hệ sinh thái). |
 
 ## 4. Viết finding thành quyết định
 
-Không viết:
+### Finding 1: Thông tin hệ sinh thái cực tốt nhưng UX khẩn cấp chưa tối ưu
+- **Khi user** báo đang bị tấn công (khẩn cấp),
+- **AI/product** trả lời bằng một đoạn văn bản dài và yêu cầu user "giữ bình tĩnh, tìm nơi ẩn nấp",
+- **Hậu quả là** user mất thời gian đọc trong lúc nguy hiểm.
+- **Lỗi thuộc layer:** UX Recovery.
+- **Nên sửa bằng:** Thêm nút bấm "GỌI NGAY 113" hoặc "GỌI AN NINH VINHOMES" ngay dưới câu trả lời thay vì chỉ đưa số điện thoại dạng text.
 
-```text
-Bot ngu, trả lời sai.
-```
-
-Viết:
-
-```text
-Khi user [trigger],
-AI/product [failure],
-hậu quả là [impact].
-Lỗi thuộc layer [promise / intent / data-tool / safety / UX recovery].
-Nên sửa bằng [requirement / UX / fallback / human role / test case].
-```
-
-Ví dụ:
-
-```text
-Khi user hỏi "chi tiêu linh tinh là gì?",
-AI hiểu như keyword thay vì nhận ra intent mơ hồ,
-hậu quả là user không biết sửa phân loại chi tiêu ở đâu.
-Lỗi thuộc Intent + UX Recovery.
-Nên sửa bằng low-confidence path: hỏi lại tiêu chí hoặc đưa 2-3 nhóm giao dịch để chọn.
-```
+### Finding 2: Hiểu biết về Context doanh nghiệp vượt trội
+- **Khi user** đặt câu hỏi về Vingroup, AI không chỉ đưa wiki cũ mà cập nhật được các thay đổi thương hiệu (Green SM).
+- **Hệ quả:** Tạo lòng tin lớn về độ tươi của dữ liệu (Data freshness).
+- **Lỗi thuộc layer:** Data-tool (Good).
 
 ## 5. Sketch as-is / to-be
 
-Vẽ 2 cột:
+- **As-is:** User kêu cứu -> AI trả lời text (dài) -> User tự đọc số -> User tự thoát app vào bàn phím gọi.
+- **To-be:** User kêu cứu -> AI hiện Warning đỏ + 1 nút bấm "SOS gọi 113" + Tự động gửi vị trí GPS cho BQL Vinhomes (nếu trong khu vực).
 
-- **As-is:** flow hiện tại, đánh dấu điểm gãy.
-- **To-be:** flow đề xuất, đánh dấu path đã sửa.
-
-Không cần đẹp. Cần nhìn vào là hiểu:
-
-- user làm gì,
-- AI làm gì,
-- lúc AI không chắc thì sao,
-- lúc AI sai user recover thế nào.
-
-## 6. Tự kiểm trước khi nộp
-
-- [ ] Có ít nhất 1 screenshot hoặc observation cụ thể.
-- [ ] Có đủ 4 paths hoặc nói rõ path nào chưa có trong product.
-- [ ] Finding được viết thành product decision, không chỉ là nhận xét.
-- [ ] Sketch có as-is và to-be.
-- [ ] Có một câu nói rõ finding này sẽ đổi gì trong SPEC.
+## 6. Câu chốt cho SPEC
+"Cần bổ sung một **Emergency Interface** (giao diện khẩn cấp) với các nút hành động (Call/GPS) thay vì chỉ dùng văn bản khi AI nhận diện được intent nguy hiểm đến tính mạng."
