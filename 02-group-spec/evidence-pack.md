@@ -34,6 +34,18 @@ Nếu chưa có nguồn ngoài nhóm, ghi rõ:
 Một phần là giả định. Nhóm sẽ kiểm bằng phỏng vấn 3–5 người bệnh có bệnh nền / dùng nhiều thuốc trước checkpoint M1 Day 06.
 ```
 
+## 3b. Evidence theo từng tình huống (use case)
+
+Mỗi tình huống đã phác trong SPEC được gắn ít nhất một nguồn ngoài nhóm.
+
+| # | Tình huống (user → AI → output) | Evidence | Nguồn | Pain/failure mode |
+|---|---|---|---|---|
+| 1 | Muốn hiểu cách dùng, mục đích, tác dụng điển hình/không điển hình → AI tra dữ liệu, kiểm tra đơn → hướng dẫn sử dụng + thông tin thuốc | 7 sai lầm thường gặp khi uống thuốc: bỏ thuốc, chia nhỏ sai, không uống hết đơn, tự tăng liều, dùng thuốc người khác, quên thuốc, tự ngừng vì tác dụng phụ | [Sức khỏe & Đời sống](https://suckhoedoisong.vn/7-sai-lam-thuong-gap-khi-uong-thuoc-va-cach-khac-phuc-169220801223146779.htm) | Không hiểu cách dùng → uống sai cách, sai liều |
+| 2 | Lo tác dụng phụ sớm/muộn → AI kiểm tra thông tin thuốc → cảnh báo tác dụng phụ + gợi ý liên hệ bác sĩ | Khi gặp tác dụng phụ cần báo bác sĩ/dược sĩ; phản ứng nặng (khó thở, sưng mặt/lưỡi, co giật) phải cấp cứu ngay; không tự ý ngừng thuốc | [Nhà thuốc Long Châu](https://nhathuoclongchau.com.vn/bai-viet/tac-dung-phu-cua-thuoc-co-nguy-hiem-khong-can-lam-gi-khi-gap-phai.html) | Không nhận biết tác dụng phụ nguy hiểm → xử trí chậm |
+| 3 | Mắc bệnh khác / món ăn kỵ thuốc → AI tra khả năng dùng chung → gợi ý "được/không nhưng phải hỏi bác sĩ" | Tương tác thuốc–bệnh lý: NSAID làm tăng huyết áp ở người tăng huyết áp; tương tác thuốc–thực phẩm/thảo dược (bưởi, nhân sâm, tỏi) | [Việt Giải Trí (theo BS Bạch Mai)](https://vietgiaitri.com/phong-tranh-tuong-tac-thuoc-trong-dieu-tri-benh-man-tinh-20250825i7518346) | Dùng thuốc kỵ bệnh nền/thức ăn → làm nặng bệnh |
+| 4 | Muốn đổi loại thuốc → AI gợi ý thuốc tương tự → danh sách thuốc tương ứng (kèm yêu cầu hỏi bác sĩ) | Tự ý đổi sang thuốc "nhẹ hơn" theo mg là sai lầm; có thể trùng/đối kháng hoạt chất, mất kiểm soát bệnh, tổn thương gan thận | [Sức khỏe & Đời sống](https://suckhoedoisong.vn/tu-y-doi-thuoc-nguy-hiem-nhu-the-nao-169251019195910586.htm) | Tự đổi thuốc → tương tác, mất kiểm soát bệnh nền |
+| 5 | Muốn tra thông tin tiêu cực/cảnh báo về thuốc → AI tra danh sách → trả lời có/không | Chống chỉ định = trường hợp tuyệt đối không được dùng; cần đọc đúng tờ hướng dẫn (thành phần, cách dùng, tác dụng phụ, tương tác) | [Nhà thuốc Long Châu](https://nhathuoclongchau.com.vn/bai-viet/tim-hieu-ve-chong-chi-dinh-va-cach-doc-to-huong-dan-su-dung-thuoc.html) | Không biết chống chỉ định → dùng thuốc nguy hiểm cho mình |
+
 ## 4. Competitor / analog evidence
 
 | App / mô hình tham khảo | Họ xử lý task này thế nào? | Pattern học được | Có áp dụng trong 1 ngày không? |
