@@ -1,29 +1,10 @@
-import re
 import json
-import os
-from fastapi import FastAPI, HTTPException, Body
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+import re
 from typing import List, Optional
+from app.data.products_db import get_products_by_category
+from app.core.config import MODEL_TEMPERATURE, ALLOW_OUT_OF_SCOPE, MAX_TOKENS, OPENAI_API_KEY, GEMINI_API_KEY
+from app.core.logger import system_logger
 
-# Import mock catalog
-from products_db import PRODUCT_CATALOG, get_products_by_category
-
-app = FastAPI(title="Long Chau OTC Finder API")
-
-# Setup static directory
-STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
-os.makedirs(STATIC_DIR, exist_ok=True)
-
-# Define request schemas
-class ChatRequest(BaseModel):
-    message: str
-    api_key: Optional[str] = None
-    provider: Optional[str] = "mock"  # "mock", "gemini", "openai"
-    chat_history: Optional[List[dict]] = None
-
-# Hard-coded safety triggers (Red Flags)
 EMERGENCY_KEYWORDS = [
     r"khó thở", r"nghẹt thở", r"không thở được", r"thở dốc",
     r"đau ngực", r"tức ngực", r"nhói ngực", r"đau tim",
@@ -42,7 +23,6 @@ def check_emergency_rules(text: str) -> bool:
             return True
     return False
 
-# Rule-based fallback/mock processor
 def process_mock_ai(message: str) -> dict:
     message_lower = message.lower()
     
@@ -73,11 +53,11 @@ def process_mock_ai(message: str) -> dict:
     
     if is_low_conf:
         return {
-            "symptoms": ["Mệt mỏi chưa rõ nguyên nhân"],
+            "symptoms": [],
             "confidence": "low",
-            "message": "Triệu chứng bạn nhập còn khá chung chung, chưa đủ thông tin để định hướng nhóm sản phẩm OTC.",
+            "message": "Dạ, tôi chưa nghe rõ các triệu chứng của bạn. Bạn có thể chia sẻ cụ thể hơn cảm giác khó chịu ở đâu để tôi tư vấn chính xác nhé!",
             "categories": [],
-            "recommendations": ["Nghỉ ngơi tại chỗ", "Uống nước ấm"],
+            "recommendations": [],
             "warnings": ["Theo dõi thân nhiệt thường xuyên"],
             "is_emergency": False,
             "clarifying_questions": [
@@ -88,7 +68,7 @@ def process_mock_ai(message: str) -> dict:
             ]
         }
     
-    # 3. Happy Path (Cough + Sore throat)
+    # 3. Happy Path
     is_cough = "ho" in message_lower or "siro" in message_lower or "khan" in message_lower
     is_sore_throat = "đau họng" in message_lower or "rát họng" in message_lower or "ngậm" in message_lower
     is_flu = "cảm" in message_lower or "sổ mũi" in message_lower or "nghẹt mũi" in message_lower or "xịt mũi" in message_lower or "ngạt" in message_lower
@@ -120,8 +100,31 @@ def process_mock_ai(message: str) -> dict:
         warnings.append("Cần đi cấp cứu ngay nếu phát ban kèm theo khó thở hoặc sưng phù mặt/môi.")
         
     if not symptoms:
-        symptoms = ["Triệu chứng chung"]
-        categories = ["thuốc cảm cúm & sổ mũi", "thuốc giảm đau & hạ sốt"]
+        if ALLOW_OUT_OF_SCOPE:
+            return {
+                "symptoms": [],
+                "confidence": "high",
+                "message": "Xin chào! Tôi là Trợ lý Dược sĩ AI của Long Châu. Tôi có thể giúp gì cho bạn hôm nay?",
+                "categories": [],
+                "recommendations": [],
+                "warnings": [],
+                "is_emergency": False,
+                "clarifying_questions": []
+            }
+            
+        return {
+            "symptoms": [],
+            "confidence": "low",
+            "message": "Dạ, tôi chưa nhận diện được triệu chứng cụ thể nào từ mô tả của bạn. Bạn có thể chia sẻ rõ hơn để tôi tư vấn không ạ?",
+            "categories": [],
+            "recommendations": [],
+            "warnings": [],
+            "is_emergency": False,
+            "clarifying_questions": [
+                "Bạn có bị đau, sốt hay ho không?",
+                "Bạn có thể mô tả chi tiết hơn cảm giác khó chịu của bạn không?"
+            ]
+        }
         
     return {
         "symptoms": symptoms,
@@ -134,11 +137,15 @@ def process_mock_ai(message: str) -> dict:
         "clarifying_questions": []
     }
 
-# Gemini API Caller
-def process_gemini_ai(message: str, api_key: str) -> dict:
+def process_gemini_ai(message: str) -> dict:
     try:
-        import google.generativeai as genai
-        genai.configure(api_key=api_key)
+        from google import genai
+        from google.genai import types
+        
+        if not GEMINI_API_KEY:
+            raise ValueError("GEMINI_API_KEY is not configured in .env")
+            
+        client = genai.Client(api_key=GEMINI_API_KEY)
         
         system_instruction = f"""
         Bạn là Trợ lý Dược sĩ AI của FPT Long Châu. Nhiệm vụ của bạn là nhận triệu chứng của người dùng bằng ngôn ngữ tự nhiên, trích xuất triệu chứng, và đề xuất nhóm sản phẩm OTC (Không kê đơn) phù hợp.
@@ -157,8 +164,15 @@ def process_gemini_ai(message: str, api_key: str) -> dict:
         
         Quy tắc độ tin cậy thấp (Low Confidence):
         Nếu mô tả của người dùng quá ngắn, mơ hồ (ví dụ: "tôi thấy mệt", "người không ổn") mà không có triệu chứng cụ thể nào.
-        -> Đặt 'confidence' thành 'low', 'categories' thành [], và đặt các câu hỏi làm rõ trong 'clarifying_questions' (như: Có sốt không? Ho không? Đau ở đâu?).
+        -> Đặt 'confidence' thành 'low', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG [], KHÔNG ĐIỀN CHỮ "Không có" HAY "None") và trả lời một cách thật thân thiện, lịch sự, quan tâm trong 'message' (ví dụ: "Dạ, bạn có thể chia sẻ rõ hơn để tôi tư vấn nhé"). Đặt các câu hỏi làm rõ trong 'clarifying_questions'.
         
+        """
+        if ALLOW_OUT_OF_SCOPE:
+            system_instruction += "\nCấu hình ALLOW_OUT_OF_SCOPE đang BẬT: Bạn được quyền trả lời các câu hỏi ngoài y tế bằng kiến thức chung một cách tự nhiên, vui vẻ. Đặt 'confidence' thành 'high', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG []) và ghi câu trả lời của bạn vào 'message'."
+        else:
+            system_instruction += "\nCấu hình ALLOW_OUT_OF_SCOPE đang TẮT: Nếu người dùng hỏi câu hỏi ngoài y tế, bạn BẮT BUỘC TỪ CHỐI thật lịch sự và khéo léo (ví dụ: 'Dạ tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn sức khỏe thôi ạ...'). Đặt 'confidence' thành 'low', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG []) và ghi lời từ chối vào 'message'."
+            
+        system_instruction += """
         Định dạng đầu ra PHẢI LÀ JSON duy nhất, không có markdown trích dẫn (không có ```json ... ```), khớp chính xác với cấu trúc sau:
         {{
             "symptoms": ["mảng các triệu chứng đã trích xuất, ví dụ: Ho khan, Đau họng"],
@@ -172,27 +186,33 @@ def process_gemini_ai(message: str, api_key: str) -> dict:
         }}
         """
         
-        model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
-            generation_config={"response_mime_type": "application/json"},
-            system_instruction=system_instruction
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=message,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                system_instruction=system_instruction,
+                temperature=MODEL_TEMPERATURE,
+                max_output_tokens=MAX_TOKENS
+            )
         )
-        
-        response = model.generate_content(message)
         data = json.loads(response.text.strip())
+        system_logger.info(f"Gemini API Response Data: {data}")
         return data
         
     except Exception as e:
-        print(f"Gemini API Error: {e}")
+        system_logger.error(f"Gemini API Error: {e}", exc_info=True)
         fallback = process_mock_ai(message)
-        fallback["message"] = f"(Lỗi Gemini API, chuyển sang Mock Engine) " + fallback["message"]
         return fallback
 
-# OpenAI API Caller
-def process_openai_ai(message: str, api_key: str) -> dict:
+def process_openai_ai(message: str) -> dict:
     try:
         from openai import OpenAI
-        client = OpenAI(api_key=api_key)
+        
+        if not OPENAI_API_KEY:
+            raise ValueError("OPENAI_API_KEY is not configured in .env")
+            
+        client = OpenAI(api_key=OPENAI_API_KEY)
         
         prompt = f"""
         Bạn là Trợ lý Dược sĩ AI của FPT Long Châu.
@@ -218,68 +238,26 @@ def process_openai_ai(message: str, api_key: str) -> dict:
             "clarifying_questions": ["câu hỏi nếu confidence là low"]
         }}
         
-        Nhớ tuân thủ các quy tắc an toàn cấp cứu (đau ngực, khó thở, co giật -> emergency) và thông tin mơ hồ -> low confidence.
+        Nếu mô tả của người dùng mơ hồ, không có triệu chứng cụ thể -> Đặt 'confidence' thành 'low', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG [], KHÔNG ĐIỀN CHỮ "Không có" HAY "None") và trả lời thật thân thiện, lịch sự trong 'message' (VD: Dạ, bạn có thể chia sẻ rõ hơn...).
         """
         
+        if ALLOW_OUT_OF_SCOPE:
+            prompt += "\nCấu hình ALLOW_OUT_OF_SCOPE đang BẬT: Bạn được quyền trả lời các câu hỏi ngoài y tế bằng kiến thức chung một cách tự nhiên, vui vẻ. Đặt 'confidence' thành 'high', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG []) và ghi câu trả lời của bạn vào 'message'."
+        else:
+            prompt += "\nCấu hình ALLOW_OUT_OF_SCOPE đang TẮT: Nếu người dùng hỏi câu hỏi ngoài y tế, bạn BẮT BUỘC TỪ CHỐI thật lịch sự và khéo léo (ví dụ: 'Dạ tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn sức khỏe thôi ạ...'). Đặt 'confidence' thành 'low', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG []) và ghi lời từ chối vào 'message'."
+            
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"}
+            response_format={"type": "json_object"},
+            temperature=MODEL_TEMPERATURE,
+            max_tokens=MAX_TOKENS
         )
         
         data = json.loads(response.choices[0].message.content.strip())
+        system_logger.info(f"OpenAI API Response Data: {data}")
         return data
     except Exception as e:
-        print(f"OpenAI API Error: {e}")
+        system_logger.error(f"OpenAI API Error: {e}", exc_info=True)
         fallback = process_mock_ai(message)
-        fallback["message"] = f"(Lỗi OpenAI API, chuyển sang Mock Engine) " + fallback["message"]
         return fallback
-
-# API endpoint
-@app.post("/api/chat")
-async def chat_endpoint(request: ChatRequest = Body(...)):
-    user_msg = request.message.strip()
-    if not user_msg:
-        raise HTTPException(status_code=400, detail="Tin nhắn không được để trống")
-    
-    # 1. Hard-coded Safety Guardrail Interceptor (MANDATORY)
-    if check_emergency_rules(user_msg):
-        result = {
-            "symptoms": ["Khó thở / Đau ngực / Dấu hiệu nguy cấp"],
-            "confidence": "emergency",
-            "message": "CẢNH BÁO NGUY HIỂM: Phát hiện dấu hiệu cấp cứu khẩn cấp từ tin nhắn của bạn. Vui lòng KHÔNG tự mua thuốc điều trị.",
-            "categories": [],
-            "recommendations": [
-                "Ngồi thẳng lưng, cố gắng duy trì nhịp thở ổn định.",
-                "Gần bệnh viện hoặc cơ sở y tế gần nhất là ưu tiên số một."
-            ],
-            "warnings": [
-                "ĐÂY LÀ TÌNH TRẠNG KHẨN CẤP. VUI LÒNG GỌI CẤP CỨU 115 HOẶC ĐẾN TRẠM Y TẾ NGAY LẬP TỨC."
-            ],
-            "is_emergency": True,
-            "clarifying_questions": []
-        }
-    else:
-        # 2. Call AI engines
-        if request.provider == "gemini" and request.api_key:
-            result = process_gemini_ai(user_msg, request.api_key)
-        elif request.provider == "openai" and request.api_key:
-            result = process_openai_ai(user_msg, request.api_key)
-        else:
-            result = process_mock_ai(user_msg)
-            
-    # 3. Retrieve mock products
-    products = []
-    if not result.get("is_emergency") and result.get("confidence") == "high":
-        for cat in result.get("categories", []):
-            products.extend(get_products_by_category(cat))
-            
-    result["products"] = products
-    return result
-
-# Serve static files
-app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

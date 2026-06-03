@@ -1,0 +1,13 @@
+[
+    {
+        "drug_name": "Paracetamol 500mg",
+        "ingredients": "Paracetamol",
+        "uses": "Giảm đau, hạ sốt",
+        "dosage": "Dùng theo chỉ định trên đơn thuốc hoặc hướng dẫn dược sĩ.",
+        "side_effects": "Có thể gây buồn nôn, dị ứng, phát ban.",
+        "warnings": "Không tự ý dùng quá liều. Thận trọng với người có bệnh gan.",
+        "contraindications": "Không dùng nếu dị ứng với paracetamol.",
+        "storage": "Bảo quản nơi khô ráo, tránh ánh sáng.",
+        "source_url": "https://nhathuoclongchau.com.vn/sample"
+    }
+]

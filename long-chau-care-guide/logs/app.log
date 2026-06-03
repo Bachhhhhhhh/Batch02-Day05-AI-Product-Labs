@@ -1,0 +1,667 @@
+2026-06-03 18:57:49 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 88.42ms
+2026-06-03 18:57:49 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 3.14ms
+2026-06-03 18:57:55 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6.16ms
+2026-06-03 18:59:52 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6.95ms
+2026-06-03 19:00:22 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3.40ms
+2026-06-03 19:02:59 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 9.62ms
+2026-06-03 19:03:22 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 114.97ms
+2026-06-03 19:03:22 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 2.37ms
+2026-06-03 19:03:27 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-03 19:05:51 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 87.94ms
+2026-06-03 19:05:59 [ERROR] [LongChauApp] Gemini API Error: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-03 19:05:59 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 1527.47ms
+2026-06-03 19:06:16 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 250, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:06:16 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5208.85ms
+2026-06-03 19:06:35 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5.72ms
+2026-06-03 19:08:35 [ERROR] [LongChauApp] Gemini API Error: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-03 19:08:39 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:09:15 [ERROR] [LongChauApp] Gemini API Error: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-03 19:09:19 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:09:50 [ERROR] [LongChauApp] Gemini API Error: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-03 19:09:54 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:11:17 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 42.681730817s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '42s'}]}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 42.681730817s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-pro', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '42s'}]}}
+2026-06-03 19:11:20 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:13:19 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 80.93ms
+2026-06-03 19:13:19 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 2.54ms
+2026-06-03 19:13:30 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:13:30 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3939.91ms
+2026-06-03 19:13:52 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:13:52 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2724.24ms
+2026-06-03 19:15:37 [ERROR] [LongChauApp] Gemini API Error: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key expired. Please renew the API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key expired. Please renew the API key.'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API key expired. Please renew the API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key expired. Please renew the API key.'}]}}
+2026-06-03 19:15:37 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 1429.00ms
+2026-06-03 19:16:07 [ERROR] [LongChauApp] OpenAI API Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-06-03 19:16:07 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2907.26ms
+2026-06-03 19:17:27 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\nPlease retry in 32.796294717s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\nPlease retry in 32.796294717s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}
+2026-06-03 19:17:27 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 1445.64ms
+2026-06-03 19:18:03 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 71.55ms
+2026-06-03 19:18:11 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 48.550096328s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '48s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 48.550096328s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '48s'}]}}
+2026-06-03 19:18:11 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 1526.84ms
+2026-06-03 19:19:12 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 47.771003115s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '47s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 47.771003115s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '47s'}]}}
+2026-06-03 19:19:12 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 1297.99ms
+2026-06-03 19:21:03 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 55.957967095s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '55s'}]}}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 189, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro\nPlease retry in 55.957967095s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerDay-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-pro'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '55s'}]}}
+2026-06-03 19:21:05 [ERROR] [LongChauApp] OpenAI API Error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-********************************************************************************************************************************************************gSMA. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-********************************************************************************************************************************************************gSMA. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-06-03 19:22:36 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho', 'Sổ mũi'], 'confidence': 'high', 'message': 'Chào bạn, với triệu chứng ho và sổ mũi, bạn có thể tham khảo một số sản phẩm sau để giúp giảm nhẹ các khó chịu này.', 'categories': ['siro ho', 'thuốc cảm cúm & sổ mũi'], 'recommendations': ['Nghỉ ngơi đầy đủ', 'Uống nhiều nước ấm, đặc biệt là nước chanh mật ong hoặc trà gừng', 'Súc miệng nước muối sinh lý hàng ngày để làm sạch đường hô hấp', 'Giữ ấm cơ thể, đặc biệt là vùng cổ và ngực'], 'warnings': ['Nếu các triệu chứng không thuyên giảm sau vài ngày, hoặc xuất hiện sốt cao, khó thở, đau ngực, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': []}
+2026-06-03 19:22:38 [ERROR] [LongChauApp] OpenAI API Error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-********************************************************************************************************************************************************gSMA. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+Traceback (most recent call last):
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 249, in process_openai_ai
+    response = client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\site-packages\openai\_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-********************************************************************************************************************************************************gSMA. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-06-03 19:22:59 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 119.55ms
+2026-06-03 19:22:59 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 3.94ms
+2026-06-03 19:23:17 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Đau răng'], 'confidence': 'high', 'message': 'Chào bạn, đau răng có thể gây khó chịu. Bạn có thể sử dụng các sản phẩm giảm đau không kê đơn để giảm bớt triệu chứng tạm thời. Tuy nhiên, đau răng thường cần được thăm khám bởi nha sĩ để tìm ra nguyên nhân và điều trị dứt điểm.', 'categories': ['thuốc giảm đau & hạ sốt'], 'recommendations': ['Đến nha sĩ để được thăm khám và điều trị nguyên nhân gây đau răng.', 'Tránh ăn đồ quá nóng, quá lạnh hoặc quá ngọt.', 'Vệ sinh răng miệng kỹ càng bằng cách đánh răng và dùng chỉ nha khoa sau mỗi bữa ăn.'], 'warnings': ['Nếu cơn đau răng dữ dội, sưng mặt, hoặc sốt cao, hãy đến nha sĩ ngay lập tức.'], 'is_emergency': False, 'clarifying_questions': []}
+2026-06-03 19:23:17 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6074.71ms
+2026-06-03 19:24:11 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 1.57ms
+2026-06-03 19:24:21 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5.41ms
+2026-06-03 19:27:46 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 83.92ms
+2026-06-03 19:27:46 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 3.96ms
+2026-06-03 19:27:54 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 15.97ms
+2026-06-03 19:28:05 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-03 19:28:31 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['bị thương nặng'], 'confidence': 'emergency', 'message': 'Trường hợp này rất nguy hiểm, bạn cần gọi ngay 115 hoặc đưa người bị nạn đến cơ sở y tế gần nhất để được cấp cứu kịp thời. Đừng cố gắng tự xử lý vết thương nặng nếu bạn không có chuyên môn y tế.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': True, 'clarifying_questions': []}
+2026-06-03 19:28:31 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3672.95ms
+2026-06-03 19:30:06 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'high', 'message': 'Chào bạn, tôi là trợ lý dược sĩ AI của FPT Long Châu và không thể cung cấp API key của OpenAI được ạ. API key thường do OpenAI cấp trực tiếp cho người dùng để truy cập các dịch vụ của họ. Bạn có thể truy cập trang web chính thức của OpenAI để tìm hiểu thêm về cách lấy API key nhé!', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': []}
+2026-06-03 19:30:06 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3637.10ms
+2026-06-03 19:32:13 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 134.61ms
+2026-06-03 19:32:26 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho rát họng', 'Sổ mũi'], 'confidence': 'high', 'message': 'Chào bạn, với các triệu chứng ho rát họng và sổ mũi, bạn có thể tham khảo các nhóm sản phẩm sau để giúp giảm nhẹ các khó chịu này nhé.', 'categories': ['viên ngậm giảm đau họng', 'thuốc cảm cúm & sổ mũi'], 'recommendations': ['Nghỉ ngơi đầy đủ', 'Uống nhiều nước ấm, đặc biệt là nước lọc hoặc trà thảo mộc', 'Súc miệng bằng nước muối sinh lý để làm dịu họng', 'Tránh tiếp xúc với các chất kích thích như khói bụi, thuốc lá'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, hoặc xuất hiện sốt cao, khó thở, đau ngực, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': []}
+2026-06-03 19:32:26 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5301.05ms
+2026-06-03 19:32:45 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'high', 'message': 'Chào bạn, tôi hiểu bạn đang cảm thấy buồn. Đôi khi chia sẻ cảm xúc có thể giúp ích, hoặc bạn có thể thử một hoạt động nào đó mình yêu thích để cải thiện tâm trạng nhé. Nếu bạn cần trò chuyện, tôi luôn ở đây lắng nghe.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': []}
+2026-06-03 19:32:45 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3957.75ms
+2026-06-03 19:34:48 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-03 19:34:48 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 9.17ms
+2026-06-03 19:34:48 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 12.88ms
+2026-06-03 19:34:50 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 3.83ms
+2026-06-03 19:34:56 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'high', 'message': 'Tôi rất tiếc khi nghe bạn đang buồn. Đôi khi chia sẻ cảm xúc có thể giúp ích. Nếu bạn muốn tâm sự, tôi luôn ở đây lắng nghe nhé. Hoặc bạn có thể thử một hoạt động yêu thích, nghe nhạc, hoặc trò chuyện với người thân để cảm thấy tốt hơn.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': []}
+2026-06-03 19:34:56 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4007.16ms
+2026-06-03 19:35:31 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 0.00ms
+2026-06-03 19:35:31 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 1.55ms
+2026-06-03 19:35:38 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'high', 'message': 'Chào bạn, tôi hiểu là bạn đang cảm thấy buồn. Dù tôi không phải là chuyên gia tâm lý, nhưng tôi luôn ở đây để lắng nghe nếu bạn muốn chia sẻ nhé. Đôi khi, một chút không khí trong lành, nghe bản nhạc yêu thích, hoặc trò chuyện với người thân cũng có thể giúp tâm trạng tốt hơn đó bạn. Mong bạn sớm vui trở lại nhé!', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': []}
+2026-06-03 19:35:38 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4542.13ms
+2026-06-03 19:35:56 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 103.47ms
+2026-06-03 19:35:56 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 0.00ms
+2026-06-03 19:36:03 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, tôi hiểu bạn đang cảm thấy buồn. Bạn có thể chia sẻ rõ hơn về những gì bạn đang trải qua hoặc có bất kỳ triệu chứng thể chất nào khác không ạ? Tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn về sức khỏe thể chất thôi ạ.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': ['Bạn có đang gặp phải triệu chứng thể chất nào kèm theo không (ví dụ: mất ngủ, mệt mỏi, đau đầu)?', 'Có điều gì cụ thể khiến bạn cảm thấy buồn không?']}
+2026-06-03 19:36:03 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4400.16ms

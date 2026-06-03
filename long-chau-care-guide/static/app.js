@@ -155,55 +155,96 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         // 3. Happy Path / Normal OTC Suggestion
         else {
-            const symptomTags = data.symptoms.map(s => `<span class="symptom-tag safe-tag">${s}</span>`).join(" ");
-            const adviceList = data.recommendations.map(r => `<li>${r}</li>`).join("");
-            const warningList = data.warnings.map(w => `<li>${w}</li>`).join("");
-            
-            // Build products grid
-            let productsGridHtml = "";
-            if (data.products && data.products.length > 0) {
-                productsGridHtml = `
-                    <div class="result-section-title">Sản phẩm gợi ý tại nhà thuốc Long Châu:</div>
-                    <div class="product-suggestions-grid">
-                        ${data.products.map(p => `
-                            <div class="product-card">
-                                <div class="product-image-placeholder" style="background: ${p.image_gradient || 'var(--primary-gradient)'}">
-                                    ${p.name}
-                                </div>
-                                <div class="product-details">
-                                    <h4>${p.name}</h4>
-                                    <div class="price">${p.price}</div>
-                                    <div class="desc">${p.description}</div>
-                                    <div class="usage">HDSD: ${p.usage}</div>
-                                </div>
-                                <button class="product-action-btn" onclick="alert('Đã thêm sản phẩm vào giỏ hàng tư vấn Long Châu!')">Chọn sản phẩm</button>
-                            </div>
-                        `).join("")}
-                    </div>
-                `;
-            } else {
-                productsGridHtml = `<p style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">Không có sản phẩm OTC tự dùng trực tiếp cho triệu chứng này.</p>`;
+            function isMeaningfulArray(arr) {
+                if (!arr || !Array.isArray(arr) || arr.length === 0) return false;
+                return arr.some(item => {
+                    if (typeof item !== 'string') return true;
+                    const text = item.trim().toLowerCase();
+                    return text !== "" && text !== "none" && text !== "không" && text !== "không có" && text !== "n/a" && text !== "null";
+                });
             }
 
-            htmlContent += `
-                <div class="diagnostic-container">
-                    <div class="result-section-title">Triệu chứng nhận diện:</div>
-                    <div class="symptoms-tags">${symptomTags}</div>
-                    
-                    ${productsGridHtml}
-                    
-                    <div class="result-section-title">Lời khuyên chăm sóc ban đầu:</div>
-                    <ul class="advice-list">
+            const hasSymptoms = isMeaningfulArray(data.symptoms);
+            const hasCategories = isMeaningfulArray(data.categories);
+
+            if (!hasSymptoms && !hasCategories) {
+                // General conversation or out-of-scope response
+                if (data.clarifying_questions && data.clarifying_questions.length > 0) {
+                    htmlContent += `
+                        <div class="diagnostic-container">
+                            <div class="hint-chips" style="margin-top: 10px;">
+                                ${data.clarifying_questions.map(q => `
+                                    <button class="hint-chip" onclick="setInputValue('${q.replace('Bạn có ', 'Tôi bị ').replace('không?', '')}')">${q}</button>
+                                `).join("")}
+                            </div>
+                        </div>
+                    `;
+                }
+                addLog("rule", "Giao tiếp chung hoặc câu hỏi ngoài phạm vi y tế, chỉ hiển thị lời nhắn.");
+            } else {
+                const symptomTags = hasSymptoms 
+                    ? data.symptoms.filter(s => s && s.trim() !== "" && s.toLowerCase() !== "không có").map(s => `<span class="symptom-tag safe-tag">${s}</span>`).join(" ") 
+                    : "";
+                
+                let adviceList = "";
+                if (isMeaningfulArray(data.recommendations)) {
+                    adviceList = `
+                        <div class="result-section-title">Lời khuyên chăm sóc ban đầu:</div>
+                        <ul class="advice-list">
+                            ${data.recommendations.filter(r => r && r.trim() !== "" && r.toLowerCase() !== "không có").map(r => `<li>${r}</li>`).join("")}
+                        </ul>
+                    `;
+                }
+                
+                let warningList = "";
+                if (isMeaningfulArray(data.warnings)) {
+                    warningList = `
+                        <div class="result-section-title">Cảnh báo an toàn:</div>
+                        <ul class="warning-list">
+                            ${data.warnings.filter(w => w && w.trim() !== "" && w.toLowerCase() !== "không có").map(w => `<li>${w}</li>`).join("")}
+                        </ul>
+                    `;
+                }
+                
+                // Build products grid
+                let productsGridHtml = "";
+                if (data.products && data.products.length > 0) {
+                    productsGridHtml = `
+                        <div class="result-section-title">Sản phẩm gợi ý tại nhà thuốc Long Châu:</div>
+                        <div class="product-suggestions-grid">
+                            ${data.products.map(p => `
+                                <div class="product-card">
+                                    <div class="product-image-placeholder" style="background: ${p.image_gradient || 'var(--primary-gradient)'}">
+                                        ${p.name}
+                                    </div>
+                                    <div class="product-details">
+                                        <h4>${p.name}</h4>
+                                        <div class="price">${p.price}</div>
+                                        <div class="desc">${p.description}</div>
+                                        <div class="usage">HDSD: ${p.usage}</div>
+                                    </div>
+                                    <button class="product-action-btn" onclick="alert('Đã thêm sản phẩm vào giỏ hàng tư vấn Long Châu!')">Chọn sản phẩm</button>
+                                </div>
+                            `).join("")}
+                        </div>
+                    `;
+                } else {
+                    productsGridHtml = `<p style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">Không có sản phẩm OTC tự dùng trực tiếp cho triệu chứng này.</p>`;
+                }
+
+                htmlContent += `
+                    <div class="diagnostic-container">
+                        ${symptomTags ? `<div class="result-section-title">Triệu chứng nhận diện:</div><div class="symptoms-tags">${symptomTags}</div>` : ''}
+                        
+                        ${productsGridHtml}
+                        
                         ${adviceList}
-                    </ul>
-                    
-                    <div class="result-section-title">Cảnh báo an toàn:</div>
-                    <ul class="warning-list">
+                        
                         ${warningList}
-                    </ul>
-                </div>
-            `;
-            addLog("database", `Đã trích xuất ${data.symptoms.length} triệu chứng và gợi ý ${data.products.length} sản phẩm.`);
+                    </div>
+                `;
+                addLog("database", `Đã trích xuất ${data.symptoms ? data.symptoms.length : 0} triệu chứng và gợi ý ${data.products ? data.products.length : 0} sản phẩm.`);
+            }
         }
         
         bubbleDiv.innerHTML = htmlContent;

@@ -4,3 +4,12 @@ Thumbs.db
 .idea/
 .vscode/
 .venv/
+baseline/
+
+# Secrets
+.env
+.env.local
+
+# Python
+__pycache__/
+*.pyc
