@@ -177,7 +177,7 @@ def process_gemini_ai(message: str, api_key: str) -> dict:
         """
         
         model = genai.GenerativeModel(
-            model_name="gemini-3.5-flash",
+            model_name="gemini-1.5-flash",
             generation_config={"response_mime_type": "application/json"},
             system_instruction=system_instruction
         )
