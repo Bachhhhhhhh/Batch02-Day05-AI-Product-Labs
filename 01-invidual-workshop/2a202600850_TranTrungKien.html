@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation - Trần Trung Kiên - 2a202600850</title>
+    <style>
+        :root {
+            --primary-color: #c41e3a; /* VinGroup Red */
+            --secondary-color: #2c3e50;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px;
+        }
+        .slide {
+            background: white;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 8px solid var(--primary-color);
+        }
+        h1, h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: var(--secondary-color);
+        }
+        .info {
+            background: #eee;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .path-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .path-table th, .path-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .path-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .finding {
+            background: #fff3f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ffcdd2;
+        }
+        .finding strong {
+            color: var(--primary-color);
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .raw-text {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #ccc;
+            font-style: italic;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide">
+    <h1>Workshop — Mổ App AI Thật</h1>
+    <div class="info">
+        Học viên: Trần Trung Kiên - 2a202600850<br>
+        Sản phẩm: V-App — V-AI (Vin AI Assistant)
+    </div>
+</div>
+
+<div class="slide">
+    <h2>1. Promise vs Reality</h2>
+    <p><strong>Product hứa gì?</strong> Trợ lý ảo am hiểu hệ sinh thái Vingroup và tuân thủ pháp luật Việt Nam.</p>
+    <p><strong>Điểm gãy:</strong> Khi khẩn cấp, AI trả lời văn bản quá dài thay vì đưa nút bấm hành động (SOS).</p>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <img src="images/TranTrungKien/v-ai-safety-policy.jpg" width="300" alt="Policy">
+            <p><em>Safety & Sovereignty Policy</em></p>
+        </div>
+        <div>
+            <img src="images/TranTrungKien/v-ai-vingroup-info.jpg" width="300" alt="Info">
+            <p><em>Vingroup Context Knowledge</em></p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>2. Analysis: 4 Paths (Raw Text)</h2>
+    <table class="path-table">
+        <tr>
+            <th>Path</th>
+            <th>Câu trả lời nguyên văn của V-AI</th>
+        </tr>
+        <tr>
+            <td><strong>Happy</strong></td>
+            <td><div class="raw-text">"Vingroup là tập đoàn kinh tế tư nhân đa ngành lớn nhất Việt Nam... Tính đến năm 2025, tổng tài sản đạt 964.439 tỷ đồng... Từ 14/4/2026, Green SM chính thức đổi tên..."</div></td>
+        </tr>
+        <tr>
+            <td><strong>Low-confidence</strong></td>
+            <td><div class="raw-text">"Chào bạn, giá niêm yết của VF8 hiện tại là... Tuy nhiên, các chương trình ưu đãi thường xuyên thay đổi... Bạn vui lòng liên hệ hotline VinFast để được tư vấn chính xác nhất."</div></td>
+        </tr>
+        <tr>
+            <td><strong>Failure (Safety)</strong></td>
+            <td><div class="raw-text">"Mình rất tiếc nhưng không thể thực hiện yêu cầu này. Là trợ lý ảo hoạt động tuân thủ pháp luật Việt Nam, mình không tham gia vào các nội dung đi ngược lại chủ quyền quốc gia..."</div></td>
+        </tr>
+        <tr>
+            <td><strong>Correction (Emergency)</strong></td>
+            <td><div class="raw-text">"🚨 Nếu bạn đang gặp nguy hiểm trực tiếp, hãy gọi ngay số điện thoại khẩn cấp 113... Bạn cần giữ bình tĩnh... Nếu ở khu đô thị Vinhomes, hãy liên hệ an ninh tòa nhà..."</div></td>
+        </tr>
+    </table>
+</div>
+
+<div class="slide">
+    <h2>3. Product Decisions (Findings)</h2>
+    <div class="finding">
+        <strong>Finding 1: UX Khẩn cấp (UX Recovery)</strong><br>
+        Khi user gặp nguy hiểm, AI trả lời văn bản dài 5 dòng. Hậu quả là user chậm trễ việc cứu hộ.<br>
+        <strong>Sửa bằng:</strong> Chuyển sang giao diện SOS, hiện 2 nút bấm lớn: [GỌI 113] và [GỌI AN NINH].
+    </div>
+    <div class="finding">
+        <strong>Finding 2: Dữ liệu Real-time (Data-tool)</strong><br>
+        Khi hỏi giá lăn bánh, AI phải đẩy sang người thật. Hậu quả là đứt gãy mạch mua sắm.<br>
+        <strong>Sửa bằng:</strong> Tích hợp API tính thuế phí theo vị trí (GPS) để báo giá ngay.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>4. Sketch: As-is vs To-be</h2>
+    <p><strong>As-is:</strong> User kêu cứu -> AI hiện Text dài -> User tự đọc số -> User tự thoát app gọi.</p>
+    <p><strong>To-be:</strong> User kêu cứu -> AI hiện Warning SOS đỏ -> 1 Chạm để gọi ngay + Gửi vị trí cho cứu hộ.</p>
+    <h3 style="text-align: center; color: var(--primary-color); margin-top: 50px;">CẢM ƠN CÁC BẠN ĐÃ LẮNG NGHE!</h3>
+</div>
+
+</body>
+</html>
