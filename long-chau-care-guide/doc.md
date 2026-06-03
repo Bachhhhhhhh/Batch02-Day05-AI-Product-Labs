@@ -14,7 +14,7 @@ Nhóm làm việc song song dựa trên các giao diện (contracts) đã thốn
 | Owner | Task | Status | Deliverable |
 |---|---|---|---|
 | Member 1 | Crawl dữ liệu thuốc Long Châu | In Progress | `drugs_clean.json` |
-| **Member 2 (Kiên)** | **Vector DB & Infrastructure** | **Ready (Mock)** | `build_vector_db.py`, `retriever.py`, `Dockerfile` |
+| **Member 2 (Kiên - 2a202600850)** | **Vector DB & Infrastructure** | **Ready (Mock)** | `build_vector_db.py`, `retriever.py`, `Dockerfile` |
 | Member 3 | RAG chatbot logic | Pending | `answer_prescription()` |
 | Member 4 | Safety + test cases | Pending | `test_cases.md` |
 | Member 5 | UI Streamlit | Pending | `streamlit_app.py` |
