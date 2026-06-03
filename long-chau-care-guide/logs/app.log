@@ -1216,3 +1216,145 @@ google.genai.errors.ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'messa
 2026-06-03 21:54:26 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6643.20ms
 2026-06-03 21:54:54 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'high', 'message': 'Khi dùng thuốc có chứa Paracetamol, bạn nên hạn chế dùng quá nhiều caffeine (có trong cà phê, trà) để tránh các tác dụng không mong muốn.', 'categories': [], 'recommendations': [], 'warnings': ['Vui lòng tham khảo ý kiến bác sĩ/dược sĩ.'], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}, {'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}]}
 2026-06-03 21:54:54 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6283.15ms
+2026-06-03 22:18:07 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 101.84ms
+2026-06-03 22:18:07 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 3.39ms
+2026-06-03 22:18:14 [ERROR] [LongChauApp] Gemini API Error: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 217, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-03 22:18:14 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4213.50ms
+2026-06-03 22:18:36 [ERROR] [LongChauApp] Gemini API Error: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 217, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-03 22:18:36 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2070.64ms
+2026-06-03 22:18:42 [ERROR] [LongChauApp] Gemini API Error: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 217, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-03 22:18:42 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2178.93ms
+2026-06-03 22:22:43 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 94.16ms
+2026-06-03 22:22:43 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 6.74ms
+2026-06-03 22:22:44 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 2.21ms
+2026-06-03 22:22:52 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Đây chỉ là phỏng đoán, tôi không tìm thấy thông tin cụ thể về thuốc XZ-999 trong cơ sở dữ liệu của mình. Đề nghị bạn xác nhận với dược sĩ hoặc bác sĩ để có thông tin chính xác nhất.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-03 22:22:52 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6473.64ms

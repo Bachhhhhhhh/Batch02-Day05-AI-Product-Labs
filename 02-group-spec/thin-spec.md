@@ -70,6 +70,6 @@ Owner kiểm thử path này là [tên thành viên].
 |---|---|---|
 | DƯƠNG QUANG KHẢI — 2A202600708 | Research / evidence + viết doc | evidence-pack.md với link nguồn ngoài nhóm; thin-spec.md + synthesis-decide.md |
 | _(điền)_ | SPEC | thin-spec.md + synthesis-decide.md |
-| _(điền)_ | Prototype | prototype tra tương tác thuốc–thức ăn (1 thuốc × 1 món) |
+| Đặng Tiến Quyền - 2A202600896 | Prototype | prototype tra tương tác thuốc–thức ăn (1 thuốc × 1 món) |
 | Vũ Xuân Bách - 2A202600776 | Test / failure path | log test 4 paths + case hỏi liều bị từ chối |
 | _(điền)_ | Demo script / repo | kịch bản demo 3–5 phút + README |

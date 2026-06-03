@@ -211,16 +211,26 @@ def process_gemini_ai(message: str) -> dict:
         }}
         """
         
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=message,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                system_instruction=system_instruction,
-                temperature=MODEL_TEMPERATURE,
-                max_output_tokens=MAX_TOKENS
+        from app.core.ai_tracker import AIResourceTracker
+        
+        with AIResourceTracker(model_name="gemini-2.5-flash") as tracker:
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=message,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    system_instruction=system_instruction,
+                    temperature=MODEL_TEMPERATURE,
+                    max_output_tokens=MAX_TOKENS
+                )
             )
-        )
+            
+            if hasattr(response, 'usage_metadata') and response.usage_metadata:
+                usage = response.usage_metadata
+                tracker.set_tokens(
+                    prompt=usage.prompt_token_count,
+                    completion=usage.candidates_token_count
+                )
         data = json.loads(response.text.strip())
         
         # Lọc references: Chỉ lấy source_url của các thuốc mà LLM báo là đã dùng
@@ -304,13 +314,22 @@ def process_openai_ai(message: str) -> dict:
         else:
             prompt += "\nCấu hình ALLOW_OUT_OF_SCOPE đang TẮT: Nếu người dùng hỏi câu hỏi ngoài y tế, bạn BẮT BUỘC TỪ CHỐI thật lịch sự và khéo léo (ví dụ: 'Dạ tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn sức khỏe thôi ạ...'). Đặt 'confidence' thành 'low', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG []) và ghi lời từ chối vào 'message'."
             
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"},
-            temperature=MODEL_TEMPERATURE,
-            max_tokens=MAX_TOKENS
-        )
+        from app.core.ai_tracker import AIResourceTracker
+        
+        with AIResourceTracker(model_name="gpt-4o-mini") as tracker:
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"},
+                temperature=MODEL_TEMPERATURE,
+                max_tokens=MAX_TOKENS
+            )
+            
+            if response.usage:
+                tracker.set_tokens(
+                    prompt=response.usage.prompt_tokens,
+                    completion=response.usage.completion_tokens
+                )
         
         data = json.loads(response.choices[0].message.content.strip())
         

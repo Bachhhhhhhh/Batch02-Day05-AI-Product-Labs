@@ -12,8 +12,11 @@ from typing import Callable, Any, Optional
 # AI PLATFORM: LLM RESOURCE TRACKER MODULE
 # ==============================================================================
 
+import os
 # Đường dẫn file xuất audit log
-LOG_FILE = Path("ai_resource_audit.jsonl")
+LOG_DIR = Path("logs")
+LOG_DIR.mkdir(exist_ok=True)
+LOG_FILE = LOG_DIR / "ai_resource_audit.jsonl"
 
 # Bảng giá ước tính (USD) trên 1 triệu tokens (Cập nhật T6/2026)
 PRICING_PER_MILLION = {
@@ -22,6 +25,7 @@ PRICING_PER_MILLION = {
     "claude-3-5-sonnet": {"input": 3.0, "output": 15.0},
     "gemini-1.5-pro": {"input": 3.5, "output": 10.5},
     "gemini-1.5-flash": {"input": 0.075, "output": 0.30},
+    "gemini-2.5-flash": {"input": 0.075, "output": 0.30},
 }
 
 def calculate_cost(model_name: str, prompt_tokens: int, completion_tokens: int) -> float:
