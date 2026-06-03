@@ -1,7 +1,12 @@
 import json
 import os
+import sys
 import chromadb
 from chromadb.utils import embedding_functions
+
+# Fix Windows console unicode print error
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding='utf-8')
 
 # Cấu hình đường dẫn
 DATA_PATH = "data/sample_drugs.json" # Có thể thay bằng drugs_clean.json khi có data thật

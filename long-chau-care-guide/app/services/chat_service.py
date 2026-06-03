@@ -39,10 +39,11 @@ def process_mock_ai(message: str) -> dict:
                 "Vui lòng di chuyển đến bệnh viện/phòng khám gần nhất ngay lập tức."
             ],
             "warnings": [
-                "GỌI CẤP CỨU 115 HOẶC LIÊN HỆ NGƯỜI THÂN NGAY LẬP TỨC."
+                "ĐÂY LÀ TÌNH TRẠNG KHẨN CẤP. VUI LÒNG GỌI CẤP CỨU 115 HOẶC ĐẾN TRẠM Y TẾ NGAY LẬP TỨC."
             ],
             "is_emergency": True,
-            "clarifying_questions": []
+            "clarifying_questions": [],
+            "references": []
         }
     
     # 2. Low Confidence / General Symptoms
@@ -65,7 +66,8 @@ def process_mock_ai(message: str) -> dict:
                 "Bạn có ho, sổ mũi hay nghẹt mũi không?",
                 "Bạn có đau mỏi ở vị trí nào cụ thể không?",
                 "Triệu chứng này đã kéo dài bao nhiêu lâu rồi?"
-            ]
+            ],
+            "references": []
         }
     
     # 3. Happy Path
@@ -109,7 +111,8 @@ def process_mock_ai(message: str) -> dict:
                 "recommendations": [],
                 "warnings": [],
                 "is_emergency": False,
-                "clarifying_questions": []
+                "clarifying_questions": [],
+                "references": []
             }
             
         return {
@@ -123,7 +126,8 @@ def process_mock_ai(message: str) -> dict:
             "clarifying_questions": [
                 "Bạn có bị đau, sốt hay ho không?",
                 "Bạn có thể mô tả chi tiết hơn cảm giác khó chịu của bạn không?"
-            ]
+            ],
+            "references": []
         }
         
     return {
@@ -134,7 +138,8 @@ def process_mock_ai(message: str) -> dict:
         "recommendations": recommendations,
         "warnings": warnings,
         "is_emergency": False,
-        "clarifying_questions": []
+        "clarifying_questions": [],
+        "references": []
     }
 
 def process_gemini_ai(message: str) -> dict:
@@ -144,12 +149,31 @@ def process_gemini_ai(message: str) -> dict:
         
         if not GEMINI_API_KEY:
             raise ValueError("GEMINI_API_KEY is not configured in .env")
+        
+        # 1. RAG Retrieval
+        context_str = ""
+        rag_results = []
+        try:
+            from vector_db.retriever import search_drugs
+            # Lấy 3 tài liệu liên quan nhất
+            rag_results = search_drugs(message, top_k=3)
+            if rag_results:
+                context_str = "\n--- KIẾN THỨC Y KHOA TỪ CƠ SỞ DỮ LIỆU LONG CHÂU ---\n"
+                for r in rag_results:
+                    context_str += f"- Thuốc {r['drug_name']} (Phần: {r['section']}): {r['content']}\n"
+                context_str += "--------------------------------------------------\n"
+        except Exception as e:
+            print(f"RAG Retrieval Error: {e}")
             
         client = genai.Client(api_key=GEMINI_API_KEY)
         
         system_instruction = f"""
-        Bạn là Trợ lý Dược sĩ AI của FPT Long Châu. Nhiệm vụ của bạn là nhận triệu chứng của người dùng bằng ngôn ngữ tự nhiên, trích xuất triệu chứng, và đề xuất nhóm sản phẩm OTC (Không kê đơn) phù hợp.
-        
+        Bạn là Trợ lý AI Đọc Hiểu Đơn Thuốc & Dược Sĩ của FPT Long Châu. Nhiệm vụ của bạn là:
+        1. Phân tích triệu chứng và đề xuất nhóm sản phẩm OTC (nếu người dùng hỏi về bệnh/triệu chứng).
+        2. Tương tác Thuốc-Thức ăn (Happy Path): Nếu người dùng hỏi thuốc này có kỵ đồ ăn thức uống nào không, hãy đối chiếu KIẾN THỨC Y KHOA. Đưa ra câu trả lời "Nên / Không nên dùng cùng" trong 'message', và BẮT BUỘC thêm vào 'warnings': "Vui lòng tham khảo ý kiến bác sĩ/dược sĩ."
+        3. Hỏi liều lượng (Failure Mode Nguy Hiểm): Nếu người dùng hỏi về liều lượng (vd: uống mấy viên, ngày mấy lần), TUYỆT ĐỐI TỪ CHỐI cung cấp con số. Bạn phải đặt 'is_emergency' = true, và điền vào 'warnings': "Tôi là AI, không được phép kê đơn hay chỉ định liều lượng. Vui lòng xem trên đơn thuốc gốc hoặc hỏi trực tiếp bác sĩ."
+        4. Thuốc lạ / Mơ hồ (Low Confidence): Nếu thông tin không có trong CSDL, hãy nói rõ trong 'message': "Đây chỉ là phỏng đoán, chưa chắc chắn. Đề nghị xác nhận với dược sĩ." và đặt 'confidence' = 'low'.
+        {context_str}
         Các nhóm sản phẩm OTC có sẵn trong hệ thống:
         - "viên ngậm giảm đau họng" (dành cho đau rát họng, ho nhẹ)
         - "siro ho" (dành cho ho khan, ho có đờm)
@@ -182,7 +206,8 @@ def process_gemini_ai(message: str) -> dict:
             "recommendations": ["Lời khuyên chăm sóc sức khỏe 1", "Lời khuyên 2"],
             "warnings": ["Cảnh báo cần đi khám y tế nếu có dấu hiệu..."],
             "is_emergency": true | false,
-            "clarifying_questions": ["câu hỏi 1", "câu hỏi 2"]
+            "clarifying_questions": ["câu hỏi 1", "câu hỏi 2"],
+            "references": ["Tên các loại thuốc từ KIẾN THỨC Y KHOA mà bạn thực sự đã dùng để tư vấn. Để rỗng [] nếu không dùng."]
         }}
         """
         
@@ -197,6 +222,17 @@ def process_gemini_ai(message: str) -> dict:
             )
         )
         data = json.loads(response.text.strip())
+        
+        # Lọc references: Chỉ lấy source_url của các thuốc mà LLM báo là đã dùng
+        final_refs = []
+        llm_refs = data.get("references", [])
+        if isinstance(llm_refs, list):
+            for r in rag_results:
+                if any(r['drug_name'].lower() in str(ref).lower() for ref in llm_refs):
+                    if r.get('source_url') and not any(ref['url'] == r['source_url'] for ref in final_refs):
+                        final_refs.append({"name": r['drug_name'], "url": r['source_url']})
+        
+        data["references"] = final_refs
         system_logger.info(f"Gemini API Response Data: {data}")
         return data
         
@@ -214,10 +250,31 @@ def process_openai_ai(message: str) -> dict:
             
         client = OpenAI(api_key=OPENAI_API_KEY)
         
-        prompt = f"""
-        Bạn là Trợ lý Dược sĩ AI của FPT Long Châu.
-        Hãy phân tích triệu chứng sau: "{message}"
+        # 1. RAG Retrieval
+        context_str = ""
+        rag_results = []
+        try:
+            from vector_db.retriever import search_drugs
+            rag_results = search_drugs(message, top_k=3)
+            if rag_results:
+                context_str = "\n--- KIẾN THỨC Y KHOA TỪ CƠ SỞ DỮ LIỆU LONG CHÂU ---\n"
+                for r in rag_results:
+                    context_str += f"- Thuốc {r['drug_name']} (Phần: {r['section']}): {r['content']}\n"
+                context_str += "--------------------------------------------------\n"
+        except Exception as e:
+            print(f"RAG Retrieval Error: {e}")
         
+        prompt = f"""
+        Bạn là Trợ lý AI Đọc Hiểu Đơn Thuốc & Dược Sĩ của FPT Long Châu.
+        Hãy phân tích triệu chứng hoặc câu hỏi sau: "{message}"
+        
+        Quy tắc xử lý (Thin Spec):
+        1. Phân tích triệu chứng và đề xuất nhóm sản phẩm OTC (nếu hỏi về bệnh/triệu chứng).
+        2. Tương tác Thuốc-Thức ăn (Happy Path): Nếu hỏi thuốc này có kỵ đồ ăn thức uống nào không, hãy đối chiếu KIẾN THỨC Y KHOA. Đưa ra câu trả lời "Nên / Không nên dùng cùng" trong 'message', và BẮT BUỘC thêm vào 'warnings': "Vui lòng tham khảo ý kiến bác sĩ/dược sĩ."
+        3. Hỏi liều lượng (Failure Mode Nguy Hiểm): Nếu người dùng hỏi về liều lượng (vd: uống mấy viên, ngày mấy lần), TUYỆT ĐỐI TỪ CHỐI cung cấp con số. Đặt 'is_emergency' = true, và điền vào 'warnings': "Tôi là AI, không được phép kê đơn hay chỉ định liều lượng. Vui lòng xem trên đơn thuốc gốc hoặc hỏi trực tiếp bác sĩ."
+        4. Thuốc lạ / Mơ hồ (Low Confidence): Nếu thông tin không có trong CSDL, nói rõ trong 'message': "Đây chỉ là phỏng đoán, chưa chắc chắn. Đề nghị xác nhận với dược sĩ." và đặt 'confidence' = 'low'.
+        
+        {context_str}
         Các nhóm sản phẩm OTC có sẵn:
         - viên ngậm giảm đau họng
         - siro ho
@@ -235,10 +292,11 @@ def process_openai_ai(message: str) -> dict:
             "recommendations": ["lời khuyên"],
             "warnings": ["cảnh báo"],
             "is_emergency": true | false,
-            "clarifying_questions": ["câu hỏi nếu confidence là low"]
+            "clarifying_questions": ["câu hỏi nếu confidence là low"],
+            "references": ["Tên các loại thuốc từ KIẾN THỨC Y KHOA mà bạn thực sự đã dùng để tư vấn. Để rỗng [] nếu không dùng."]
         }}
         
-        Nếu mô tả của người dùng mơ hồ, không có triệu chứng cụ thể -> Đặt 'confidence' thành 'low', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG [], KHÔNG ĐIỀN CHỮ "Không có" HAY "None") và trả lời thật thân thiện, lịch sự trong 'message' (VD: Dạ, bạn có thể chia sẻ rõ hơn...).
+        Nếu mô tả của người dùng mơ hồ, không có triệu chứng cụ thể -> Đặt 'confidence' thành 'low', 'categories' thành [], 'symptoms' thành [], 'recommendations' thành [], 'warnings' thành [], 'references' thành [] (TUYỆT ĐỐI SỬ DỤNG MẢNG RỖNG [], KHÔNG ĐIỀN CHỮ "Không có" HAY "None") và trả lời thật thân thiện, lịch sự trong 'message' (VD: Dạ, bạn có thể chia sẻ rõ hơn...).
         """
         
         if ALLOW_OUT_OF_SCOPE:
@@ -255,6 +313,17 @@ def process_openai_ai(message: str) -> dict:
         )
         
         data = json.loads(response.choices[0].message.content.strip())
+        
+        # Lọc references
+        final_refs = []
+        llm_refs = data.get("references", [])
+        if isinstance(llm_refs, list):
+            for r in rag_results:
+                if any(r['drug_name'].lower() in str(ref).lower() for ref in llm_refs):
+                    if r.get('source_url') and not any(ref['url'] == r['source_url'] for ref in final_refs):
+                        final_refs.append({"name": r['drug_name'], "url": r['source_url']})
+        
+        data["references"] = final_refs
         system_logger.info(f"OpenAI API Response Data: {data}")
         return data
     except Exception as e:

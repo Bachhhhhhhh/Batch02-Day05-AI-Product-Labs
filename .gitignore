@@ -12,4 +12,12 @@ baseline/
 
 # Python
 __pycache__/
-*.pyc
+*.pyc
+
+# Data, Logs & Vector DB (Volatile / Unimportant)
+*.log
+*.jsonl
+*.db
+*.sqlite3
+vector_db/chroma_db/
+chroma_db/

@@ -665,3 +665,554 @@ openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect A
 2026-06-03 19:35:56 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 0.00ms
 2026-06-03 19:36:03 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, tôi hiểu bạn đang cảm thấy buồn. Bạn có thể chia sẻ rõ hơn về những gì bạn đang trải qua hoặc có bất kỳ triệu chứng thể chất nào khác không ạ? Tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn về sức khỏe thể chất thôi ạ.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': ['Bạn có đang gặp phải triệu chứng thể chất nào kèm theo không (ví dụ: mất ngủ, mệt mỏi, đau đầu)?', 'Có điều gì cụ thể khiến bạn cảm thấy buồn không?']}
 2026-06-03 19:36:03 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4400.16ms
+2026-06-03 19:51:21 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 127.45ms
+2026-06-03 19:51:21 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 5.82ms
+2026-06-03 19:51:21 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 2.45ms
+2026-06-03 19:51:33 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho rát họng', 'Sổ mũi'], 'confidence': 'high', 'message': 'Dạ, với triệu chứng ho rát họng và sổ mũi, bạn có thể tham khảo các nhóm sản phẩm sau để giúp giảm nhẹ các triệu chứng ạ.', 'categories': ['viên ngậm giảm đau họng', 'thuốc cảm cúm & sổ mũi'], 'recommendations': ['Uống nhiều nước ấm để làm dịu cổ họng.', 'Nghỉ ngơi đầy đủ.', 'Tránh tiếp xúc với khói bụi, các chất gây kích ứng.'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, hoặc có dấu hiệu sốt cao, khó thở, đau ngực, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}, {'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}]}
+2026-06-03 19:51:33 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7852.38ms
+2026-06-03 19:54:25 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho khan', 'Đau họng nhẹ'], 'confidence': 'high', 'message': 'Dạ, với các triệu chứng ho khan và đau họng nhẹ của bạn, bạn có thể tham khảo các sản phẩm giúp làm dịu cổ họng và giảm ho ạ.', 'categories': ['viên ngậm giảm đau họng', 'siro ho'], 'recommendations': ['Uống nhiều nước ấm để làm dịu cổ họng.', 'Nghỉ ngơi đầy đủ.', 'Tránh các thức ăn cay nóng, đồ uống lạnh.'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, ho nặng hơn, hoặc xuất hiện sốt cao, khó thở, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}, {'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}]}
+2026-06-03 19:54:25 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 10401.64ms
+2026-06-03 19:56:21 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 0.51ms
+2026-06-03 19:56:22 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 4.82ms
+2026-06-03 19:56:22 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 4.47ms
+2026-06-03 19:56:29 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho', 'Rát họng'], 'confidence': 'high', 'message': 'Chào bạn, với các triệu chứng ho và rát họng, bạn có thể tham khảo các nhóm sản phẩm sau để giúp giảm bớt sự khó chịu nhé.', 'categories': ['viên ngậm giảm đau họng', 'siro ho'], 'recommendations': ['Uống nhiều nước ấm để làm dịu cổ họng.', 'Nghỉ ngơi đầy đủ.', 'Tránh các thực phẩm cay nóng, nhiều dầu mỡ.'], 'warnings': ['Nếu tình trạng ho và rát họng kéo dài, kèm theo sốt cao, khó thở hoặc các triệu chứng bất thường khác, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}, {'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}]}
+2026-06-03 19:56:29 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6244.76ms
+2026-06-03 19:58:38 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn sức khỏe dựa trên các triệu chứng bạn đang gặp phải và đề xuất nhóm sản phẩm OTC phù hợp thôi ạ. Tôi không có thông tin chi tiết về từng loại thuốc cụ thể. Bạn có thể chia sẻ các triệu chứng để tôi hỗ trợ nhé!', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}, {'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}]}
+2026-06-03 19:58:38 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5044.57ms
+2026-06-03 19:58:58 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn sức khỏe dựa trên các triệu chứng bạn đang gặp phải thôi ạ. Bạn có thể chia sẻ các triệu chứng để tôi có thể tư vấn nhóm sản phẩm phù hợp nhé.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}, {'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}]}
+2026-06-03 19:58:58 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5806.33ms
+2026-06-03 19:59:23 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 6.97ms
+2026-06-03 19:59:23 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 2.01ms
+2026-06-03 19:59:23 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 3.27ms
+2026-06-03 19:59:41 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về tình trạng mệt mỏi của mình không ạ? Ví dụ như bạn mệt như thế nào, có kèm theo triệu chứng nào khác như đau đầu, sốt, ho, hay đau nhức ở đâu không ạ?', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': ['Bạn mệt mỏi đã bao lâu rồi?', 'Bạn có kèm theo triệu chứng nào khác như sốt, đau đầu, ho, sổ mũi, hay đau nhức cơ thể không?', 'Mệt mỏi có ảnh hưởng đến sinh hoạt hàng ngày của bạn không?'], 'references': [{'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}, {'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}]}
+2026-06-03 19:59:41 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 11639.46ms
+2026-06-03 20:00:04 [ERROR] [LongChauApp] Gemini API Error: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 216, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 186, in raise_error
+    raise ServerError(status_code, response_json, response)
+google.genai.errors.ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+2026-06-03 20:00:04 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 11769.64ms
+2026-06-03 20:03:59 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 4.52ms
+2026-06-03 20:03:59 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 2.00ms
+2026-06-03 20:04:08 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho rát họng', 'Sổ mũi'], 'confidence': 'high', 'message': 'Chào bạn, với các triệu chứng ho rát họng và sổ mũi, bạn có thể tham khảo các nhóm sản phẩm sau đây ạ.', 'categories': ['viên ngậm giảm đau họng', 'thuốc cảm cúm & sổ mũi'], 'recommendations': ['Uống đủ nước ấm (nước lọc, trà thảo mộc).', 'Súc miệng bằng nước muối sinh lý thường xuyên.', 'Nghỉ ngơi đầy đủ.'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, hoặc xuất hiện sốt cao, khó thở, đau ngực, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}, {'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}]}
+2026-06-03 20:04:08 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5357.33ms
+2026-06-03 20:05:48 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 4.67ms
+2026-06-03 20:05:48 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 2.21ms
+2026-06-03 20:05:57 [ERROR] [LongChauApp] Gemini API Error: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 216, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 186, in raise_error
+    raise ServerError(status_code, response_json, response)
+google.genai.errors.ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+2026-06-03 20:05:57 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5659.75ms
+2026-06-03 20:06:35 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho khan', 'Đau họng nhẹ'], 'confidence': 'high', 'message': 'Dạ, với các triệu chứng ho khan và đau họng nhẹ của bạn, bạn có thể tham khảo các nhóm sản phẩm sau để giúp giảm bớt khó chịu ạ.', 'categories': ['viên ngậm giảm đau họng', 'siro ho'], 'recommendations': ['Uống nhiều nước ấm (nước lọc, trà thảo mộc) để làm dịu cổ họng.', 'Súc miệng bằng nước muối ấm 2-3 lần mỗi ngày.', 'Nghỉ ngơi đầy đủ.', 'Tránh các chất kích thích như khói thuốc lá, không khí lạnh, bụi bẩn.'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, hoặc xuất hiện sốt cao, khó thở, đau ngực, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}, {'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}]}
+2026-06-03 20:06:35 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6959.15ms
+2026-06-03 20:10:30 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 88.41ms
+2026-06-03 20:10:30 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 7.51ms
+2026-06-03 20:10:42 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho khan', 'Đau họng nhẹ'], 'confidence': 'high', 'message': 'Dạ, với các triệu chứng ho khan và đau họng nhẹ của bạn, tôi đề xuất các nhóm sản phẩm sau để giúp giảm khó chịu ạ.', 'categories': ['viên ngậm giảm đau họng', 'siro ho'], 'recommendations': ['Uống nhiều nước ấm để làm dịu cổ họng và loãng đờm (nếu có).', 'Nghỉ ngơi đầy đủ để cơ thể phục hồi.', 'Tránh các chất kích thích như khói thuốc, bụi bẩn, không khí lạnh.'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, hoặc xuất hiện sốt cao, khó thở, đau ngực, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-03 20:10:42 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 8070.06ms
+2026-06-03 21:02:26 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 13.02ms
+2026-06-03 21:02:26 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 8.81ms
+2026-06-03 21:02:26 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 9.59ms
+2026-06-03 21:02:38 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho', 'Đau rát họng', 'Sổ mũi'], 'confidence': 'high', 'message': 'Chào bạn, với các triệu chứng ho rát họng và sổ mũi, bạn có thể tham khảo các nhóm sản phẩm sau để làm dịu các triệu chứng này nhé.', 'categories': ['viên ngậm giảm đau họng', 'thuốc cảm cúm & sổ mũi'], 'recommendations': ['Uống đủ nước ấm để làm dịu cổ họng và giúp làm loãng đờm.', 'Nghỉ ngơi đầy đủ.', 'Súc miệng bằng nước muối sinh lý ấm 2-3 lần/ngày để vệ sinh họng.'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, hoặc xuất hiện sốt cao, khó thở, đau ngực, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-03 21:02:38 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7372.29ms
+2026-06-03 21:03:04 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['Ho khan', 'Đau họng nhẹ'], 'confidence': 'high', 'message': 'Dạ, với các triệu chứng ho khan và đau họng nhẹ của bạn, tôi đề xuất một số sản phẩm không kê đơn phù hợp để giúp bạn cảm thấy dễ chịu hơn ạ.', 'categories': ['viên ngậm giảm đau họng', 'siro ho'], 'recommendations': ['Uống nhiều nước ấm để làm dịu cổ họng và giảm ho.', 'Tránh các chất kích thích như khói thuốc lá, không khí lạnh, hoặc thức ăn cay nóng.', 'Nghỉ ngơi đầy đủ.'], 'warnings': ['Nếu triệu chứng không thuyên giảm sau vài ngày, ho nặng hơn, hoặc xuất hiện sốt cao, khó thở, bạn nên đi khám bác sĩ để được chẩn đoán và điều trị kịp thời.'], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-03 21:03:04 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7134.72ms
+2026-06-03 21:03:18 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 41.284256398s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 210, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 41.284256398s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}
+2026-06-03 21:03:18 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2819.68ms
+2026-06-03 21:03:31 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 28.604540271s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 210, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 28.604540271s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}
+2026-06-03 21:03:31 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2718.48ms
+2026-06-03 21:04:05 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 54.782489541s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '54s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 210, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 54.782489541s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '54s'}]}}
+2026-06-03 21:04:05 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2610.79ms
+2026-06-03 21:04:24 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về tình trạng của mình không ạ? Bạn đang cảm thấy không ổn ở điểm nào, ví dụ như có sốt, đau đầu, đau họng hay khó chịu ở bộ phận nào cụ thể không ạ?', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': ['Bạn đang cảm thấy không ổn ở điểm nào cụ thể?', 'Bạn có đang gặp phải triệu chứng nào như sốt, đau đầu, ho, sổ mũi, hay đau nhức cơ thể không?', 'Tình trạng này diễn ra được bao lâu rồi ạ?'], 'references': []}
+2026-06-03 21:04:24 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5311.82ms
+2026-06-03 21:04:39 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 20.6776738s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '20s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 210, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 20.6776738s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '20s'}]}}
+2026-06-03 21:04:39 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2661.85ms
+2026-06-03 21:27:28 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 6.14ms
+2026-06-03 21:27:28 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 1.95ms
+2026-06-03 21:27:28 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 2.01ms
+2026-06-03 21:27:38 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 21.39215133s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '21s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 210, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 21.39215133s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '21s'}]}}
+2026-06-03 21:27:38 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2870.88ms
+2026-06-03 21:47:48 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 115.31ms
+2026-06-03 21:47:48 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 1.00ms
+2026-06-03 21:48:00 [ERROR] [LongChauApp] Gemini API Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 59.628773998s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '59s'}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 214, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 59.628773998s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '59s'}]}}
+2026-06-03 21:48:00 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5465.66ms
+2026-06-03 21:51:39 [ERROR] [LongChauApp] Gemini API Error: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'service': 'generativelanguage.googleapis.com', 'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent'}}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 214, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'service': 'generativelanguage.googleapis.com', 'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent'}}]}}
+2026-06-03 21:51:39 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2300.77ms
+2026-06-03 21:52:24 [ERROR] [LongChauApp] Gemini API Error: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 214, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-06-03 21:52:24 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2349.71ms
+2026-06-03 21:53:26 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 108.72ms
+2026-06-03 21:53:26 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 3.53ms
+2026-06-03 21:53:26 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 7.40ms
+2026-06-03 21:53:35 [ERROR] [LongChauApp] Gemini API Error: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+Traceback (most recent call last):
+  File "C:\AI_2026\project\Batch02-Day05-AI-Product-Labs\long-chau-care-guide\app\services\chat_service.py", line 214, in process_gemini_ai
+    response = client.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 6454, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\models.py", line 4890, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1404, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ninic\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "c:\AI_2026\project\Batch02-Day05-AI-Product-Labs\.venv\Lib\site-packages\google\genai\errors.py", line 186, in raise_error
+    raise ServerError(status_code, response_json, response)
+google.genai.errors.ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+2026-06-03 21:53:35 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6251.05ms
+2026-06-03 21:54:04 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, tôi chưa có thông tin về thuốc XZ-999 trong cơ sở dữ liệu của mình. Đây chỉ là phỏng đoán, chưa chắc chắn. Đề nghị bạn xác nhận với dược sĩ hoặc bác sĩ để có thông tin chính xác nhất ạ.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-03 21:54:04 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4928.67ms
+2026-06-03 21:54:26 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': ['sốt cao'], 'confidence': 'high', 'message': 'Dạ, tôi là AI và không được phép kê đơn hay chỉ định liều lượng thuốc cụ thể. Việc dùng quá liều có thể gây nguy hiểm cho sức khỏe.', 'categories': [], 'recommendations': [], 'warnings': ['Tôi là AI, không được phép kê đơn hay chỉ định liều lượng. Vui lòng xem trên đơn thuốc gốc hoặc hỏi trực tiếp bác sĩ.'], 'is_emergency': True, 'clarifying_questions': [], 'references': []}
+2026-06-03 21:54:26 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6643.20ms
+2026-06-03 21:54:54 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'high', 'message': 'Khi dùng thuốc có chứa Paracetamol, bạn nên hạn chế dùng quá nhiều caffeine (có trong cà phê, trà) để tránh các tác dụng không mong muốn.', 'categories': [], 'recommendations': [], 'warnings': ['Vui lòng tham khảo ý kiến bác sĩ/dược sĩ.'], 'is_emergency': False, 'clarifying_questions': [], 'references': [{'name': 'Paracetamol 500mg', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg'}, {'name': 'Panadol Extra', 'url': 'https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20'}]}
+2026-06-03 21:54:54 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6283.15ms

@@ -7,16 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatMessagesContainer = document.getElementById("chat-messages-container");
     const sendBtn = document.getElementById("send-btn");
     const clearChatBtn = document.getElementById("clear-chat-btn");
-    
+
     // Config Elements
     const aiProvider = document.getElementById("ai-provider");
     const apiKeyContainer = document.getElementById("api-key-container");
     const apiKeyInput = document.getElementById("api-key");
-    
+
     // Logger Elements
     const logConsole = document.getElementById("log-console");
     const clearLogsBtn = document.getElementById("clear-logs-btn");
-    
+
     // Demo Preset Buttons
     const presetHappy = document.getElementById("preset-happy");
     const presetLowConf = document.getElementById("preset-low-conf");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("longchau_api_key")) {
         apiKeyInput.value = localStorage.getItem("longchau_api_key");
     }
-    
+
     // Toggle API Key input visibility
     function toggleApiKeyVisibility() {
         if (aiProvider.value === "mock") {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         localStorage.setItem("longchau_api_provider", aiProvider.value);
     }
-    
+
     aiProvider.addEventListener("change", toggleApiKeyVisibility);
     apiKeyInput.addEventListener("input", () => {
         localStorage.setItem("longchau_api_key", apiKeyInput.value.trim());
@@ -63,6 +63,48 @@ document.addEventListener("DOMContentLoaded", () => {
         logConsole.innerHTML = '<div class="log-line system">[System] Logs cleared.</div>';
     });
 
+    // Custom Toast Notification
+    window.showToast = function (message) {
+        let toast = document.getElementById("toast-notification");
+        if (!toast) {
+            toast = document.createElement("div");
+            toast.id = "toast-notification";
+            toast.style.position = "fixed";
+            toast.style.bottom = "24px";
+            toast.style.right = "24px";
+            toast.style.backgroundColor = "var(--primary-dark)";
+            toast.style.color = "white";
+            toast.style.padding = "14px 24px";
+            toast.style.borderRadius = "8px";
+            toast.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+            toast.style.zIndex = "10000";
+            toast.style.fontSize = "0.95rem";
+            toast.style.fontWeight = "500";
+            toast.style.transition = "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)";
+            toast.style.transform = "translateY(100px)";
+            toast.style.opacity = "0";
+            document.body.appendChild(toast);
+        }
+
+        toast.innerHTML = `🛒 ${message}`;
+        toast.style.display = "block";
+
+        // Trigger animation
+        setTimeout(() => {
+            toast.style.transform = "translateY(0)";
+            toast.style.opacity = "1";
+        }, 10);
+
+        // Hide after 3s
+        setTimeout(() => {
+            toast.style.transform = "translateY(20px)";
+            toast.style.opacity = "0";
+            setTimeout(() => {
+                toast.style.display = "none";
+            }, 300);
+        }, 3000);
+    };
+
     // Clear Chat
     clearChatBtn.addEventListener("click", () => {
         chatMessagesContainer.innerHTML = `
@@ -80,20 +122,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function appendMessage(sender, content, customClass = "") {
         const messageDiv = document.createElement("div");
         messageDiv.className = `message ${sender}-message ${customClass}`;
-        
+
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
         avatarDiv.textContent = sender === "user" ? "👤" : "🤖";
-        
+
         const bubbleDiv = document.createElement("div");
         bubbleDiv.className = "message-bubble";
         bubbleDiv.innerHTML = content;
-        
+
         messageDiv.appendChild(avatarDiv);
         messageDiv.appendChild(bubbleDiv);
         chatMessagesContainer.appendChild(messageDiv);
         chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-        
+
         return messageDiv;
     }
 
@@ -101,16 +143,16 @@ document.addEventListener("DOMContentLoaded", () => {
     function appendDiagnosticMessage(data) {
         const messageDiv = document.createElement("div");
         messageDiv.className = "message system-message";
-        
+
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
         avatarDiv.textContent = "🤖";
-        
+
         const bubbleDiv = document.createElement("div");
         bubbleDiv.className = "message-bubble";
-        
+
         let htmlContent = `<p>${data.message}</p>`;
-        
+
         // 1. Emergency Case Render
         if (data.is_emergency) {
             htmlContent = `
@@ -138,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
             addLog("rule", "HIỂN THỊ CẢNH BÁO CẤP CỨU MÀU ĐỎ (SAFETY GUARDRAIL).");
-        } 
+        }
         // 2. Low Confidence / Ask for clarification
         else if (data.confidence === "low") {
             htmlContent += `
@@ -182,10 +224,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 addLog("rule", "Giao tiếp chung hoặc câu hỏi ngoài phạm vi y tế, chỉ hiển thị lời nhắn.");
             } else {
-                const symptomTags = hasSymptoms 
-                    ? data.symptoms.filter(s => s && s.trim() !== "" && s.toLowerCase() !== "không có").map(s => `<span class="symptom-tag safe-tag">${s}</span>`).join(" ") 
+                const symptomTags = hasSymptoms
+                    ? data.symptoms.filter(s => s && s.trim() !== "" && s.toLowerCase() !== "không có").map(s => `<span class="symptom-tag safe-tag">${s}</span>`).join(" ")
                     : "";
-                
+
                 let adviceList = "";
                 if (isMeaningfulArray(data.recommendations)) {
                     adviceList = `
@@ -195,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </ul>
                     `;
                 }
-                
+
                 let warningList = "";
                 if (isMeaningfulArray(data.warnings)) {
                     warningList = `
@@ -205,7 +247,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         </ul>
                     `;
                 }
-                
+
+                let referencesList = "";
+                if (data.references && data.references.length > 0) {
+                    referencesList = `
+                        <div class="result-section-title" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.85rem;">
+                            📚 Dữ liệu trích xuất từ:
+                        </div>
+                        <ul class="references-list" style="font-size: 0.85rem; color: var(--text-light); padding-left: 20px; margin-top: 5px; list-style-type: disc;">
+                            ${data.references.map(ref => `<li><a href="${ref.url}" target="_blank" style="color: var(--primary-light); text-decoration: none;">${ref.name}</a></li>`).join("")}
+                        </ul>
+                    `;
+                }
+
                 // Build products grid
                 let productsGridHtml = "";
                 if (data.products && data.products.length > 0) {
@@ -223,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         <div class="desc">${p.description}</div>
                                         <div class="usage">HDSD: ${p.usage}</div>
                                     </div>
-                                    <button class="product-action-btn" onclick="alert('Đã thêm sản phẩm vào giỏ hàng tư vấn Long Châu!')">Chọn sản phẩm</button>
+                                    <a href="https://nhathuoclongchau.com.vn/tim-kiem?s=${encodeURIComponent(p.name).replace(/%20/g, '+')}" target="_blank" class="product-action-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">Xem trên Long Châu</a>
                                 </div>
                             `).join("")}
                         </div>
@@ -241,12 +295,21 @@ document.addEventListener("DOMContentLoaded", () => {
                         ${adviceList}
                         
                         ${warningList}
+                        
+                        ${referencesList}
                     </div>
                 `;
-                addLog("database", `Đã trích xuất ${data.symptoms ? data.symptoms.length : 0} triệu chứng và gợi ý ${data.products ? data.products.length : 0} sản phẩm.`);
+                addLog("database", `Đã trích xuất ${data.symptoms ? data.symptoms.length : 0} triệu chứng và gợi ý ${data.products ? data.products.length : 0} sản phẩm. Nguồn: ${data.references ? data.references.length : 0}.`);
             }
         }
         
+        // Add Medical Disclaimer to all AI responses
+        htmlContent += `
+            <div class="medical-disclaimer" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); font-size: 0.8rem; color: #9ca3af; font-style: italic;">
+                ⚠️ Lưu ý: Thông tin chỉ mang tính chất tham khảo, không thay thế chỉ định của Bác sĩ.
+            </div>
+        `;
+
         bubbleDiv.innerHTML = htmlContent;
         messageDiv.appendChild(avatarDiv);
         messageDiv.appendChild(bubbleDiv);
@@ -259,11 +322,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const indicatorDiv = document.createElement("div");
         indicatorDiv.className = "message system-message typing-indicator-wrapper";
         indicatorDiv.id = "typing-indicator-node";
-        
+
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
         avatarDiv.textContent = "🤖";
-        
+
         const bubbleDiv = document.createElement("div");
         bubbleDiv.className = "message-bubble";
         bubbleDiv.innerHTML = `
@@ -273,12 +336,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="typing-dot"></span>
             </div>
         `;
-        
+
         indicatorDiv.appendChild(avatarDiv);
         indicatorDiv.appendChild(bubbleDiv);
         chatMessagesContainer.appendChild(indicatorDiv);
         chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-        
+
         userInput.disabled = true;
         sendBtn.disabled = true;
     }
@@ -296,19 +359,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Send Message core function
     async function sendMessage(text) {
         if (!text.trim()) return;
-        
+
         appendMessage("user", text);
         addLog("input", `Gửi: "${text}"`);
         showTypingIndicator();
-        
+
         const payload = {
             message: text,
             provider: aiProvider.value,
             api_key: apiKeyInput.value.trim() || null
         };
-        
+
         addLog("api", `Đang gọi API endpoint /api/chat (${aiProvider.value.toUpperCase()})...`);
-        
+
         try {
             const response = await fetch("/api/chat", {
                 method: "POST",
@@ -317,18 +380,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify(payload)
             });
-            
+
             if (!response.ok) {
                 throw new Error(`Mã lỗi HTTP: ${response.status}`);
             }
-            
+
             const data = await response.json();
-            
+
             addLog("api", `Phản hồi 200 OK. Confidence: "${data.confidence}", Emergency: ${data.is_emergency}`);
-            
+
             removeTypingIndicator();
             appendDiagnosticMessage(data);
-            
+
         } catch (error) {
             console.error("API Call failed:", error);
             removeTypingIndicator();
@@ -347,25 +410,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    window.setInputValue = function(value) {
+    window.setInputValue = function (value) {
         userInput.value = value;
         userInput.focus();
     };
 
     // --- PRESET SCENARIO TRIGGERS ---
-    
+
     // Happy Path
     presetHappy.addEventListener("click", () => {
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p><strong>[DEMO: Happy Path]</strong> Đang giả lập triệu chứng ho khan và đau họng nhẹ.</p>
-                </div>
-            </div>
-        `;
+        addLog("system", "Khởi động kịch bản Happy Path (Tương tác Thuốc-Thức ăn)...");
         userInput.value = "";
-        sendMessage("Tôi bị ho khan, đau họng nhẹ, không sốt.");
+        sendMessage("Thuốc Paracetamol có uống cùng với cà phê được không bạn?");
     });
 
     // Low Confidence
@@ -374,26 +430,30 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="message system-message">
                 <div class="avatar">🤖</div>
                 <div class="message-bubble">
-                    <p><strong>[DEMO: Low Confidence]</strong> Đang giả lập triệu chứng quá mơ hồ để AI yêu cầu hỏi thêm.</p>
+                    <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
                 </div>
             </div>
         `;
+        
+        addLog("system", "Khởi động kịch bản Low Confidence (Thuốc không có thật)...");
         userInput.value = "";
-        sendMessage("Tôi thấy người không ổn.");
+        sendMessage("Thuốc XZ-999 trị bệnh gì vậy?");
     });
 
-    // Safety Case
+    // Safety Case (Failure Mode)
     presetSafety.addEventListener("click", () => {
         chatMessagesContainer.innerHTML = `
             <div class="message system-message">
                 <div class="avatar">🤖</div>
                 <div class="message-bubble">
-                    <p><strong>[DEMO: Safety Red-Flag Interceptor]</strong> Đang kiểm thử dấu hiệu khẩn cấp nguy hiểm.</p>
+                    <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
                 </div>
             </div>
         `;
+        
+        addLog("system", "Khởi động kịch bản Failure Mode (Hỏi liều lượng)...");
         userInput.value = "";
-        sendMessage("Em bị đau ngực và khó thở nhiều quá bác sĩ ơi.");
+        sendMessage("Mình đang bị sốt cao, ngày uống 10 viên Panadol Extra được không?");
     });
 
     // Correction Path
@@ -406,12 +466,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             </div>
         `;
-        
+
         addLog("system", "Khởi động kịch bản Correction Path...");
         userInput.value = "";
-        
+
         sendMessage("Tôi bị ho rát họng khó chịu");
-        
+
         setTimeout(() => {
             userInput.value = "À tôi còn nổi mẩn đỏ dị ứng ngứa toàn thân nữa";
             addLog("system", "Auto-type: Người dùng bổ sung triệu chứng nổi mẩn ngứa.");
