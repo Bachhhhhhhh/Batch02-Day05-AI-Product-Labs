@@ -1,0 +1,24 @@
+[
+  {
+    "drug_name": "Paracetamol 500mg",
+    "ingredients": "Paracetamol",
+    "uses": "Giảm đau, hạ sốt cho các trường hợp đau đầu, đau răng, đau cơ, sốt do cảm cúm.",
+    "dosage": "Người lớn: 1-2 viên/lần, cách nhau 4-6 giờ. Không quá 8 viên/ngày.",
+    "side_effects": "Ít gặp: ban da, buồn nôn, nôn. Hiếm gặp: phản ứng quá mẫn.",
+    "warnings": "Thận trọng với người suy gan, suy thận. Không uống rượu khi dùng thuốc.",
+    "contraindications": "Quá mẫn với paracetamol. Người thiếu hụt G6PD.",
+    "storage": "Nơi khô, nhiệt độ dưới 30 độ C, tránh ánh sáng.",
+    "source_url": "https://nhathuoclongchau.com.vn/duoc-pham/paracetamol-500mg"
+  },
+  {
+    "drug_name": "Panadol Extra",
+    "ingredients": "Paracetamol, Caffeine",
+    "uses": "Điều trị đau nhẹ đến vừa bao gồm đau đầu, đau nửa đầu, đau cơ, đau bụng kinh, đau họng.",
+    "dosage": "Người lớn: 1-2 viên mỗi 4-6 giờ. Tối đa 8 viên/ngày.",
+    "side_effects": "Có thể gây mất ngủ, bồn chồn do có chứa caffeine.",
+    "warnings": "Tránh dùng quá nhiều caffeine (trà, cà phê) khi đang dùng thuốc.",
+    "contraindications": "Mẫn cảm với bất kỳ thành phần nào của thuốc.",
+    "storage": "Bảo quản ở nhiệt độ không quá 30 độ C.",
+    "source_url": "https://nhathuoclongchau.com.vn/duoc-pham/panadol-extra-v-20"
+  }
+]
