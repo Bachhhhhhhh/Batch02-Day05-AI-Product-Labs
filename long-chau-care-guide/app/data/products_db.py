@@ -1,114 +1,197 @@
 # Mock database for Long Chau OTC Products
 
 PRODUCT_CATALOG = {
-    "viên ngậm giảm đau họng": [
-        {
-            "id": "strepsils-cool",
-            "name": "Viên ngậm Strepsils Cool Sensation",
-            "price": "38.000đ / Hộp 2 vỉ",
-            "description": "Giúp giảm đau họng, làm dịu cổ họng tức thì và mang lại cảm giác mát lạnh dễ chịu.",
-            "usage": "Ngậm 1 viên mỗi 2-3 giờ, không quá 12 viên/ngày.",
-            "image_gradient": "linear-gradient(135deg, #0284c7, #0369a1)"
-        },
-        {
-            "id": "difflam-lozenge",
-            "name": "Viên ngậm sát trùng họng Difflam Hắc Ín",
-            "price": "65.000đ / Hộp 16 viên",
-            "description": "Viên ngậm kháng viêm, sát khuẩn cổ họng, giảm đau rát họng dữ dội.",
-            "usage": "Ngậm chậm 1 viên mỗi 3 giờ khi cần.",
-            "image_gradient": "linear-gradient(135deg, #059669, #047857)"
-        }
-    ],
-    "siro ho": [
-        {
-            "id": "prospan-siro",
-            "name": "Siro ho thảo dược Prospan (Đức)",
-            "price": "82.000đ / Chai 100ml",
-            "description": "Chiết xuất từ lá thường xuân, giúp giảm ho khan, ho có đờm, hỗ trợ làm loãng chất nhầy.",
-            "usage": "Trẻ em trên 6 tuổi & người lớn: 5ml - 7.5ml mỗi lần, 3 lần mỗi ngày.",
-            "image_gradient": "linear-gradient(135deg, #10b981, #059669)"
-        },
-        {
-            "id": "astex-siro",
-            "name": "Siro ho Astex (Bệnh viện Nhi Đồng)",
-            "price": "45.000đ / Chai 90ml",
-            "description": "Hỗ trợ điều trị ho khan, ho có đờm, viêm phế quản, viêm họng ở trẻ em và người lớn.",
-            "usage": "Người lớn: 15ml/lần, ngày 3-4 lần.",
-            "image_gradient": "linear-gradient(135deg, #84cc16, #65a30d)"
-        }
-    ],
-    "thuốc cảm cúm & sổ mũi": [
-        {
-            "id": "decolgen-forte",
-            "name": "Decolgen Forte giảm cảm cúm & nghẹt mũi",
-            "price": "24.000đ / Hộp 4 vỉ",
-            "description": "Hạ sốt, giảm đau đầu, nghẹt mũi, sổ mũi do cảm cúm hoặc viêm mũi dị ứng.",
-            "usage": "Uống 1-2 viên/lần, ngày 3-4 lần sau ăn.",
-            "image_gradient": "linear-gradient(135deg, #ea580c, #c2410c)"
-        },
-        {
-            "id": "tiffy-dey",
-            "name": "Thuốc cảm cúm Tiffy Dey Thái Lan",
-            "price": "18.000đ / Hộp 25 vỉ x 4 viên",
-            "description": "Công thức chứa Paracetamol, Phenylephrine HCl và Chlorpheniramine giúp giảm nhanh các triệu chứng cảm.",
-            "usage": "Người lớn: 1-2 viên/lần, ngày 3-4 lần.",
-            "image_gradient": "linear-gradient(135deg, #e11d48, #be123c)"
-        }
-    ],
-    "thuốc xịt mũi": [
-        {
-            "id": "xital-spray",
-            "name": "Xịt mũi Xisat xanh dương sâu lòng biển",
-            "price": "32.000đ / Chai 75ml",
-            "description": "Nước muối biển sâu chứa nhiều khoáng chất sát khuẩn, kháng viêm và làm thông mũi.",
-            "usage": "Xịt 3-5 lần/ngày vào mỗi bên mũi.",
-            "image_gradient": "linear-gradient(135deg, #0ea5e9, #2563eb)"
-        },
-        {
-            "id": "otrivin-01",
-            "name": "Dung dịch xịt mũi Otrivin 0.1% giảm ngạt",
-            "price": "56.000đ / Chai 10ml",
-            "description": "Giúp co mạch tại chỗ, giảm nghẹt mũi cực nhanh chỉ trong vài phút.",
-            "usage": "Xịt 1 lần vào mỗi lỗ mũi, tối đa 3 lần/ngày. Không dùng quá 7 ngày liên tục.",
-            "image_gradient": "linear-gradient(135deg, #3b82f6, #1d4ed8)"
-        }
-    ],
-    "thuốc giảm đau & hạ sốt": [
-        {
-            "id": "panadol-extra",
-            "name": "Panadol Extra giảm đau hạ sốt đỏ",
-            "price": "42.000đ / Hộp 12 vỉ",
-            "description": "Chứa Paracetamol và Caffeine giúp giảm đau đầu, đau răng, đau cơ và hạ sốt nhanh chóng.",
-            "usage": "Uống 1-2 viên/lần, cách nhau 4-6 giờ. Không dùng quá 8 viên/ngày.",
-            "image_gradient": "linear-gradient(135deg, #dc2626, #b91c1c)"
-        },
-        {
-            "id": "efferalgan-500",
-            "name": "Viên sủi Efferalgan 500mg hạ sốt",
-            "price": "50.000đ / Hộp 4 vỉ x 4 viên",
-            "description": "Hạ sốt, giảm đau rát cổ họng, đau nhức mình mẩy dạng viên sủi dễ hấp thu.",
-            "usage": "Hòa tan 1 viên vào cốc nước ấm, uống cách nhau 4-6 giờ khi cần.",
-            "image_gradient": "linear-gradient(135deg, #06b6d4, #0891b2)"
-        }
-    ],
-    "thuốc dị ứng & nổi mẩn": [
-        {
-            "id": "telfast-180",
-            "name": "Thuốc chống dị ứng Telfast 180mg",
-            "price": "95.000đ / Hộp 1 vỉ x 10 viên",
-            "description": "Fexofenadine thế hệ mới trị viêm mũi dị ứng, nổi mề đay, dị ứng da toàn thân không gây buồn ngủ.",
-            "usage": "Người lớn & trẻ trên 12 tuổi: Uống 1 viên duy nhất mỗi ngày.",
-            "image_gradient": "linear-gradient(135deg, #a855f7, #7e22ce)"
-        },
-        {
-            "id": "loratadin-10",
-            "name": "Loratadin 10mg trị ngứa & dị ứng",
-            "price": "22.000đ / Hộp 2 vỉ x 10 viên",
-            "description": "Làm dịu các triệu chứng nổi mẩn đỏ, dị ứng ngứa toàn thân, nghẹt mũi do thời tiết.",
-            "usage": "Uống 1 viên/ngày sau bữa ăn.",
-            "image_gradient": "linear-gradient(135deg, #d946ef, #a21caf)"
-        }
-    ]
+   "thuốc xịt mũi": [
+    {
+        "id": "xisat-blue",
+        "name": "Xisat Nước Biển Sâu",
+        "price": "32000",
+        "description": "Làm sạch khoang mũi, giảm nghẹt mũi.",
+        "usage": "3-5 lần/ngày."
+    },
+    {
+        "id": "otrivin-01",
+        "name": "Otrivin 0.1%",
+        "price": "56000",
+        "description": "Giảm nghẹt mũi nhanh.",
+        "usage": "Không quá 3 lần/ngày."
+    },
+    {
+        "id": "sterimar",
+        "name": "Sterimar Baby",
+        "price": "95000",
+        "description": "Nước biển sâu vệ sinh mũi.",
+        "usage": "2-6 lần/ngày."
+    }
+],
+
+"thuốc giảm đau & hạ sốt": [
+    {
+        "id": "panadol-extra",
+        "name": "Panadol Extra",
+        "price": "42000",
+        "description": "Giảm đau đầu, đau cơ, hạ sốt.",
+        "usage": "1-2 viên/lần."
+    },
+    {
+        "id": "efferalgan-500",
+        "name": "Efferalgan 500mg",
+        "price": "50000",
+        "description": "Viên sủi hạ sốt.",
+        "usage": "1 viên/lần."
+    },
+    {
+        "id": "hapacol-500",
+        "name": "Hapacol 500mg",
+        "price": "18000",
+        "description": "Paracetamol giảm đau hạ sốt.",
+        "usage": "1 viên mỗi 4-6 giờ."
+    }
+],
+
+"thuốc dị ứng & nổi mẩn": [
+    {
+        "id": "telfast-180",
+        "name": "Telfast 180mg",
+        "price": "95000",
+        "description": "Điều trị viêm mũi dị ứng.",
+        "usage": "1 viên/ngày."
+    },
+    {
+        "id": "loratadine-10",
+        "name": "Loratadine 10mg",
+        "price": "22000",
+        "description": "Giảm ngứa, nổi mẩn.",
+        "usage": "1 viên/ngày."
+    },
+    {
+        "id": "cetirizine-10",
+        "name": "Cetirizine 10mg",
+        "price": "18000",
+        "description": "Kháng histamine điều trị dị ứng.",
+        "usage": "1 viên/ngày."
+    }
+],
+
+"men vi sinh & tiêu hóa": [
+    {
+        "id": "enterogermina",
+        "name": "Enterogermina",
+        "price": "85000",
+        "description": "Bổ sung lợi khuẩn đường ruột.",
+        "usage": "1-2 ống/ngày."
+    },
+    {
+        "id": "bioflora",
+        "name": "Bioflora",
+        "price": "95000",
+        "description": "Cân bằng hệ vi sinh đường ruột.",
+        "usage": "Theo chỉ định."
+    },
+    {
+        "id": "lactomin-plus",
+        "name": "Lactomin Plus",
+        "price": "120000",
+        "description": "Hỗ trợ hệ tiêu hóa khỏe mạnh.",
+        "usage": "1 gói/ngày."
+    }
+],
+
+"thuốc dạ dày": [
+    {
+        "id": "phosphalugel",
+        "name": "Phosphalugel",
+        "price": "85000",
+        "description": "Giảm đau dạ dày, ợ nóng.",
+        "usage": "1-2 gói/lần."
+    },
+    {
+        "id": "gastropulgite",
+        "name": "Gastropulgite",
+        "price": "60000",
+        "description": "Giảm triệu chứng viêm dạ dày.",
+        "usage": "1 gói/lần."
+    },
+    {
+        "id": "yumangel",
+        "name": "Yumangel",
+        "price": "78000",
+        "description": "Trung hòa acid dạ dày.",
+        "usage": "1 gói/lần."
+    }
+],
+
+"thuốc tiêu chảy": [
+    {
+        "id": "smecta",
+        "name": "Smecta",
+        "price": "35000",
+        "description": "Điều trị tiêu chảy cấp.",
+        "usage": "1 gói/lần."
+    },
+    {
+        "id": "berberin",
+        "name": "Berberin OPC",
+        "price": "15000",
+        "description": "Hỗ trợ điều trị tiêu chảy.",
+        "usage": "2 viên/lần."
+    },
+    {
+        "id": "hidrasec",
+        "name": "Hidrasec",
+        "price": "110000",
+        "description": "Điều trị tiêu chảy cấp ở trẻ em và người lớn.",
+        "usage": "Theo hướng dẫn."
+    }
+],
+
+"vitamin & khoáng chất": [
+    {
+        "id": "redoxon",
+        "name": "Redoxon Vitamin C",
+        "price": "120000",
+        "description": "Tăng cường đề kháng.",
+        "usage": "1 viên/ngày."
+    },
+    {
+        "id": "vitamin-c-500",
+        "name": "Vitamin C 500mg DHG",
+        "price": "45000",
+        "description": "Bổ sung vitamin C.",
+        "usage": "1 viên/ngày."
+    },
+    {
+        "id": "centrum",
+        "name": "Centrum Adults",
+        "price": "320000",
+        "description": "Bổ sung đa vitamin.",
+        "usage": "1 viên/ngày."
+    }
+],
+
+"thực phẩm bổ sung": [
+    {
+        "id": "omega3",
+        "name": "Omega 3 Fish Oil",
+        "price": "280000",
+        "description": "Bổ sung DHA và EPA.",
+        "usage": "1-2 viên/ngày."
+    },
+    {
+        "id": "d3k2",
+        "name": "Vitamin D3 K2",
+        "price": "250000",
+        "description": "Hỗ trợ hấp thu canxi.",
+        "usage": "1 viên/ngày."
+    },
+    {
+        "id": "calcium-corbiere",
+        "name": "Calcium Corbiere",
+        "price": "135000",
+        "description": "Bổ sung canxi cho xương.",
+        "usage": "1 ống/ngày."
+    }
+]
 }
 
 def get_products_by_category(category_name):

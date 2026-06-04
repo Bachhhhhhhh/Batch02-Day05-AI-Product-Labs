@@ -4,6 +4,7 @@ Thumbs.db
 .idea/
 .vscode/
 .venv/
+venv/
 baseline/
 
 # Secrets
@@ -20,4 +21,4 @@ __pycache__/
 *.db
 *.sqlite3
 vector_db/chroma_db/
-chroma_db/
+chroma_db/
