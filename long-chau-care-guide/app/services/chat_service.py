@@ -24,8 +24,18 @@ def check_emergency_rules(text: str) -> bool:
             return True
     return False
 
-def process_mock_ai(message: str) -> dict:
+def process_mock_ai(message: str, chat_history: list = None) -> dict:
     message_lower = message.lower()
+    
+    # Build extended context from history for better keyword matching
+    history_context = ""
+    if chat_history:
+        history_context = " ".join(
+            entry.get("content", "") for entry in chat_history
+        ).lower()
+    
+    # Combined signal: current message + recent history
+    combined_lower = message_lower + " " + history_context
     
     # 1. Emergency Case
     if check_emergency_rules(message_lower):
@@ -71,13 +81,14 @@ def process_mock_ai(message: str) -> dict:
             "references": []
         }
     
-    # 3. Happy Path
-    is_cough = "ho" in message_lower or "siro" in message_lower or "khan" in message_lower
-    is_sore_throat = "đau họng" in message_lower or "rát họng" in message_lower or "ngậm" in message_lower
-    is_flu = "cảm" in message_lower or "sổ mũi" in message_lower or "nghẹt mũi" in message_lower or "xịt mũi" in message_lower or "ngạt" in message_lower
-    is_fever = "sốt" in message_lower or "nóng" in message_lower or "đau đầu" in message_lower or "nhức đầu" in message_lower
-    is_allergy = "nổi mẩn" in message_lower or "dị ứng" in message_lower or "ngứa" in message_lower or "nổi đỏ" in message_lower or "nổi mụn" in message_lower
-    
+    # 3. Happy Path - use combined context (current + history) for symptom detection
+    is_cough = "ho" in combined_lower or "siro" in combined_lower or "khan" in combined_lower
+    is_sore_throat = "đau họng" in combined_lower or "rát họng" in combined_lower or "ngậm" in combined_lower
+    is_flu = "cảm" in combined_lower or "sổ mũi" in combined_lower or "nghẹt mũi" in combined_lower or "xịt mũi" in combined_lower or "ngạt" in combined_lower
+    is_fever = "sốt" in combined_lower or "nóng" in combined_lower or "đau đầu" in combined_lower or "nhức đầu" in combined_lower
+    is_allergy = "nổi mẩn" in combined_lower or "dị ứng" in combined_lower or "ngứa" in combined_lower or "nổi đỏ" in combined_lower or "nổi mụn" in combined_lower
+    is_diarrhea = "tiêu chảy" in combined_lower or "đi ngoài" in combined_lower or "đi lỏng" in combined_lower or "bụng" in combined_lower or "đau bụng" in combined_lower
+    is_stomach = "dạ dày" in combined_lower or "khó tiêu" in combined_lower or "đầy bụng" in combined_lower or "ợ chua" in combined_lower
     symptoms = []
     categories = []
     recommendations = ["Uống nhiều nước ấm", "Súc họng nước muối ấm", "Tránh thức ăn cay nóng hoặc quá lạnh"]
@@ -101,7 +112,16 @@ def process_mock_ai(message: str) -> dict:
         categories.append("thuốc dị ứng & nổi mẩn")
         recommendations.append("Hạn chế tiếp xúc với tác nhân nghi gây dị ứng (bụi, lông thú, thực phẩm lạ)")
         warnings.append("Cần đi cấp cứu ngay nếu phát ban kèm theo khó thở hoặc sưng phù mặt/môi.")
-        
+    if is_diarrhea:
+        symptoms.append("Tiêu chảy / Đau bụng")
+        categories.append("thuốc tiêu hóa")
+        recommendations.append("Uống nhiều nước và dung dịch bù điện giải (Oresol)")
+        warnings.append("Cần đến gặp bác sĩ nếu tiêu chảy kéo dài hơn 2 ngày hoặc có máu trong phân.")
+    if is_stomach:
+        symptoms.append("Khó tiêu / Đầy hơi / Đau dạ dày")
+        categories.append("thuốc tiêu hóa")
+        recommendations.append("Ăn nhẹ, tránh đồ cay và rượu bia")
+
     if not symptoms:
         if ALLOW_OUT_OF_SCOPE:
             return {
