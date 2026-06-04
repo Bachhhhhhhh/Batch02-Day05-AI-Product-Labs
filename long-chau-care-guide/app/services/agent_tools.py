@@ -88,19 +88,3 @@ def AnalyzeIngredientsTool(ingredients: str) -> dict:
         logger.error(f"OpenFDA Label API Request failed: {e}")
         return {"error": f"OpenFDA API error: {e}"}
 
-def ComparePriceTool(product_name: str) -> dict:
-    """
-    Compares the price of a given product across multiple vendors by calling the Internal Mock API.
-    """
-    logger.info(f"Executing ComparePriceTool: Comparing prices for '{product_name}'")
-    
-    url = f"{INTERNAL_API_URL}/price"
-    
-    try:
-        response = requests.get(url, params={"product": product_name}, timeout=API_TIMEOUT)
-        response.raise_for_status()
-        return response.json()
-        
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Internal API Request failed: {e}")
-        return {"error": f"Internal API error: {e}"}

@@ -4,7 +4,7 @@ from google import genai
 from openai import OpenAI
 from app.core.config import OPENAI_API_KEY, GEMINI_API_KEY, MODEL_TEMPERATURE, ALLOW_OUT_OF_SCOPE, MAX_TOKENS
 from app.core.model_settings import model_settings
-from app.services.agent_tools import SearchHealthcareProductTool, AnalyzeIngredientsTool, ComparePriceTool
+from app.services.agent_tools import SearchHealthcareProductTool, AnalyzeIngredientsTool
 
 logger = logging.getLogger("HealthcareAgent.Agent")
 
@@ -16,19 +16,17 @@ Bạn có quyền truy cập các công cụ sau:
    Tham số action_input: string (tên sản phẩm hoặc triệu chứng cần tìm).
 2. AnalyzeIngredientsTool: Phân tích thành phần hoạt chất của thuốc để tìm tác dụng phụ, chống chỉ định và dị ứng.
    Tham số action_input: string (danh sách hoạt chất).
-3. ComparePriceTool: So sánh giá sản phẩm tại các hệ thống nhà thuốc Long Châu, Pharmacity, An Khang.
-   Tham số action_input: string (tên sản phẩm).
 
 Tại mỗi bước lập luận, bạn BẮT BUỘC phải trả về một JSON object duy nhất (không bọc trong tag markdown ```json ... ```) có cấu trúc như sau:
 {
     "thought": "Suy nghĩ của bạn ở bước này (ví dụ: tôi cần tìm thuốc ho, tôi cần phân tích thành phần của Prospan...)",
-    "action": "Tên công cụ muốn gọi (chỉ được chọn một trong: 'SearchHealthcareProductTool', 'AnalyzeIngredientsTool', 'ComparePriceTool', 'Finish')",
+    "action": "Tên công cụ muốn gọi (chỉ được chọn một trong: 'SearchHealthcareProductTool', 'AnalyzeIngredientsTool', 'Finish')",
     "action_input": "Tham số truyền vào công cụ (để trống \"\" nếu action là 'Finish')",
     "final_answer": "Câu trả lời tổng hợp chi tiết bằng tiếng Việt định dạng Markdown (để trống \"\" nếu chưa 'Finish')"
 }
 
 Lưu ý quan trọng TUYỆT ĐỐI TUÂN THỦ:
-1. Quy trình chuẩn: Hãy sử dụng tuần tự các công cụ (Tìm sản phẩm -> Phân tích thành phần -> So sánh giá) trước khi kết thúc (Finish). Không tự suy đoán tác dụng phụ hay giá cả.
+1. Quy trình chuẩn: Hãy sử dụng tuần tự các công cụ (Tìm sản phẩm -> Phân tích thành phần) trước khi kết thúc (Finish). Không tự suy đoán tác dụng phụ.
 2. Tương tác Thuốc-Thức ăn: Nếu người dùng hỏi kỵ đồ ăn nào, hãy phân tích bằng công cụ, đưa ra câu trả lời "Nên/Không nên dùng cùng" và BẮT BUỘC khuyên tham khảo bác sĩ.
 3. Không chỉ định liều lượng (Failure Mode): Tuyệt đối TỪ CHỐI tính liều, đổi liều hoặc gợi ý liều lượng. Cảnh báo rõ: "Tôi là AI, không thay thế bác sĩ/dược sĩ và không được phép chỉ định liều lượng. Vui lòng xem trên đơn thuốc gốc hoặc hỏi trực tiếp bác sĩ."
 4. Yêu cầu kê đơn (Failure Mode): Tuyệt đối TỪ CHỐI kê đơn thuốc, không chẩn đoán bệnh. Khuyên người bệnh đi khám bác sĩ.
@@ -51,8 +49,6 @@ class HealthcareAgent:
                 result = SearchHealthcareProductTool(action_input)
             elif action == "AnalyzeIngredientsTool":
                 result = AnalyzeIngredientsTool(action_input)
-            elif action == "ComparePriceTool":
-                result = ComparePriceTool(action_input)
             else:
                 result = {"error": f"Công cụ '{action}' không tồn tại."}
             
@@ -130,20 +126,11 @@ class HealthcareAgent:
                 "final_answer": ""
             }, ensure_ascii=False)
             
-        elif "ComparePriceTool" not in history_str:
-            return json.dumps({
-                "thought": "Tôi đã phân tích thành phần. Giờ tôi cần so sánh giá bán của sản phẩm tại các nhà thuốc lớn bằng ComparePriceTool.",
-                "action": "ComparePriceTool",
-                "action_input": "ibuprofen",
-                "final_answer": ""
-            }, ensure_ascii=False)
-            
         else:
             final_markdown = (
                 "### Kết quả tư vấn sản phẩm:\n\n"
                 "**1. Sản phẩm gợi ý:** Đã lấy thông tin từ OpenFDA.\n"
-                "**2. Phân tích an toàn hoạt chất:** Lấy thông tin từ OpenFDA Label.\n"
-                "**3. Bảng so sánh giá bán:** Dữ liệu từ API nội bộ.\n\n"
+                "**2. Phân tích an toàn hoạt chất:** Lấy thông tin từ OpenFDA Label.\n\n"
                 "*Cảnh báo y tế: Thông tin chỉ mang tính chất tham khảo và không thay thế cho tư vấn từ bác sĩ hoặc dược sĩ chuyên môn.*"
             )
             return json.dumps({
