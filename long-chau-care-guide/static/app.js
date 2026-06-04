@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const presetCorrection = document.getElementById("preset-correction");
     const presetCombinedFull = document.getElementById("preset-combined-full");
     const presetCombinedMissing = document.getElementById("preset-combined-missing");
+    const presetFoodInteraction = document.getElementById("preset-food-interaction");
 
     // Chat History State
     let chatHistory = [];
@@ -556,6 +557,21 @@ document.addEventListener("DOMContentLoaded", () => {
         addLog("system", "Khởi động kịch bản Combined (Thiếu dữ liệu)...");
         userInput.value = "";
         sendMessage("Bạn giải thích giúp mình đơn thuốc này với: 1. Thuốc Tiên Khí Xanh 500mg, uống 2 viên/ngày. 2. Thần Đan Bạch Kim, uống 1 viên/ngày.");
+    });
+
+    // Food Interaction
+    presetFoodInteraction.addEventListener("click", () => {
+        chatMessagesContainer.innerHTML = `
+            <div class="message system-message">
+                <div class="avatar">🤖</div>
+                <div class="message-bubble">
+                    <p><strong>[DEMO: Tương tác Thực phẩm]</strong> Kiểm tra tương tác giữa thuốc và đồ ăn/thức uống.</p>
+                </div>
+            </div>
+        `;
+        addLog("system", "Khởi động kịch bản Tương tác Thực phẩm...");
+        userInput.value = "";
+        sendMessage("Tôi đang uống thuốc Paracetamol, tôi có thể uống rượu được không?");
     });
 });
 

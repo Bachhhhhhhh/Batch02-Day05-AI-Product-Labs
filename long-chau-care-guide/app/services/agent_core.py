@@ -4,34 +4,35 @@ from google import genai
 from openai import OpenAI
 from app.core.config import OPENAI_API_KEY, GEMINI_API_KEY, MODEL_TEMPERATURE, ALLOW_OUT_OF_SCOPE, MAX_TOKENS
 from app.core.model_settings import model_settings
-from app.services.agent_tools import SearchHealthcareProductTool, AnalyzeIngredientsTool
+from app.services.agent_tools import SearchHealthcareProductTool, AnalyzeIngredientsTool, AnalyzeDrugFoodInteractionTool
 
 logger = logging.getLogger("HealthcareAgent.Agent")
 
 SYSTEM_PROMPT = """
-Bạn là agent giải thích đơn thuốc. Nhiệm vụ duy nhất là nhận tên thuốc hoặc đơn thuốc người dùng đã có, tìm đúng thuốc trong database demo Long Châu, rồi giải thích công dụng, cách dùng theo nguồn, lưu ý an toàn và tác dụng phụ.
+Bạn là Trợ lý Dược sĩ AI của Long Châu. 
 
-Không kê đơn thuốc mới, không chẩn đoán bệnh, không hỏi triệu chứng để đề xuất sản phẩm OTC, không thay thuốc không có dữ liệu bằng thuốc tương tự.
+NHIỆM VỤ CỦA BẠN:
+1. Giải thích đơn thuốc dựa trên dữ liệu từ Long Châu Database.
+2. Kiểm tra tương tác giữa Thuốc và Thực phẩm/Đồ uống khi người dùng yêu cầu.
 
-Bạn có quyền truy cập các công cụ sau:
-1. SearchHealthcareProductTool: Tìm đúng thuốc trong database từ tên thuốc người dùng nhập, kể cả khi tên người dùng nhập ngắn hơn tên drug_name.
-2. AnalyzeIngredientsTool: Lấy thông tin tác dụng phụ/chống chỉ định/lưu ý của đúng thuốc hoặc hoạt chất đã được tìm thấy.
+NGUYÊN TẮC AN TOÀN (GARDRAILS):
+- Tuyệt đối KHÔNG kê đơn mới hoặc chẩn đoán bệnh. 
+- KHÔNG bao giờ đưa ra con số liều lượng cụ thể (VD: "uống 2 viên"). Hãy nhắc user: "Vui lòng xem trên đơn thuốc gốc hoặc hỏi trực tiếp bác sĩ."
+- Luôn kết thúc câu trả lời bằng lời khuyên: "Thông tin chỉ mang tính chất tham khảo và không thay thế cho tư vấn từ bác sĩ hoặc dược sĩ chuyên môn."
 
-Tại mỗi bước lập luận, bạn BẮT BUỘC phải trả về một JSON object duy nhất (không bọc trong tag markdown ```json ... ```) có cấu trúc như sau:
+CÁC CÔNG CỤ CỦA BẠN:
+1. SearchHealthcareProductTool: Dùng đầu tiên để xác định đúng thuốc và thông tin cơ bản.
+2. AnalyzeIngredientsTool: Tra cứu sâu về tác dụng phụ và cảnh báo an toàn.
+3. AnalyzeDrugFoodInteractionTool: Kiểm tra tương tác giữa thuốc và đồ ăn/thức uống/rượu.
+
+QUY TRÌNH SUY LUẬN (ReAct):
+Tại mỗi bước lập luận, bạn BẮT BUỘC phải trả về một JSON object duy nhất (không bọc trong tag markdown):
 {
-    "thought": "Suy nghĩ của bạn ở bước này (ví dụ: tôi cần tìm thuốc ho, tôi cần phân tích thành phần của Prospan...)",
-    "action": "Tên công cụ muốn gọi (chỉ được chọn một trong: 'SearchHealthcareProductTool', 'AnalyzeIngredientsTool', 'Finish')",
-    "action_input": "Tham số truyền vào công cụ (để trống \"\" nếu action là 'Finish')",
-    "final_answer": "Câu trả lời tổng hợp chi tiết bằng tiếng Việt định dạng Markdown (để trống \"\" nếu chưa 'Finish')"
+    "thought": "Suy nghĩ của bạn (Ví dụ: User hỏi về thuốc và cà phê, tôi cần dùng AnalyzeDrugFoodInteractionTool để check...)",
+    "action": "Tên công cụ ('SearchHealthcareProductTool', 'AnalyzeIngredientsTool', 'AnalyzeDrugFoodInteractionTool', 'Finish')",
+    "action_input": "Tham số cho công cụ (Nếu AnalyzeDrugFoodInteractionTool thì input nên là tên thuốc)",
+    "final_answer": "Câu trả lời tổng hợp chi tiết bằng tiếng Việt định dạng Markdown (để trống nếu chưa 'Finish')"
 }
-
-Lưu ý quan trọng TUYỆT ĐỐI TUÂN THỦ:
-1. Quy trình chuẩn: Hãy sử dụng công cụ để tìm đúng thuốc trước khi kết thúc (Finish). Không tự suy đoán tác dụng phụ.
-2. Nếu người dùng hỏi lưu ý/cách dùng/tác dụng của thuốc đã có trong đơn, hãy giải thích theo dữ liệu tìm được.
-3. Không chỉ định liều lượng (Failure Mode): Tuyệt đối TỪ CHỐI tính liều, đổi liều hoặc gợi ý liều lượng. Cảnh báo rõ: "Tôi là AI, không thay thế bác sĩ/dược sĩ và không được phép chỉ định liều lượng. Vui lòng xem trên đơn thuốc gốc hoặc hỏi trực tiếp bác sĩ."
-4. Yêu cầu kê đơn (Failure Mode): Tuyệt đối TỪ CHỐI kê đơn thuốc, không chẩn đoán bệnh. Khuyên người bệnh đi khám bác sĩ.
-5. Thuốc lạ/Không có dữ liệu (Low Confidence): Nếu không tìm thấy đúng thuốc trong CSDL công cụ, trả lời rõ: "Chưa tìm thấy dữ liệu về thuốc này trong database demo." Tuyệt đối không thay bằng thuốc tương tự.
-6. Miễn trừ trách nhiệm y tế: Luôn đính kèm câu "Thông tin chỉ mang tính chất tham khảo và không thay thế cho tư vấn từ bác sĩ hoặc dược sĩ chuyên môn." ở cuối câu trả lời final_answer.
 """
 
 class HealthcareAgent:
@@ -39,7 +40,7 @@ class HealthcareAgent:
         self.provider = provider
         self.max_iterations = max_iterations
         self.history = []
-        logger.info(f"HealthcareAgent initialized with provider: {provider}, max_iterations: {max_iterations}")
+        logger.info(f"HealthcareAgent initialized with provider: {provider}")
 
     def _execute_tool(self, action: str, action_input: str) -> str:
         """Executes the corresponding tool and returns the observation as string."""
@@ -49,14 +50,15 @@ class HealthcareAgent:
                 result = SearchHealthcareProductTool(action_input)
             elif action == "AnalyzeIngredientsTool":
                 result = AnalyzeIngredientsTool(action_input)
+            elif action == "AnalyzeDrugFoodInteractionTool":
+                # Logic to handle potential multiple inputs if needed, 
+                # but standard ReAct often passes single string
+                result = AnalyzeDrugFoodInteractionTool(action_input)
             else:
                 result = {"error": f"Công cụ '{action}' không tồn tại."}
             
-            obs_str = json.dumps(result, ensure_ascii=False)
-            logger.info(f"Tool Observation Result: {obs_str}")
-            return obs_str
+            return json.dumps(result, ensure_ascii=False)
         except Exception as e:
-            logger.error(f"Error executing tool {action}: {e}")
             return json.dumps({"error": str(e)}, ensure_ascii=False)
 
     def _call_llm(self, prompt: str) -> str:

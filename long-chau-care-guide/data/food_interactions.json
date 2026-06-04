@@ -1,0 +1,63 @@
+[
+  {
+    "drug_name": "Paracetamol",
+    "interactions": [
+      {
+        "object": "Rượu (Alcohol)",
+        "risk": "Cao",
+        "effect": "Tăng nguy cơ nhiễm độc gan nghiêm trọng.",
+        "advice": "Tuyệt đối không uống rượu trong quá trình điều trị bằng Paracetamol."
+      }
+    ]
+  },
+  {
+    "drug_name": "Atorvastatin",
+    "interactions": [
+      {
+        "object": "Bưởi chùm (Grapefruit)",
+        "risk": "Trung bình",
+        "effect": "Tăng nồng độ thuốc trong máu, dễ gây tác dụng phụ ở cơ và thận.",
+        "advice": "Tránh ăn bưởi hoặc uống nước ép bưởi khi đang dùng thuốc này."
+      }
+    ]
+  },
+  {
+    "drug_name": "Amoxicillin",
+    "interactions": [
+      {
+        "object": "Sữa và chế phẩm từ sữa",
+        "risk": "Thấp",
+        "effect": "Có thể làm giảm nhẹ tốc độ hấp thu nhưng không ảnh hưởng nhiều đến hiệu quả tổng thể.",
+        "advice": "Có thể dùng cùng nhưng tốt nhất nên uống cách xa thời điểm uống sữa khoảng 1-2 giờ."
+      }
+    ]
+  },
+  {
+    "drug_name": "Warfarin",
+    "interactions": [
+      {
+        "object": "Rau lá xanh (Vitamin K)",
+        "risk": "Cao",
+        "effect": "Làm giảm hiệu quả chống đông máu của thuốc.",
+        "advice": "Cần duy trì lượng rau xanh ổn định hàng ngày, không nên thay đổi đột ngột lượng rau tiêu thụ."
+      },
+      {
+        "object": "Tỏi, Gừng, Nhân sâm",
+        "risk": "Trung bình",
+        "effect": "Tăng nguy cơ chảy máu.",
+        "advice": "Thận trọng khi sử dụng các thực phẩm bổ sung này."
+      }
+    ]
+  },
+  {
+    "drug_name": "Ciprofloxacin",
+    "interactions": [
+      {
+        "object": "Sữa, Sắt, Canxi",
+        "risk": "Cao",
+        "effect": "Kết tủa và làm giảm đáng kể sự hấp thu thuốc vào cơ thể.",
+        "advice": "Uống thuốc ít nhất 2 giờ trước hoặc 6 giờ sau khi dùng các thực phẩm/thuốc chứa Canxi, Sắt."
+      }
+    ]
+  }
+]
