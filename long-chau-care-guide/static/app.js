@@ -392,7 +392,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.setInputValue = function (value) {
-        userInput.value = value;
+        let processedValue = value;
+        const normalized = value.trim().replace(/\s+/g, ' ');
+        if (normalized === "Tôi bị bị đau, sốt hay ho") {
+            processedValue = "Tôi bị ";
+        } else if (normalized === "Tôi bị thể mô tả chi tiết hơn cảm giác khó chịu của bạn") {
+            processedValue = "tôi cảm thấy ";
+        }
+        userInput.value = processedValue;
         userInput.focus();
     };
 
