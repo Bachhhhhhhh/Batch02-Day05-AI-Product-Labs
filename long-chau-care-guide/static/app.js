@@ -281,9 +281,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
                 }
 
-                // Build products grid
+                // Build products grid only for legacy responses. Prescription explainer never suggests OTC products.
                 let productsGridHtml = "";
-                if (data.products && data.products.length > 0) {
+                if (!hasPrescription && data.products && data.products.length > 0) {
                     productsGridHtml = `
                         <div class="result-section-title">Sản phẩm gợi ý tại nhà thuốc Long Châu:</div>
                         <div class="product-suggestions-grid">
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             `).join("")}
                         </div>
                     `;
-                } else {
+                } else if (!hasPrescription) {
                     productsGridHtml = `<p style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">Không có sản phẩm OTC tự dùng trực tiếp cho triệu chứng này.</p>`;
                 }
 

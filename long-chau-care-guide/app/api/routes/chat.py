@@ -6,7 +6,6 @@ from app.services.chat_service import (
     process_gemini_ai,
     process_openai_ai
 )
-from app.data.products_db import get_products_by_category
 
 router = APIRouter()
 
@@ -44,11 +43,7 @@ async def chat_endpoint(request: ChatRequest = Body(...)):
         else:
             result = process_mock_ai(user_msg, request.chat_history)
             
-    # 3. Retrieve mock products
-    products = []
-    if not result.get("is_emergency") and result.get("confidence") == "high":
-        for cat in result.get("categories", []):
-            products.extend(get_products_by_category(cat))
-            
-    result["products"] = products
+    result["products"] = []
+    result["symptoms"] = []
+    result["categories"] = []
     return result
