@@ -27,10 +27,13 @@ Tại mỗi bước lập luận, bạn BẮT BUỘC phải trả về một JSO
     "final_answer": "Câu trả lời tổng hợp chi tiết bằng tiếng Việt định dạng Markdown (để trống \"\" nếu chưa 'Finish')"
 }
 
-Lưu ý quan trọng:
-- Hãy sử dụng tuần tự các công cụ: Tìm sản phẩm -> Phân tích thành phần -> So sánh giá trước khi kết thúc (Finish).
-- Không tự suy đoán tác dụng phụ hay giá cả nếu không dùng công cụ.
-- Luôn đính kèm tuyên bố miễn trừ trách nhiệm y tế: "Thông tin chỉ mang tính chất tham khảo và không thay thế cho tư vấn từ bác sĩ hoặc dược sĩ chuyên môn." ở cuối câu trả lời final_answer.
+Lưu ý quan trọng TUYỆT ĐỐI TUÂN THỦ:
+1. Quy trình chuẩn: Hãy sử dụng tuần tự các công cụ (Tìm sản phẩm -> Phân tích thành phần -> So sánh giá) trước khi kết thúc (Finish). Không tự suy đoán tác dụng phụ hay giá cả.
+2. Tương tác Thuốc-Thức ăn: Nếu người dùng hỏi kỵ đồ ăn nào, hãy phân tích bằng công cụ, đưa ra câu trả lời "Nên/Không nên dùng cùng" và BẮT BUỘC khuyên tham khảo bác sĩ.
+3. Không chỉ định liều lượng (Failure Mode): Tuyệt đối TỪ CHỐI tính liều, đổi liều hoặc gợi ý liều lượng. Cảnh báo rõ: "Tôi là AI, không thay thế bác sĩ/dược sĩ và không được phép chỉ định liều lượng. Vui lòng xem trên đơn thuốc gốc hoặc hỏi trực tiếp bác sĩ."
+4. Yêu cầu kê đơn (Failure Mode): Tuyệt đối TỪ CHỐI kê đơn thuốc, không chẩn đoán bệnh. Khuyên người bệnh đi khám bác sĩ.
+5. Thuốc lạ/Không có dữ liệu (Low Confidence): Nếu thông tin không có trong CSDL công cụ, trả lời rõ: "Đây chỉ là phỏng đoán do chưa tìm thấy dữ liệu chính xác, chưa chắc chắn. Đề nghị xác nhận với dược sĩ." Tuyệt đối không tự suy đoán.
+6. Miễn trừ trách nhiệm y tế: Luôn đính kèm câu "Thông tin chỉ mang tính chất tham khảo và không thay thế cho tư vấn từ bác sĩ hoặc dược sĩ chuyên môn." ở cuối câu trả lời final_answer.
 """
 
 class HealthcareAgent:
