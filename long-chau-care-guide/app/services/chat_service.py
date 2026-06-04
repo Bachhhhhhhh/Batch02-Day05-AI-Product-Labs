@@ -5,13 +5,20 @@ from functools import lru_cache
 from pathlib import Path
 
 from thefuzz import fuzz
+from google import genai
+from openai import OpenAI
 
+from app.core.config import GEMINI_API_KEY, OPENAI_API_KEY, MODEL_TEMPERATURE, MAX_TOKENS
 from app.core.logger import system_logger
+from app.core.model_settings import model_settings
+from vector_db.retriever import search_drugs
 
 DISCLAIMER = (
     "Thông tin dưới đây chỉ để bạn hiểu đơn thuốc, không thay thế chỉ định "
     "của bác sĩ hoặc tư vấn trực tiếp từ dược sĩ."
 )
+OUT_OF_SCOPE_MESSAGE = "Không hỗ trợ chủ đề này. Mình chỉ hỗ trợ giải thích đơn thuốc hoặc tên thuốc."
+NOT_SOLD_MESSAGE = "Long Châu không có bán."
 
 EMERGENCY_KEYWORDS = [
     "qua lieu",
@@ -196,6 +203,11 @@ def _has_drug_context(text: str) -> bool:
     return any(keyword in normalized for keyword in DRUG_CONTEXT_WORDS)
 
 
+def _has_dosage_marker(text: str) -> bool:
+    normalized = _normalize(text)
+    return bool(re.search(r"\b\d+(?:[,.]\d+)?\s*(mg|mcg|g|ml)\b", normalized))
+
+
 def _looks_like_symptom_only(text: str) -> bool:
     normalized = _normalize(text)
     has_first_person_symptom = bool(re.search(r"\b(toi|minh|em|con|me|bo|ba)\s+(bi|dang bi|thay|cam thay)\b", normalized))
@@ -219,6 +231,13 @@ def _base_response(message: str, confidence: str = "low", is_emergency: bool = F
         "references": [],
         "products": [],
     }
+
+
+def _model_unavailable_response(provider: str, reason: str) -> dict:
+    return _base_response(
+        f"Không gọi được model AI {provider}. Vui lòng kiểm tra API key/kết nối mạng rồi thử lại.\n\nChi tiết: {reason}",
+        confidence="low",
+    )
 
 
 @lru_cache(maxsize=1)
@@ -385,6 +404,14 @@ def _find_drug(query: str) -> dict | None:
     return drug
 
 
+def _has_medicine_intent(message: str, requested_items: list[dict]) -> bool:
+    if _has_drug_context(message) or _has_dosage_marker(message) or _parse_numbered_prescription(message):
+        return True
+    if len(requested_items) == 1 and _find_drug(requested_items[0]["name"]):
+        return True
+    return False
+
+
 def _sentences(text: str) -> list[str]:
     clean = " ".join((text or "").split())
     if not clean:
@@ -404,35 +431,26 @@ def _escape_md(text: str) -> str:
     return (text or "").replace("|", "/").replace("\n", " ").strip()
 
 
+def _row_from_drug(drug: dict, schedule: str = "") -> dict:
+    dosage = schedule or _summary(drug.get("dosage", ""))
+    return {
+        "name": drug.get("_display_name") or _display_drug_name(drug.get("drug_name", "")),
+        "matched_name": drug.get("drug_name", ""),
+        "use": _summary(drug.get("uses", "")),
+        "dosage": dosage,
+        "source_dosage": _summary(drug.get("dosage", "")),
+        "safety": _summary(drug.get("warnings", "")),
+        "side_effects": _summary(drug.get("side_effects", "")),
+        "source": drug.get("source_url", ""),
+    }
+
+
 def _explain_item(requested: dict) -> tuple[dict, dict | None]:
     drug = _find_drug(requested["name"])
     if not drug:
-        return (
-            {
-                "name": requested["name"],
-                "use": "Chưa tìm thấy dữ liệu về thuốc này trong database demo",
-                "dosage": requested.get("schedule") or "Theo đúng đơn bác sĩ đã kê; chatbot không tự chỉnh liều",
-                "safety": "Không tự thay bằng thuốc tương tự. Hãy hỏi bác sĩ/dược sĩ nếu nhà thuốc không có đúng thuốc trong đơn.",
-                "side_effects": "Chưa có dữ liệu trong database demo",
-                "source": "Chưa tìm thấy dữ liệu về thuốc này trong database demo",
-            },
-            None,
-        )
+        return ({}, None)
 
-    dosage = requested.get("schedule") or _summary(drug.get("dosage", ""))
-    return (
-        {
-            "name": drug.get("_display_name") or _display_drug_name(drug.get("drug_name", "")),
-            "matched_name": drug.get("drug_name", ""),
-            "use": _summary(drug.get("uses", "")),
-            "dosage": dosage,
-            "source_dosage": _summary(drug.get("dosage", "")),
-            "safety": _summary(drug.get("warnings", "")),
-            "side_effects": _summary(drug.get("side_effects", "")),
-            "source": drug.get("source_url", ""),
-        },
-        drug,
-    )
+    return (_row_from_drug(drug, requested.get("schedule", "")), drug)
 
 
 def _markdown_table(rows: list[dict]) -> str:
@@ -454,7 +472,134 @@ def _markdown_table(rows: list[dict]) -> str:
     return "\n".join([header, sep, *body])
 
 
-def _explain_drugs(message: str) -> dict:
+def _retrieve_context_for_drug(drug: dict, user_message: str, top_k: int = 12) -> list[dict]:
+    raw_name = drug.get("drug_name", "")
+    display_name = drug.get("_display_name") or _display_drug_name(raw_name)
+    query = f"{display_name} {raw_name} {user_message}"
+    retrieved = search_drugs(query, top_k=top_k)
+    exact = [item for item in retrieved if item.get("drug_name") == raw_name]
+
+    if exact:
+        return exact
+
+    fallback = []
+    section_map = {
+        "uses": "uses",
+        "dosage": "dosage",
+        "warnings": "warnings",
+        "side_effects": "side_effects",
+        "contraindications": "contraindications",
+    }
+    for section, key in section_map.items():
+        content = drug.get(key, "")
+        if content:
+            fallback.append(
+                {
+                    "drug_name": raw_name,
+                    "section": section,
+                    "content": content,
+                    "source_url": drug.get("source_url", ""),
+                }
+            )
+    return fallback
+
+
+def _build_rag_context(rows: list[dict], drugs: list[dict], user_message: str) -> tuple[str, list[dict]]:
+    blocks = []
+    references = []
+    for row, drug in zip(rows, drugs):
+        raw_name = drug.get("drug_name", "")
+        display_name = row.get("name", _display_drug_name(raw_name))
+        contexts = _retrieve_context_for_drug(drug, user_message)
+        if drug.get("source_url"):
+            references.append({"name": raw_name, "url": drug.get("source_url")})
+
+        section_lines = []
+        for item in contexts:
+            section_lines.append(
+                f"- section={item.get('section', '')}; source={item.get('source_url', '')}; content={item.get('content', '')}"
+            )
+        blocks.append(
+            "\n".join(
+                [
+                    f"DRUG_DISPLAY_NAME: {display_name}",
+                    f"DRUG_NAME_FULL: {raw_name}",
+                    "CONTEXT:",
+                    *section_lines,
+                ]
+            )
+        )
+    return "\n\n---\n\n".join(blocks), references
+
+
+def _build_llm_prompt(user_message: str, rows: list[dict], context: str) -> str:
+    requested_names = ", ".join(row["name"] for row in rows)
+    return f"""
+Bạn là AI giải thích đơn thuốc bằng tiếng Việt cho người dùng phổ thông.
+
+Nhiệm vụ:
+- Chỉ giải thích các thuốc đã match chính xác: {requested_names}.
+- Chỉ dùng CONTEXT được cung cấp. Không dùng kiến thức ngoài context.
+- Không kê đơn, không chẩn đoán, không đề xuất thuốc mới, không thay thuốc tương tự.
+- Nếu user hỏi tương tác thuốc-thức ăn/cà phê/rượu/sữa nhưng CONTEXT không có thông tin tương tác đó, hãy ghi rõ: "Nguồn Long Châu trong demo chưa có dữ liệu tương tác thuốc-thức ăn cụ thể cho thuốc này." Không được bịa.
+- Nếu user hỏi đổi liều/tăng liều/ngừng thuốc, từ chối chỉnh liều và khuyên hỏi bác sĩ/dược sĩ.
+- Trả lời bằng Markdown table duy nhất với đúng các cột:
+| Thuốc | Dùng để làm gì | Cách dùng theo nguồn | Lưu ý an toàn | Tác dụng phụ cần chú ý | Nguồn |
+- Cột "Thuốc" dùng đúng DRUG_DISPLAY_NAME, không dùng lại nguyên input của user.
+- Cột "Nguồn" đặt link Markdown [Long Châu](source_url) nếu có.
+
+USER_MESSAGE:
+{user_message}
+
+CONTEXT:
+{context}
+""".strip()
+
+
+def _call_gemini(prompt: str, api_key: str | None = None) -> str:
+    key = api_key or GEMINI_API_KEY
+    if not key:
+        raise RuntimeError("GEMINI_API_KEY chưa được cấu hình")
+    client = genai.Client(api_key=key)
+    response = client.models.generate_content(
+        model=model_settings.GEMINI_MODEL_NAME,
+        contents=prompt,
+        config=genai.types.GenerateContentConfig(
+            temperature=min(MODEL_TEMPERATURE, 0.2),
+            max_output_tokens=MAX_TOKENS,
+        ),
+    )
+    return (response.text or "").strip()
+
+
+def _call_openai(prompt: str, api_key: str | None = None) -> str:
+    key = api_key or OPENAI_API_KEY
+    if not key:
+        raise RuntimeError("OPENAI_API_KEY chưa được cấu hình")
+    client = OpenAI(api_key=key)
+    response = client.chat.completions.create(
+        model=model_settings.OPENAI_MODEL_NAME,
+        messages=[
+            {"role": "system", "content": "Bạn chỉ trả lời dựa trên context được cung cấp và tuân thủ guardrail y tế."},
+            {"role": "user", "content": prompt},
+        ],
+        temperature=min(MODEL_TEMPERATURE, 0.2),
+        max_tokens=MAX_TOKENS,
+    )
+    return (response.choices[0].message.content or "").strip()
+
+
+def _generate_ai_table(provider: str, user_message: str, rows: list[dict], drugs: list[dict], api_key: str | None = None) -> tuple[str, list[dict]]:
+    context, references = _build_rag_context(rows, drugs, user_message)
+    prompt = _build_llm_prompt(user_message, rows, context)
+    if provider == "gemini":
+        return _call_gemini(prompt, api_key), references
+    if provider == "openai":
+        return _call_openai(prompt, api_key), references
+    raise RuntimeError(f"Provider không hỗ trợ AI RAG: {provider}")
+
+
+def _explain_drugs(message: str, provider: str = "mock", api_key: str | None = None) -> dict:
     if _looks_like_symptom_only(message):
         return _base_response(
             f"{DISCLAIMER}\n\nMình không kê đơn, không chẩn đoán và không đề xuất thuốc mới từ triệu chứng. "
@@ -463,6 +608,9 @@ def _explain_drugs(message: str) -> dict:
         )
 
     requested_items = _extract_requested_drugs(message)
+    if not _has_medicine_intent(message, requested_items):
+        return _base_response(OUT_OF_SCOPE_MESSAGE, confidence="low")
+
     if not requested_items:
         response = _base_response(
             f"{DISCLAIMER}\n\nBạn hãy nhập tên thuốc hoặc paste đơn thuốc để mình giải thích. "
@@ -478,19 +626,44 @@ def _explain_drugs(message: str) -> dict:
     rows = []
     references = []
     matched = []
+    matched_drugs = []
+    missing_count = 0
     for item in requested_items:
         row, drug = _explain_item(item)
-        rows.append(row)
         if drug:
+            rows.append(row)
+            matched_drugs.append(drug)
             matched.append(drug.get("drug_name", item["name"]))
             source_url = drug.get("source_url", "")
             if source_url:
                 references.append({"name": drug.get("drug_name", item["name"]), "url": source_url})
+        else:
+            missing_count += 1
+
+    if not matched:
+        return _base_response(NOT_SOLD_MESSAGE, confidence="low")
+
+    if provider in {"gemini", "openai"}:
+        try:
+            ai_table, ai_references = _generate_ai_table(provider, message, rows, matched_drugs, api_key)
+        except Exception as exc:
+            system_logger.error("AI RAG generation failed with %s: %s", provider, exc)
+            return _model_unavailable_response(provider, str(exc))
+
+        response = _base_response(
+            f"{DISCLAIMER}\n\nĐã dùng RAG: truy xuất context từ vector database Long Châu và gọi model AI {provider} để giải thích.",
+            confidence="high",
+        )
+        response["prescription_explanation"] = ai_table or _markdown_table(rows)
+        response["references"] = ai_references or references
+        response["side_effects"] = [row["side_effects"] for row in rows if row.get("side_effects")]
+        return response
 
     response = _base_response(
-        f"{DISCLAIMER}\n\nMình đã tách được {len(rows)} thuốc/tên thuốc và chỉ đối chiếu đúng tên thuốc trong database demo Long Châu. "
-        "Nếu không tìm thấy đúng thuốc, mình ghi rõ là chưa có dữ liệu và không thay bằng thuốc tương tự.",
-        confidence="high" if matched else "low",
+        f"{DISCLAIMER}\n\nĐang chạy local fallback: đối chiếu rule-based từ database demo Long Châu, chưa gọi model AI. "
+        f"Mình đã đối chiếu đúng {len(rows)} thuốc."
+        + (f" {missing_count} thuốc còn lại: {NOT_SOLD_MESSAGE}" if missing_count else ""),
+        confidence="high",
     )
     response["prescription_explanation"] = _markdown_table(rows)
     response["references"] = references
@@ -498,7 +671,7 @@ def _explain_drugs(message: str) -> dict:
     return response
 
 
-def process_mock_ai(message: str, chat_history: list = None) -> dict:
+def _process_prescription_flow(message: str, chat_history: list = None, provider: str = "mock", api_key: str | None = None) -> dict:
     if check_emergency_rules(message):
         return _base_response(
             f"{DISCLAIMER}\n\nNội dung có dấu hiệu rủi ro cao. Vui lòng liên hệ bác sĩ/dược sĩ hoặc cơ sở y tế ngay.",
@@ -524,14 +697,18 @@ def process_mock_ai(message: str, chat_history: list = None) -> dict:
             "Nếu bạn đã có đơn thuốc, hãy nhập tên thuốc trong đơn để mình giải thích.",
             confidence="low",
         )
-    return _explain_drugs(message)
+    return _explain_drugs(message, provider, api_key)
 
 
-def process_gemini_ai(message: str, chat_history: list = None) -> dict:
-    system_logger.info("Using deterministic prescription explainer instead of free-form Gemini prescribing flow.")
-    return process_mock_ai(message, chat_history)
+def process_mock_ai(message: str, chat_history: list = None) -> dict:
+    return _process_prescription_flow(message, chat_history, "mock")
 
 
-def process_openai_ai(message: str, chat_history: list = None) -> dict:
-    system_logger.info("Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.")
-    return process_mock_ai(message, chat_history)
+def process_gemini_ai(message: str, chat_history: list = None, api_key: str | None = None) -> dict:
+    system_logger.info("Using Gemini RAG prescription explainer.")
+    return _process_prescription_flow(message, chat_history, "gemini", api_key)
+
+
+def process_openai_ai(message: str, chat_history: list = None, api_key: str | None = None) -> dict:
+    system_logger.info("Using OpenAI RAG prescription explainer.")
+    return _process_prescription_flow(message, chat_history, "openai", api_key)

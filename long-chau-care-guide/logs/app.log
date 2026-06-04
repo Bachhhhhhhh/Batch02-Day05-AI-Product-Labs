@@ -1505,3 +1505,78 @@ google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message
 2026-06-04 16:02:57 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5.75ms
 2026-06-04 16:03:06 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
 2026-06-04 16:03:06 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7.69ms
+2026-06-04 16:32:41 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 39.32ms
+2026-06-04 16:32:41 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 1.00ms
+2026-06-04 16:32:41 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 1.00ms
+2026-06-04 16:32:42 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 2.00ms
+2026-06-04 16:33:11 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:33:11 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 95.21ms
+2026-06-04 16:34:51 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:34:51 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6.00ms
+2026-06-04 16:35:43 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:35:43 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 16:41:31 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 34.90ms
+2026-06-04 16:42:21 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 99.34ms
+2026-06-04 16:42:21 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 58.30ms
+2026-06-04 16:42:21 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 64.30ms
+2026-06-04 16:43:59 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 3.15ms
+2026-06-04 16:43:59 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 2.24ms
+2026-06-04 16:43:59 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 3.15ms
+2026-06-04 16:44:00 [WARNING] [LongChauApp] HTTP Exception at /favicon.ico: Not Found
+2026-06-04 16:44:00 [INFO] [LongChauApp] Path: /favicon.ico | Method: GET | Status: 404 | Time: 4.19ms
+2026-06-04 16:44:13 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:44:13 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4.17ms
+2026-06-04 16:44:46 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:44:46 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 16:45:04 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:45:04 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.41ms
+2026-06-04 16:45:11 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:45:11 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 16:55:24 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:55:24 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 25.11ms
+2026-06-04 16:55:56 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:55:56 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 2.00ms
+2026-06-04 16:56:29 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:56:29 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 16:57:59 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:57:59 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4.90ms
+2026-06-04 16:58:24 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 16:58:24 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6.00ms
+2026-06-04 16:58:31 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 16:58:31 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4.67ms
+2026-06-04 16:58:44 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 16:58:44 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4.28ms
+2026-06-04 16:58:59 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 16:58:59 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3.88ms
+2026-06-04 16:59:04 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 3.71ms
+2026-06-04 16:59:04 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 1.01ms
+2026-06-04 16:59:04 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 4.34ms
+2026-06-04 16:59:12 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 16:59:12 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 1.62ms
+2026-06-04 16:59:21 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 16:59:21 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 8.06ms
+2026-06-04 17:00:23 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 17:00:23 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.33ms
+2026-06-04 17:04:40 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form Gemini prescribing flow.
+2026-06-04 17:04:40 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 17:17:05 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:17:05 [INFO] [LongChauApp] Using OpenAI RAG prescription explainer.
+2026-06-04 17:20:54 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 33.93ms
+2026-06-04 17:21:36 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:21:36 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 349.54ms
+2026-06-04 17:21:36 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:21:43 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:21:43 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6408.08ms
+2026-06-04 17:21:43 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6409.18ms
+2026-06-04 17:24:42 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 4.00ms
+2026-06-04 17:24:42 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 2.00ms
+2026-06-04 17:24:42 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 3.00ms
+2026-06-04 17:24:44 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:24:51 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7138.27ms
+2026-06-04 17:25:15 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:25:15 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 17:25:19 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:25:23 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4640.01ms
+2026-06-04 17:25:45 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:25:45 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 10.21ms
+2026-06-04 17:25:48 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.

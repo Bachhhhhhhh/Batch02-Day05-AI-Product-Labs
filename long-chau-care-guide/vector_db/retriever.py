@@ -1,7 +1,8 @@
 import chromadb
 from chromadb.utils import embedding_functions
+from pathlib import Path
 
-DB_PATH = "vector_db/chroma_db"
+DB_PATH = str(Path(__file__).resolve().parent / "chroma_db")
 
 def search_drugs(query: str, top_k: int = 5) -> list[dict]:
     """

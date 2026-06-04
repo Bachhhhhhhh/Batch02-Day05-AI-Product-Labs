@@ -37,9 +37,9 @@ async def chat_endpoint(request: ChatRequest = Body(...)):
         provider = request.provider
         
         if provider == "gemini":
-            result = process_gemini_ai(user_msg, request.chat_history)
+            result = process_gemini_ai(user_msg, request.chat_history, request.api_key)
         elif provider == "openai":
-            result = process_openai_ai(user_msg, request.chat_history)
+            result = process_openai_ai(user_msg, request.chat_history, request.api_key)
         else:
             result = process_mock_ai(user_msg, request.chat_history)
             

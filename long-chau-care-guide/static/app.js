@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let chatHistory = [];
 
-    if (localStorage.getItem("longchau_api_provider")) {
-        aiProvider.value = localStorage.getItem("longchau_api_provider");
-    }
+    const savedProvider = localStorage.getItem("longchau_api_provider");
+    aiProvider.value = savedProvider === "openai" ? "openai" : "gemini";
+    localStorage.setItem("longchau_api_provider", aiProvider.value);
 
     aiProvider.addEventListener("change", () => {
         localStorage.setItem("longchau_api_provider", aiProvider.value);
