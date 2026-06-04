@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Config Elements
     const aiProvider = document.getElementById("ai-provider");
-    const apiKeyContainer = document.getElementById("api-key-container");
-    const apiKeyInput = document.getElementById("api-key");
 
     // Logger Elements
     const logConsole = document.getElementById("log-console");
@@ -23,30 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const presetSafety = document.getElementById("preset-safety");
     const presetCorrection = document.getElementById("preset-correction");
 
-    // Load saved API Key and Provider from LocalStorage
+    // Load saved Provider from LocalStorage
     if (localStorage.getItem("longchau_api_provider")) {
         aiProvider.value = localStorage.getItem("longchau_api_provider");
     }
-    if (localStorage.getItem("longchau_api_key")) {
-        apiKeyInput.value = localStorage.getItem("longchau_api_key");
-    }
 
-    // Toggle API Key input visibility
-    function toggleApiKeyVisibility() {
-        if (aiProvider.value === "mock") {
-            apiKeyContainer.style.display = "none";
-        } else {
-            apiKeyContainer.style.display = "block";
-            apiKeyInput.placeholder = aiProvider.value === "gemini" ? "Nhập Gemini API Key..." : "Nhập OpenAI API Key...";
-        }
+    aiProvider.addEventListener("change", () => {
         localStorage.setItem("longchau_api_provider", aiProvider.value);
-    }
-
-    aiProvider.addEventListener("change", toggleApiKeyVisibility);
-    apiKeyInput.addEventListener("input", () => {
-        localStorage.setItem("longchau_api_key", apiKeyInput.value.trim());
     });
-    toggleApiKeyVisibility();
 
     // Logger helper
     function addLog(type, message) {
@@ -366,8 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const payload = {
             message: text,
-            provider: aiProvider.value,
-            api_key: apiKeyInput.value.trim() || null
+            provider: aiProvider.value
         };
 
         addLog("api", `Đang gọi API endpoint /api/chat (${aiProvider.value.toUpperCase()})...`);
