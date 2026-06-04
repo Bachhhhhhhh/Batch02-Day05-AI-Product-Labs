@@ -366,6 +366,54 @@ def _explain_drugs(message: str) -> dict:
     return response
 
 
+GREETING_KEYWORDS = {
+    "chao",
+    "xin chao",
+    "chao ban",
+    "chao bot",
+    "chao em",
+    "chao anh",
+    "chao chi",
+    "chao bs",
+    "chao bac si",
+    "hello",
+    "hi",
+    "hey",
+    "halo",
+    "alo",
+    "hi bot",
+    "hey bot",
+    "hi ban",
+    "chao nhe",
+    "xin chao nha",
+    "chao nha",
+}
+
+
+def _is_greeting(text: str) -> bool:
+    normalized = _normalize(text).strip()
+    # Remove common trailing punctuation and extra spaces
+    clean_text = re.sub(r"[!?.,\s]+$", "", normalized).strip()
+    clean_text = re.sub(r"\s+", " ", clean_text)
+    return clean_text in GREETING_KEYWORDS
+
+
+def _handle_greeting() -> dict:
+    response = _base_response(
+        "Xin chào! Tôi là **Long Châu Care Guide** - Trợ lý Dược sĩ AI. "
+        "Tôi có thể hỗ trợ giải thích chi tiết các loại thuốc trong đơn thuốc của bạn, "
+        "hoặc tư vấn giải pháp chăm sóc sức khỏe ban đầu dựa trên các triệu chứng. "
+        "Hôm nay tôi có thể giúp gì cho bạn?",
+        confidence="high",
+    )
+    response["clarifying_questions"] = [
+        "Giải thích đơn thuốc: Agi-Neurin, A.T Ascorbic Syrup",
+        "Tôi bị ho rát họng và sổ mũi",
+        "Tôi bị nổi mẩn ngứa dị ứng da"
+    ]
+    return response
+
+
 def process_mock_ai(message: str, chat_history: list = None) -> dict:
     if check_emergency_rules(message):
         return _base_response(
@@ -373,6 +421,8 @@ def process_mock_ai(message: str, chat_history: list = None) -> dict:
             confidence="emergency",
             is_emergency=True,
         )
+    if _is_greeting(message):
+        return _handle_greeting()
     if _is_ambiguous(message):
         response = _base_response(
             f"{DISCLAIMER}\n\nTên thuốc đang bị viết tắt hoặc chưa rõ. Mình không nên đoán tên thuốc vì có thể giải thích sai.",
