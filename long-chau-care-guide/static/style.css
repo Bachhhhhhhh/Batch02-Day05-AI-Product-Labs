@@ -900,3 +900,69 @@ body {
         box-shadow: 0 -4px 30px rgba(0,0,0,0.03);
     }
 }
+
+/* Report Feature Styles */
+.report-btn {
+    position: absolute;
+    right: 10px;
+    bottom: -15px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.message-bubble {
+    position: relative;
+}
+
+.message-bubble:hover .report-btn {
+    opacity: 0.8;
+}
+
+.report-btn:hover {
+    opacity: 1 !important;
+    transform: scale(1.1);
+    background-color: #fff0f0;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.combined-effect-section {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: rgba(0, 82, 204, 0.05);
+    border-left: 4px solid var(--primary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
