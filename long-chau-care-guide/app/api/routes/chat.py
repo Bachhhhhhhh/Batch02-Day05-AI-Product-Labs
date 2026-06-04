@@ -42,7 +42,7 @@ async def chat_endpoint(request: ChatRequest = Body(...)):
         elif provider == "openai":
             result = process_openai_ai(user_msg, request.chat_history)
         else:
-            result = process_mock_ai(user_msg)
+            result = process_mock_ai(user_msg, request.chat_history)
             
     # 3. Retrieve mock products
     products = []

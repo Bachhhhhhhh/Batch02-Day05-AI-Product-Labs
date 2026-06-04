@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Clear Chat
     clearChatBtn.addEventListener("click", () => {
+        chatHistory = [];  // Reset conversation memory
         chatMessagesContainer.innerHTML = `
             <div class="message system-message">
                 <div class="avatar">🤖</div>
