@@ -486,9 +486,87 @@ document.addEventListener("DOMContentLoaded", () => {
         addLog("system", "Khởi động kịch bản Low Confidence (Thuốc không có thật)...");
         userInput.value = "";
         sendMessage("Thuốc XZ-999 trị bệnh gì vậy?");
+    });
+
+    // Safety Case (Failure Mode)
+    presetSafety.addEventListener("click", () => {
+        chatMessagesContainer.innerHTML = `
+            <div class="message system-message">
+                <div class="avatar">🤖</div>
+                <div class="message-bubble">
+                    <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
+                </div>
+            </div>
+        `;
+        
+        addLog("system", "Khởi động kịch bản Failure Mode (Hỏi liều lượng)...");
+        userInput.value = "";
+        sendMessage("Mình đang bị sốt cao, ngày uống 10 viên Panadol Extra được không?");
+    });
+
+    // Correction Path
+    presetCorrection.addEventListener("click", () => {
+        chatMessagesContainer.innerHTML = `
+            <div class="message system-message">
+                <div class="avatar">🤖</div>
+                <div class="message-bubble">
+                    <p><strong>[DEMO: Correction Path]</strong> Bắt đầu bằng ho rát họng, sau đó cập nhật thêm dị ứng da nổi mẩn.</p>
+                </div>
+            </div>
+        `;
+
+        addLog("system", "Khởi động kịch bản Correction Path...");
+        userInput.value = "";
+
+        sendMessage("Tôi bị ho rát họng khó chịu");
+
+        setTimeout(() => {
+            userInput.value = "À tôi còn nổi mẩn đỏ dị ứng ngứa toàn thân nữa";
+            addLog("system", "Auto-type: Người dùng bổ sung triệu chứng nổi mẩn ngứa.");
+        }, 3500);
+    });
+});
+
+// Global Report Functions
+window.currentReportMessage = "";
+
+window.openReportModal = function(msg) {
+    window.currentReportMessage = msg;
+    document.getElementById("report-feedback").value = "";
+    document.getElementById("report-modal").style.display = "flex";
+};
+
+window.closeReportModal = function() {
+    document.getElementById("report-modal").style.display = "none";
+};
+
+window.submitReport = async function() {
+    const feedback = document.getElementById("report-feedback").value.trim();
+    if (!feedback) {
+        alert("Vui lòng nhập lý do báo cáo!");
+        return;
+    }
+    
+    const reportBtn = document.querySelector("#report-modal button:last-child");
+    const originalText = reportBtn.textContent;
+    reportBtn.textContent = "Đang gửi...";
+    reportBtn.disabled = true;
+    
+    try {
+        const response = await fetch('/api/report', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: window.currentReportMessage,
+                user_feedback: feedback
+            })
+        });
+        
         if (response.ok) {
             alert("Cảm ơn bạn! Báo cáo đã được ghi nhận thành công.");
-            closeReportModal();
+            window.closeReportModal();
         } else {
             alert("Có lỗi xảy ra khi gửi báo cáo.");
         }
