@@ -472,7 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
     presetHappy.addEventListener("click", () => {
         addLog("system", "Khởi động kịch bản Happy Path (Tương tác Thuốc-Thức ăn)...");
         userInput.value = "";
-        sendMessage("Thuốc Paracetamol có uống cùng với cà phê được không bạn?");
+        sendMessage("Thuốc Agi-Neurin có uống cùng với cà phê được không bạn?");
     });
 
     // Low Confidence
@@ -504,7 +504,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         addLog("system", "Khởi động kịch bản Failure Mode (Hỏi liều lượng)...");
         userInput.value = "";
-        sendMessage("Mình đang bị sốt cao, ngày uống 10 viên Panadol Extra được không?");
+        sendMessage("Mình đang bị mệt mỏi, ngày uống 10 viên Agi-Neurin được không?");
     });
 
     // Correction Path
@@ -540,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         addLog("system", "Khởi động kịch bản Combined (Đủ dữ liệu)...");
         userInput.value = "";
-        sendMessage("Vui lòng giải thích đơn thuốc này giúp tôi: 1. Paracetamol 500mg, uống 2 viên/ngày. 2. Vitamin C 500mg, uống 1 viên/ngày.");
+        sendMessage("Vui lòng giải thích đơn thuốc này giúp tôi: 1. Agi-Neurin, uống 2 viên/ngày. 2. A.T Ascorbic Syrup 100mg, uống 1 ống/ngày.");
     });
 
     // Combined (Thiếu dữ liệu)
