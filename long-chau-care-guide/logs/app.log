@@ -1504,3 +1504,4 @@ google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message
 2026-06-04 16:02:57 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
 2026-06-04 16:02:57 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5.75ms
 2026-06-04 16:03:06 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:03:06 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7.69ms
