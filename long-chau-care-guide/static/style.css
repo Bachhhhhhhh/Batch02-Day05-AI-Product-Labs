@@ -802,11 +802,14 @@ body {
 
 /* Prescription Explanation & Side Effects */
 .prescription-explanation {
-    background-color: #f8fafc;
+    background-color: #ffffff;
     border-left: 4px solid var(--primary-color);
-    padding: 12px 16px;
-    border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
-    margin-bottom: 10px;
+    padding: 16px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+    border-left-width: 4px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-sm);
 }
 
 .prescription-explanation p {
@@ -816,27 +819,66 @@ body {
     margin-top: 6px;
 }
 
+/* Make prescription messages occupy full width and prevent columns from being squished */
+.message.prescription-message {
+    max-width: 100%;
+    width: 100%;
+}
+
+.prescription-message .message-bubble {
+    max-width: 100%;
+    width: 100%;
+}
+
+.prescription-message .diagnostic-container {
+    max-width: 100%;
+    width: 100%;
+}
+
+.markdown-content {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+}
+
 .markdown-content table {
     width: 100%;
+    min-width: 900px; /* Ensures all columns have enough space and scroll instead of squishing */
     border-collapse: collapse;
-    margin-top: 10px;
     font-size: 0.85rem;
+    background-color: #ffffff;
 }
 
 .markdown-content th, .markdown-content td {
-    border: 1px solid var(--border-color);
-    padding: 8px 12px;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 14px;
     text-align: left;
+    vertical-align: top;
+    line-height: 1.45;
 }
 
 .markdown-content th {
-    background-color: var(--bg-main);
-    color: var(--primary-dark);
+    background-color: #f8fafc;
+    color: #0f172a; /* high contrast */
     font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.markdown-content tr:last-child td {
+    border-bottom: none;
 }
 
 .markdown-content tr:nth-child(even) {
     background-color: #f8fafc;
+}
+
+/* Emphasize and color code drug names in the first column for high readability */
+.markdown-content td:first-child {
+    font-weight: 600;
+    color: #0052cc; /* Signature brand blue */
 }
 
 .side-effects-list {
