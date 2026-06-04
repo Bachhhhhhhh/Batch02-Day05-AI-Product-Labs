@@ -3,173 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Long Châu Care Guide - AI OTC Product Finder</title>
-    <!-- Google Fonts for premium typography -->
+    <meta name="description" content="Long Chau Care Guide - tro ly giai thich don thuoc, khong ke don va khong chan doan.">
+    <title>Long Chau Care Guide - Prescription Explainer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=11">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Main Chat Dashboard -->
-        <main class="chat-section">
-            <header class="chat-header">
+    <div class="app-shell">
+        <main class="workspace">
+            <header class="topbar">
                 <div class="brand">
-                    <div class="logo-orb">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                    <div class="brand-info">
-                        <h1>Long Châu Care Guide</h1>
-                        <div class="status-indicator">
-                            <span class="pulse-dot"></span>
-                            <span class="status-text">Trợ lý Dược sĩ AI</span>
-                        </div>
+                    <div class="brand-mark" aria-hidden="true">LC</div>
+                    <div>
+                        <h1>Long Chau Care Guide</h1>
+                        <p>Prescription explainer · demo database</p>
                     </div>
                 </div>
-                <div class="header-actions">
-                    <button id="clear-chat-btn" title="Xóa lịch sử trò chuyện">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <div class="topbar-actions">
+                    <span class="mode-pill">Không kê đơn</span>
+                    <button id="clear-chat-btn" class="ghost-btn" type="button" title="Xóa lịch sử trò chuyện">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <path d="M19 6l-1 16H6L5 6"></path>
+                            <path d="M10 11v6"></path>
+                            <path d="M14 11v6"></path>
                         </svg>
-                        <span>Làm mới</span>
+                        Làm mới
                     </button>
                 </div>
             </header>
 
-            <!-- Chat Message Window -->
-            <div class="chat-messages" id="chat-messages-container">
-                <!-- Welcome Message -->
+            <section class="chat-messages" id="chat-messages-container" aria-live="polite">
                 <div class="message system-message">
-                    <div class="avatar">🤖</div>
-                    <div class="message-bubble">
-                        <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
-                        <p>Hãy mô tả triệu chứng của bạn (ví dụ: <em>"Tôi bị ho khan, đau họng nhẹ 2 ngày nay..."</em>). Tôi sẽ giúp trích xuất triệu chứng, gợi ý nhóm sản phẩm không kê đơn (OTC) phù hợp và đưa ra lời khuyên an toàn.</p>
+                    <div class="avatar" aria-hidden="true">AI</div>
+                    <div class="message-bubble intro-bubble">
+                        <span class="eyebrow">Trợ lý giải thích đơn thuốc</span>
+                        <h2>Dán đơn thuốc hoặc nhập tên thuốc cần giải thích.</h2>
+                        <p>Mình chỉ đối chiếu đúng thuốc trong database demo Long Châu để giải thích công dụng, cách dùng theo nguồn, lưu ý an toàn và tác dụng phụ cần chú ý. Mình không chẩn đoán, không kê đơn và không thay thuốc tương tự.</p>
                         <div class="hint-chips">
-                            <button class="hint-chip" onclick="setInputValue('Tôi bị ho rát họng và sổ mũi')">Ho & sổ mũi</button>
-                            <button class="hint-chip" onclick="setInputValue('Tôi bị nổi mẩn ngứa dị ứng da')">Nổi mẩn ngứa</button>
-                            <button class="hint-chip" onclick="setInputValue('Tôi mệt quá')">Thấy mệt trong người</button>
+                            <button class="hint-chip" type="button" onclick="setInputValue('Allopurinol')">Tên thuốc ngắn</button>
+                            <button class="hint-chip" type="button" onclick="setInputValue('bác sĩ kê đơn thuốc Azopt Alcon cho tôi thì nên lưu ý gì')">Câu hỏi tự nhiên</button>
+                            <button class="hint-chip" type="button" onclick="setInputValue('1. CEFUROXIM 500MG ngày uống 2 lần. 2. BROMHEXIN 8MG ngày uống 3 lần. 3. PARACETAMOL 500MG + CAFFEINE 65MG ngày uống 3 lần.')">Đơn nhiều thuốc</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Input Box -->
-            <footer class="chat-input-area">
+            <footer class="composer">
                 <form id="chat-form" class="input-container">
-                    <input type="text" id="user-input" placeholder="Mô tả triệu chứng của bạn ở đây..." autocomplete="off" required>
-                    <button type="submit" id="send-btn" title="Gửi tin nhắn">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    <label class="sr-only" for="user-input">Nội dung đơn thuốc hoặc tên thuốc</label>
+                    <input type="text" id="user-input" placeholder="Nhập tên thuốc hoặc dán đơn thuốc cần giải thích..." autocomplete="off" required>
+                    <button type="submit" id="send-btn" title="Gửi">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M22 2 11 13"></path>
+                            <path d="m22 2-7 20-4-9-9-4 20-7Z"></path>
                         </svg>
                     </button>
                 </form>
+                <p class="composer-note">Thông tin chỉ để hiểu đơn thuốc, không thay thế chỉ định của bác sĩ hoặc tư vấn trực tiếp từ dược sĩ.</p>
             </footer>
         </main>
 
-        <!-- Sidebar Panel for Demo Control -->
-        <aside class="control-panel">
-            <div class="panel-header">
-                <h2>Bảng Điều Khiển Demo</h2>
-                <p>Thử nghiệm nhanh các kịch bản kiểm thử (Day 05/06)</p>
-            </div>
+        <aside class="side-panel">
+            <section class="panel-card brief-card">
+                <div class="panel-heading">
+                    <span class="eyebrow">Phạm vi</span>
+                    <h2>Giải thích, không kê đơn</h2>
+                </div>
+                <ul class="scope-list">
+                    <li>Nhận diện tên thuốc trong đơn hoặc câu hỏi tự nhiên.</li>
+                    <li>Không gợi ý thuốc mới từ triệu chứng.</li>
+                    <li>Không thay thuốc tương tự khi database demo chưa có dữ liệu.</li>
+                </ul>
+            </section>
 
-            <!-- Scenarios Section -->
-            <section class="panel-section">
-                <h3>1. KỊCH BẢN MẪU (PRESETS)</h3>
+            <section class="panel-card">
+                <div class="panel-heading">
+                    <span class="eyebrow">Kiểm thử nhanh</span>
+                    <h2>Preset đúng bài toán</h2>
+                </div>
                 <div class="preset-buttons">
-                    <button class="preset-btn happy" id="preset-happy">
-                        <span class="icon">🟢</span>
-                        <div class="btn-text">
-                            <strong>Happy Path (Interaction)</strong>
-                            <span>"Agi-Neurin + Cà phê?"</span>
-                        </div>
+                    <button class="preset-btn" id="preset-happy" type="button">
+                        <span class="preset-kicker">FOUND</span>
+                        <strong>Tên thuốc ngắn</strong>
+                        <small>Allopurinol</small>
                     </button>
-                    <button class="preset-btn low-conf" id="preset-low-conf">
-                        <span class="icon">🟡</span>
-                        <div class="btn-text">
-                            <strong>Low Confidence (Unknown)</strong>
-                            <span>"Thuốc XZ-999 trị gì?"</span>
-                        </div>
+                    <button class="preset-btn" id="preset-low-conf" type="button">
+                        <span class="preset-kicker">NATURAL</span>
+                        <strong>Câu hỏi tự nhiên</strong>
+                        <small>Bác sĩ kê Azopt thì lưu ý gì?</small>
                     </button>
-                    <button class="preset-btn safety" id="preset-safety">
-                        <span class="icon">🔴</span>
-                        <div class="btn-text">
-                            <strong>Failure Mode (Dosage)</strong>
-                            <span>"Ngày uống 10 viên Agi-Neurin?"</span>
-                        </div>
+                    <button class="preset-btn" id="preset-safety" type="button">
+                        <span class="preset-kicker">REFUSE</span>
+                        <strong>Từ chối kê đơn</strong>
+                        <small>Tôi bị gout nên uống thuốc gì?</small>
                     </button>
-                    <button class="preset-btn correction" id="preset-correction">
-                        <span class="icon">🔵</span>
-                        <div class="btn-text">
-                            <strong>Correction Path</strong>
-                            <span>Ho rát họng → Nổi mẩn đỏ</span>
-                        </div>
+                    <button class="preset-btn" id="preset-correction" type="button">
+                        <span class="preset-kicker">PRESCRIPTION</span>
+                        <strong>Đơn nhiều thuốc</strong>
+                        <small>Cefuroxim, Bromhexin, Paracetamol...</small>
                     </button>
-                    <button class="preset-btn happy" id="preset-combined-full">
-                        <span class="icon">🟣</span>
-                        <div class="btn-text">
-                            <strong>Combined (Đủ dữ liệu)</strong>
-                            <span>Đơn thuốc Agi-Neurin, A.T Ascorbic</span>
-                        </div>
+                    <button class="preset-btn" id="preset-combined-full" type="button">
+                        <span class="preset-kicker">MATCH</span>
+                        <strong>Thuốc mắt</strong>
+                        <small>Azopt Alcon</small>
                     </button>
-                    <button class="preset-btn low-conf" id="preset-combined-missing">
-                        <span class="icon">🟠</span>
-                        <div class="btn-text">
-                            <strong>Combined (Thiếu dữ liệu)</strong>
-                            <span>Đơn thuốc có thuốc lạ</span>
-                        </div>
+                    <button class="preset-btn" id="preset-combined-missing" type="button">
+                        <span class="preset-kicker">MISSING</span>
+                        <strong>Ngoài dữ liệu</strong>
+                        <small>Thuốc không có trong demo Long Châu</small>
                     </button>
                 </div>
             </section>
 
-            <!-- Configuration Section -->
-            <section class="panel-section">
-                <h3>2. CẤU HÌNH AI ENGINE</h3>
-                <div class="settings-group">
-                    <label for="ai-provider">Mô hình AI:</label>
-                    <select id="ai-provider">
-                        <option value="mock">Mô phỏng (Mock Engine - Khuyên dùng)</option>
-                        <option value="gemini">Google Gemini 2.5 Flash</option>
-                        <option value="openai">OpenAI GPT-4o Mini</option>
-                    </select>
+            <section class="panel-card">
+                <div class="panel-heading">
+                    <span class="eyebrow">Engine</span>
+                    <h2>Cấu hình phản hồi</h2>
                 </div>
+                <label class="field-label" for="ai-provider">Mô hình AI</label>
+                <select id="ai-provider">
+                    <option value="mock">Mock Engine - deterministic matcher</option>
+                    <option value="gemini">Google Gemini 2.5 Flash</option>
+                    <option value="openai">OpenAI GPT-4o Mini</option>
+                </select>
+                <p class="field-help">Luồng chính ưu tiên đối chiếu dữ liệu thuốc, không dựa vào suy đoán triệu chứng.</p>
             </section>
 
-            <!-- Logger Section -->
-            <section class="panel-section logger-section">
+            <section class="panel-card log-card">
                 <div class="logger-header">
-                    <h3>3. LOGS PHÂN TÍCH HỆ THỐNG</h3>
-                    <button id="clear-logs-btn">Xóa logs</button>
+                    <div>
+                        <span class="eyebrow">Trace</span>
+                        <h2>System logs</h2>
+                    </div>
+                    <button id="clear-logs-btn" class="text-btn" type="button">Xóa</button>
                 </div>
                 <div class="log-console" id="log-console">
-                    <div class="log-line system">[System] Sẵn sàng kiểm thử. Vui lòng chọn preset hoặc nhập triệu chứng.</div>
+                    <div class="log-line system">[System] Sẵn sàng giải thích đơn thuốc.</div>
                 </div>
             </section>
-
-            <footer class="panel-footer">
-                <p>Long Châu Care Guide · Prototype Day 05 · AI Product Labs</p>
-            </footer>
         </aside>
     </div>
-    <!-- Report Modal -->
-    <div id="report-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <h3 style="margin-top: 0; color: var(--danger);">Báo cáo vấn đề</h3>
-            <p style="font-size: 0.9rem; margin-bottom: 15px;">Vui lòng cho biết lý do bạn cho rằng câu trả lời của AI chưa chính xác:</p>
-            <textarea id="report-feedback" rows="4" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); font-family: inherit; margin-bottom: 15px;" placeholder="Ví dụ: AI nhận diện sai tên thuốc..."></textarea>
-            <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                <button onclick="closeReportModal()" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border-color); background: transparent; cursor: pointer;">Hủy</button>
-                <button onclick="submitReport()" style="padding: 8px 16px; border-radius: 20px; border: none; background: var(--primary); color: white; cursor: pointer; font-weight: 500;">Gửi báo cáo</button>
+
+    <div id="report-modal" class="modal-overlay" hidden>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="report-title">
+            <div class="modal-header">
+                <h3 id="report-title">Báo cáo phản hồi chưa đúng</h3>
+                <button class="icon-btn" type="button" onclick="closeReportModal()" aria-label="Đóng">×</button>
+            </div>
+            <p>Cho biết AI đã nhận diện sai thuốc, thiếu nguồn, hoặc diễn giải chưa đúng ở đâu.</p>
+            <textarea id="report-feedback" rows="5" placeholder="Ví dụ: AI không nhận ra thuốc trong đơn..."></textarea>
+            <div id="report-status" class="report-status" aria-live="polite"></div>
+            <div class="modal-actions">
+                <button class="ghost-btn" type="button" onclick="closeReportModal()">Hủy</button>
+                <button class="primary-btn" type="button" onclick="submitReport()">Gửi báo cáo</button>
             </div>
         </div>
     </div>
-    
-    <script src="app.js?v=9"></script>
+
+    <script src="app.js?v=11"></script>
 </body>
 </html>

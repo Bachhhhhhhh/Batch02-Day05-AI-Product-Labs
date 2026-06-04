@@ -1358,3 +1358,147 @@ google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message
 2026-06-03 22:22:44 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 2.21ms
 2026-06-03 22:22:52 [INFO] [LongChauApp] Gemini API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Đây chỉ là phỏng đoán, tôi không tìm thấy thông tin cụ thể về thuốc XZ-999 trong cơ sở dữ liệu của mình. Đề nghị bạn xác nhận với dược sĩ hoặc bác sĩ để có thông tin chính xác nhất.', 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
 2026-06-03 22:22:52 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6473.64ms
+2026-06-04 13:15:27 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 31.78ms
+2026-06-04 13:16:23 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 1.99ms
+2026-06-04 13:16:23 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 2.00ms
+2026-06-04 13:16:23 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 2.00ms
+2026-06-04 13:16:42 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về triệu chứng hoặc tình trạng sức khỏe mà bạn đang gặp phải không ạ? Tôi sẽ giúp bạn giải thích đơn thuốc tốt hơn.', 'combined_effect': '⚠️ Ứng dụng hiện chưa có đủ dữ liệu về tất cả các loại thuốc trong đơn của bạn để đưa ra đánh giá kết hợp chính xác nhất.', 'prescription_explanation': '', 'side_effects': [], 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:16:42 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 14555.94ms
+2026-06-04 13:17:04 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về triệu chứng hoặc tình trạng sức khỏe mà bạn đang gặp phải không ạ? Tôi sẽ giúp bạn giải thích đơn thuốc tốt hơn.', 'combined_effect': '', 'prescription_explanation': '', 'side_effects': [], 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:17:04 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4823.90ms
+2026-06-04 13:17:19 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, tôi là Dược sĩ AI nên chỉ hỗ trợ tư vấn sức khỏe thôi ạ. Bạn có thể chia sẻ rõ hơn về tình trạng sức khỏe hoặc triệu chứng mà bạn đang gặp phải không ạ?', 'combined_effect': '', 'prescription_explanation': '', 'side_effects': [], 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:17:19 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 6356.34ms
+2026-06-04 13:17:36 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về triệu chứng hoặc tình trạng sức khỏe mà bạn đang gặp phải không ạ? Tôi sẽ giúp bạn tìm hiểu thêm về thuốc XZ-999.', 'combined_effect': '', 'prescription_explanation': '', 'side_effects': [], 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:17:36 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 10144.72ms
+2026-06-04 13:18:59 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về triệu chứng hoặc tình trạng sức khỏe mà bạn đang gặp phải không ạ? Tôi sẽ giúp bạn tìm hiểu thêm về thuốc Alpha-Chymotrypsin Euvipharm.', 'combined_effect': '', 'prescription_explanation': '', 'side_effects': [], 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:18:59 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5086.22ms
+2026-06-04 13:19:21 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': ['bỏng'], 'confidence': 'high', 'message': 'Khi bị bỏng, bạn cần chăm sóc vết thương kịp thời để giảm đau và ngăn ngừa nhiễm trùng. Tôi khuyên bạn nên sử dụng các sản phẩm OTC như thuốc giảm đau và hạ sốt hoặc thuốc dị ứng nếu cần thiết.', 'combined_effect': '', 'prescription_explanation': '', 'side_effects': [], 'categories': ['thuốc giảm đau & hạ sốt'], 'recommendations': ['Nên giữ vết bỏng sạch sẽ và khô ráo, tránh tiếp xúc với các chất gây kích ứng.'], 'warnings': ['Vui lòng tham khảo ý kiến bác sĩ/dược sĩ.'], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:19:21 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5778.75ms
+2026-06-04 13:20:19 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': ['bỏng'], 'confidence': 'high', 'message': 'Thuốc Alpha-Chymotrypsin Euvipharm được chỉ định để điều trị phù nề sau chấn thương, phẫu thuật và bỏng. Khi sử dụng thuốc này, bạn cần lưu ý một số điều sau.', 'combined_effect': '', 'prescription_explanation': '| Thuốc | Dùng để làm gì | Cách dùng theo nguồn | Lưu ý an toàn | Tác dụng phụ cần chú ý | Nguồn |\n| --- | --- | --- | --- | --- | --- |\n| Alpha-Chymotrypsin Euvipharm | Điều trị phù nề sau chấn thương, phẫu thuật, bỏng | Uống 2 viên/lần, ngày 3 - 4 lần | Không sử dụng cho người dị ứng với chymotrypsin | Thay đổi sắc da, rối loạn tiêu hóa | Chưa tìm thấy dữ liệu về thuốc này trong database demo', 'side_effects': ['Thay đổi sắc da', 'Rối loạn tiêu hóa', 'Đầy hơi', 'Tiêu chảy', 'Buồn nôn'], 'categories': [], 'recommendations': ['Nên uống thuốc với nhiều nước để tăng hiệu quả', 'Theo dõi các tác dụng phụ và thông báo cho bác sĩ nếu có'], 'warnings': ['Vui lòng tham khảo ý kiến bác sĩ/dược sĩ.', 'Thông tin dưới đây chỉ để bạn hiểu đơn thuốc, không thay thế chỉ định của bác sĩ hoặc tư vấn trực tiếp từ dược sĩ.'], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:20:19 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7444.68ms
+2026-06-04 13:22:51 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': ['phù nề sau chấn thương', 'phù nề sau phẫu thuật', 'phù nề do bỏng'], 'confidence': 'high', 'message': 'Thuốc Alpha-Chymotrypsin Euvipharm được chỉ định để điều trị phù nề sau chấn thương, phẫu thuật và bỏng. Thuốc này giúp giảm viêm và phù nề mô mềm bằng cách tác động lên các liên kết protein.', 'combined_effect': '', 'prescription_explanation': '| Thuốc | Dùng để làm gì | Cách dùng theo nguồn | Lưu ý an toàn | Tác dụng phụ cần chú ý | Nguồn |\n|--------|----------------|--------------------|-----------------|-----------------------|------|\n| Alpha-Chymotrypsin Euvipharm | Điều trị phù nề sau chấn thương, phẫu thuật, bỏng | Uống 2 viên/lần, 3-4 lần/ngày | Chống chỉ định trong trường hợp dị ứng với chymotrypsin | Tăng nhãn áp, rối loạn tiêu hóa | Chưa tìm thấy dữ liệu về thuốc này trong database demo |', 'side_effects': ['tăng nhãn áp', 'rối loạn tiêu hóa'], 'categories': [], 'recommendations': ['Nên tham khảo ý kiến bác sĩ/dược sĩ trước khi sử dụng thuốc.'], 'warnings': ['Vui lòng tham khảo ý kiến bác sĩ/dược sĩ.'], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:22:51 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 11392.89ms
+2026-06-04 13:23:50 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về triệu chứng hoặc tình trạng sức khỏe mà bạn đang gặp phải không ạ? Tôi sẽ giúp bạn tìm hiểu thêm về cách bảo quản thuốc Alpha-Chymotrypsin Euvipharm.', 'combined_effect': '', 'prescription_explanation': '', 'side_effects': [], 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:23:50 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3748.87ms
+2026-06-04 13:28:25 [INFO] [LongChauApp] OpenAI API Response Data: {'symptoms': [], 'confidence': 'low', 'message': 'Dạ, bạn có thể chia sẻ rõ hơn về triệu chứng hoặc tình trạng sức khỏe mà bạn đang gặp phải không ạ? Tôi sẽ giúp bạn tìm hiểu thêm về thuốc Allopurinol 300mg Domesco.', 'combined_effect': '', 'prescription_explanation': '', 'side_effects': [], 'categories': [], 'recommendations': [], 'warnings': [], 'is_emergency': False, 'clarifying_questions': [], 'references': []}
+2026-06-04 13:28:25 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3486.01ms
+2026-06-04 13:29:41 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 13:51:52 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 79.06ms
+2026-06-04 13:51:52 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 10.13ms
+2026-06-04 13:51:52 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 19.29ms
+2026-06-04 13:52:34 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 13:54:03 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 33.04ms
+2026-06-04 13:54:04 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 67.88ms
+2026-06-04 13:55:11 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 3.00ms
+2026-06-04 13:55:11 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 2.00ms
+2026-06-04 13:55:11 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 13:55:36 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 13:55:36 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 15.72ms
+2026-06-04 13:56:01 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 13:56:01 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 12.82ms
+2026-06-04 14:10:32 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:10:32 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 16.33ms
+2026-06-04 14:11:17 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 14:11:17 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 0.00ms
+2026-06-04 14:11:17 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 4.22ms
+2026-06-04 14:11:19 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:11:19 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 34.43ms
+2026-06-04 14:12:59 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:12:59 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 48.36ms
+2026-06-04 14:13:16 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:13:16 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 67.98ms
+2026-06-04 14:13:32 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:13:32 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 58.27ms
+2026-06-04 14:13:46 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:13:46 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 68.16ms
+2026-06-04 14:18:26 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 5.00ms
+2026-06-04 14:18:26 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 2.00ms
+2026-06-04 14:18:26 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 2.00ms
+2026-06-04 14:18:30 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:18:30 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 142.64ms
+2026-06-04 14:19:07 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 1.98ms
+2026-06-04 14:19:09 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 14:19:09 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 127.39ms
+2026-06-04 14:47:26 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 12.85ms
+2026-06-04 14:48:12 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 48.83ms
+2026-06-04 14:48:13 [WARNING] [LongChauApp] HTTP Exception at /api/chat: There was an error parsing the body
+2026-06-04 14:48:13 [WARNING] [LongChauApp] HTTP Exception at /api/chat: There was an error parsing the body
+2026-06-04 14:48:13 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 400 | Time: 282.05ms
+2026-06-04 14:48:13 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 400 | Time: 17.07ms
+2026-06-04 14:49:03 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 5.49ms
+2026-06-04 14:49:03 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 14:49:03 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 39.22ms
+2026-06-04 14:51:29 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 14:51:29 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 15.71ms
+2026-06-04 14:51:29 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 14:57:49 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 41.91ms
+2026-06-04 15:04:33 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 8.98ms
+2026-06-04 15:04:33 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 9.83ms
+2026-06-04 15:04:33 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 9.83ms
+2026-06-04 15:04:49 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 15:04:49 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 15:04:49 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 7.07ms
+2026-06-04 15:04:56 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:04:56 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 200.56ms
+2026-06-04 15:05:05 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:05:05 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 63.28ms
+2026-06-04 15:06:11 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:06:11 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 38.32ms
+2026-06-04 15:11:06 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 15:12:12 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 15:12:12 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 15:12:12 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 14.02ms
+2026-06-04 15:15:38 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 30.22ms
+2026-06-04 15:17:56 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 0.00ms
+2026-06-04 15:17:56 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 15:17:56 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 0.00ms
+2026-06-04 15:17:57 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 36.42ms
+2026-06-04 15:22:20 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 7.99ms
+2026-06-04 15:22:20 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 10.11ms
+2026-06-04 15:22:20 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 5.51ms
+2026-06-04 15:22:21 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 36.82ms
+2026-06-04 15:28:07 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 3.22ms
+2026-06-04 15:28:07 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 200 | Time: 0.00ms
+2026-06-04 15:28:07 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 200 | Time: 15.61ms
+2026-06-04 15:28:10 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:28:10 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 169.31ms
+2026-06-04 15:29:06 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:29:06 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 58.21ms
+2026-06-04 15:32:59 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:33:00 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 8.18ms
+2026-06-04 15:33:03 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:33:03 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 32.53ms
+2026-06-04 15:39:31 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:39:31 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3.45ms
+2026-06-04 15:39:46 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:39:46 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 65.86ms
+2026-06-04 15:47:30 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 23.19ms
+2026-06-04 15:47:30 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 34.67ms
+2026-06-04 15:48:44 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 98.36ms
+2026-06-04 15:49:36 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 168.87ms
+2026-06-04 15:49:36 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 69.62ms
+2026-06-04 15:49:36 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 77.64ms
+2026-06-04 15:50:32 [INFO] [LongChauApp] Path: / | Method: GET | Status: 304 | Time: 0.00ms
+2026-06-04 15:50:32 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 0.00ms
+2026-06-04 15:50:32 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 10.51ms
+2026-06-04 15:51:56 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 15:53:42 [INFO] [LongChauApp] Path: / | Method: GET | Status: 200 | Time: 2.96ms
+2026-06-04 15:53:42 [INFO] [LongChauApp] Path: /style.css | Method: GET | Status: 304 | Time: 2.15ms
+2026-06-04 15:53:42 [INFO] [LongChauApp] Path: /app.js | Method: GET | Status: 304 | Time: 1.00ms
+2026-06-04 15:53:47 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:53:47 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 8.01ms
+2026-06-04 15:54:11 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:54:11 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 5.58ms
+2026-06-04 15:54:18 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:54:18 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 28.47ms
+2026-06-04 15:59:00 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:59:00 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 3.29ms
+2026-06-04 15:59:14 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:59:14 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 7.27ms
+2026-06-04 15:59:22 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:59:22 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 12.05ms
+2026-06-04 15:59:33 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 15:59:33 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 8.00ms
+2026-06-04 16:00:30 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.
+2026-06-04 16:00:30 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.84ms
+2026-06-04 16:02:57 [INFO] [LongChauApp] Using deterministic prescription explainer instead of free-form OpenAI prescribing flow.

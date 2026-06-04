@@ -80,6 +80,72 @@ STOPWORDS = {
     "ml",
 }
 
+SYMPTOM_WORDS = {
+    "dau",
+    "rat",
+    "hong",
+    "ho",
+    "sot",
+    "so",
+    "mui",
+    "nghet",
+    "met",
+    "moi",
+    "ngua",
+    "man",
+    "do",
+    "non",
+    "oi",
+    "tieu",
+    "chay",
+    "bung",
+    "dau bung",
+    "dau dau",
+    "cam",
+    "cum",
+    "viem",
+    "kho",
+    "tho",
+    "chong",
+    "mat",
+}
+
+DRUG_CONTEXT_WORDS = {
+    "thuoc",
+    "don thuoc",
+    "toa thuoc",
+    "bac si ke",
+    "bs ke",
+    "giai thich",
+    "luu y",
+    "cach dung",
+    "tac dung",
+}
+
+DRUG_FORM_PREFIXES = (
+    "Thuốc nhỏ mắt",
+    "Dung dịch uống",
+    "Dung dịch",
+    "Viên nén",
+    "Viên nang",
+    "Siro",
+    "Kem bôi",
+    "Gel bôi",
+    "Thuốc",
+)
+
+DESCRIPTION_STARTERS = (
+    " điều trị ",
+    " hỗ trợ ",
+    " bổ sung ",
+    " phòng và điều trị ",
+    " phòng ngừa ",
+    " giảm ",
+    " dùng ",
+    " chứa ",
+    " trị ",
+)
+
 
 def _normalize(text: str) -> str:
     text = (text or "").replace("Đ", "D").replace("đ", "d")
@@ -125,6 +191,18 @@ def _is_new_prescription_request(text: str) -> bool:
     return any(keyword in normalized for keyword in PRESCRIBE_KEYWORDS)
 
 
+def _has_drug_context(text: str) -> bool:
+    normalized = _normalize(text)
+    return any(keyword in normalized for keyword in DRUG_CONTEXT_WORDS)
+
+
+def _looks_like_symptom_only(text: str) -> bool:
+    normalized = _normalize(text)
+    has_first_person_symptom = bool(re.search(r"\b(toi|minh|em|con|me|bo|ba)\s+(bi|dang bi|thay|cam thay)\b", normalized))
+    symptom_hits = sum(1 for symptom in SYMPTOM_WORDS if re.search(rf"\b{re.escape(symptom)}\b", normalized))
+    return has_first_person_symptom and symptom_hits > 0 and not _has_drug_context(text)
+
+
 def _base_response(message: str, confidence: str = "low", is_emergency: bool = False) -> dict:
     return {
         "symptoms": [],
@@ -155,6 +233,47 @@ def _clean_name(text: str) -> str:
     text = re.sub(r"\s+-\s+.*$", " ", text)
     text = re.sub(r"\b\d+[,.]\d+\s*(viên|vien|ống|ong|lọ|lo|gói|goi)\b", " ", text, flags=re.IGNORECASE)
     return re.sub(r"\s+", " ", text).strip(" .:-;,")
+
+
+def _display_drug_name(drug_name: str) -> str:
+    name = re.sub(r"\([^()]*\)", " ", drug_name or "")
+    for prefix in DRUG_FORM_PREFIXES:
+        name = re.sub(rf"^{re.escape(prefix)}\s+", "", name, flags=re.IGNORECASE)
+        break_match = re.match(rf"^{re.escape(prefix)}\s+", drug_name or "", flags=re.IGNORECASE)
+        if break_match:
+            break
+
+    lowered = _normalize(name)
+    cut_positions = []
+    for starter in DESCRIPTION_STARTERS:
+        idx = lowered.find(_normalize(starter))
+        if idx > 0:
+            cut_positions.append(idx)
+    if cut_positions:
+        name = name[: min(cut_positions)]
+
+    name = re.sub(r"\s+-\s+.*$", "", name)
+    name = re.sub(r"\b\d+\s*(vỉ|vi|viên|vien|ống|ong|lọ|lo|gói|goi)\b.*$", "", name, flags=re.IGNORECASE)
+    return re.sub(r"\s+", " ", name).strip(" .:-;,")
+
+
+@lru_cache(maxsize=1)
+def _drug_index() -> list[dict]:
+    indexed = []
+    for drug in _load_drugs():
+        raw_name = drug.get("drug_name", "")
+        display_name = _display_drug_name(raw_name)
+        indexed.append(
+            {
+                "drug": drug,
+                "raw_name": raw_name,
+                "display_name": display_name,
+                "raw_norm": _normalize(raw_name),
+                "display_norm": _normalize(display_name),
+                "display_tokens": _tokens(display_name),
+            }
+        )
+    return indexed
 
 
 def _clean_candidate(text: str) -> str:
@@ -226,14 +345,44 @@ def _score_drug(query: str, drug_name: str) -> int:
 
 
 def _find_drug(query: str) -> dict | None:
-    best_drug = None
+    query_norm = _normalize(_clean_candidate(query))
+    query_tokens = _tokens(query)
+    if not query_norm or not query_tokens:
+        return None
+
+    best_item = None
     best_score = 0
-    for drug in _load_drugs():
-        score = _score_drug(query, drug.get("drug_name", ""))
+    for item in _drug_index():
+        display_norm = item["display_norm"]
+        raw_norm = item["raw_norm"]
+        display_tokens = item["display_tokens"]
+        token_hits = sum(1 for token in query_tokens if token in display_tokens or token in display_norm)
+
+        exactish = (
+            query_norm == display_norm
+            or re.search(rf"\b{re.escape(query_norm)}\b", display_norm)
+            or all(token in display_norm for token in query_tokens)
+        )
+        if not exactish:
+            continue
+
+        # Do not let generic symptom words retrieve medicines from indication text.
+        if token_hits == 0 or all(token in SYMPTOM_WORDS for token in query_tokens):
+            continue
+
+        score = 120 + token_hits if query_norm in display_norm else 100 + token_hits
+        if query_norm in raw_norm and score < 110:
+            score = 110 + token_hits
         if score > best_score:
             best_score = score
-            best_drug = drug
-    return best_drug if best_score >= 75 else None
+            best_item = item
+
+    if not best_item:
+        return None
+
+    drug = dict(best_item["drug"])
+    drug["_display_name"] = best_item["display_name"]
+    return drug
 
 
 def _sentences(text: str) -> list[str]:
@@ -273,7 +422,7 @@ def _explain_item(requested: dict) -> tuple[dict, dict | None]:
     dosage = requested.get("schedule") or _summary(drug.get("dosage", ""))
     return (
         {
-            "name": requested["name"],
+            "name": drug.get("_display_name") or _display_drug_name(drug.get("drug_name", "")),
             "matched_name": drug.get("drug_name", ""),
             "use": _summary(drug.get("uses", "")),
             "dosage": dosage,
@@ -306,6 +455,13 @@ def _markdown_table(rows: list[dict]) -> str:
 
 
 def _explain_drugs(message: str) -> dict:
+    if _looks_like_symptom_only(message):
+        return _base_response(
+            f"{DISCLAIMER}\n\nMình không kê đơn, không chẩn đoán và không đề xuất thuốc mới từ triệu chứng. "
+            "Nếu bạn đã có đơn thuốc hoặc tên thuốc cụ thể, hãy nhập đúng tên thuốc để mình giải thích.",
+            confidence="low",
+        )
+
     requested_items = _extract_requested_drugs(message)
     if not requested_items:
         response = _base_response(

@@ -1,21 +1,15 @@
-// Frontend Logic for Long Châu Care Guide
+// Frontend logic for Long Chau Care Guide prescription explainer.
 
 document.addEventListener("DOMContentLoaded", () => {
-    // DOM Elements
     const chatForm = document.getElementById("chat-form");
     const userInput = document.getElementById("user-input");
     const chatMessagesContainer = document.getElementById("chat-messages-container");
     const sendBtn = document.getElementById("send-btn");
     const clearChatBtn = document.getElementById("clear-chat-btn");
-
-    // Config Elements
     const aiProvider = document.getElementById("ai-provider");
-
-    // Logger Elements
     const logConsole = document.getElementById("log-console");
     const clearLogsBtn = document.getElementById("clear-logs-btn");
 
-    // Demo Preset Buttons
     const presetHappy = document.getElementById("preset-happy");
     const presetLowConf = document.getElementById("preset-low-conf");
     const presetSafety = document.getElementById("preset-safety");
@@ -23,10 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const presetCombinedFull = document.getElementById("preset-combined-full");
     const presetCombinedMissing = document.getElementById("preset-combined-missing");
 
-    // Chat History State
     let chatHistory = [];
 
-    // Load saved Provider from LocalStorage
     if (localStorage.getItem("longchau_api_provider")) {
         aiProvider.value = localStorage.getItem("longchau_api_provider");
     }
@@ -35,85 +27,60 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("longchau_api_provider", aiProvider.value);
     });
 
-    // Logger helper
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
     function addLog(type, message) {
-        const timestamp = new Date().toLocaleTimeString();
+        const timestamp = new Date().toLocaleTimeString("vi-VN");
         const logLine = document.createElement("div");
         logLine.className = `log-line ${type}`;
-        logLine.innerHTML = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+        logLine.textContent = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
         logConsole.appendChild(logLine);
         logConsole.scrollTop = logConsole.scrollHeight;
     }
 
-    // Clear logs
+    function isMeaningfulArray(arr) {
+        if (!Array.isArray(arr) || arr.length === 0) return false;
+        return arr.some((item) => {
+            const text = String(item ?? "").trim().toLowerCase();
+            return text && !["none", "không", "không có", "n/a", "null"].includes(text);
+        });
+    }
+
+    function resetWelcome(message = "Lịch sử trò chuyện đã được làm mới. Mình sẵn sàng giải thích đơn thuốc hoặc tên thuốc.") {
+        chatMessagesContainer.innerHTML = `
+            <div class="message system-message">
+                <div class="avatar" aria-hidden="true">AI</div>
+                <div class="message-bubble">
+                    <p>${escapeHtml(message)}</p>
+                </div>
+            </div>
+        `;
+    }
+
     clearLogsBtn.addEventListener("click", () => {
         logConsole.innerHTML = '<div class="log-line system">[System] Logs cleared.</div>';
     });
 
-    // Custom Toast Notification
-    window.showToast = function (message) {
-        let toast = document.getElementById("toast-notification");
-        if (!toast) {
-            toast = document.createElement("div");
-            toast.id = "toast-notification";
-            toast.style.position = "fixed";
-            toast.style.bottom = "24px";
-            toast.style.right = "24px";
-            toast.style.backgroundColor = "var(--primary-dark)";
-            toast.style.color = "white";
-            toast.style.padding = "14px 24px";
-            toast.style.borderRadius = "8px";
-            toast.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
-            toast.style.zIndex = "10000";
-            toast.style.fontSize = "0.95rem";
-            toast.style.fontWeight = "500";
-            toast.style.transition = "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)";
-            toast.style.transform = "translateY(100px)";
-            toast.style.opacity = "0";
-            document.body.appendChild(toast);
-        }
-
-        toast.innerHTML = `🛒 ${message}`;
-        toast.style.display = "block";
-
-        // Trigger animation
-        setTimeout(() => {
-            toast.style.transform = "translateY(0)";
-            toast.style.opacity = "1";
-        }, 10);
-
-        // Hide after 3s
-        setTimeout(() => {
-            toast.style.transform = "translateY(20px)";
-            toast.style.opacity = "0";
-            setTimeout(() => {
-                toast.style.display = "none";
-            }, 300);
-        }, 3000);
-    };
-
-    // Clear Chat
     clearChatBtn.addEventListener("click", () => {
-        chatHistory = [];  // Reset conversation memory
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p>Lịch sử trò chuyện đã được làm mới. Tôi sẵn sàng hỗ trợ bạn.</p>
-                </div>
-            </div>
-        `;
-        addLog("system", "Lịch sử trò chuyện được đặt lại.");
+        chatHistory = [];
+        resetWelcome();
+        addLog("system", "Conversation reset.");
     });
 
-    // Append standard user/bot message bubble
-    function appendMessage(sender, content, customClass = "") {
+    function appendMessage(sender, content) {
         const messageDiv = document.createElement("div");
-        messageDiv.className = `message ${sender}-message ${customClass}`;
+        messageDiv.className = `message ${sender}-message`;
 
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
-        avatarDiv.textContent = sender === "user" ? "👤" : "🤖";
+        avatarDiv.textContent = sender === "user" ? "You" : "AI";
 
         const bubbleDiv = document.createElement("div");
         bubbleDiv.className = "message-bubble";
@@ -123,239 +90,204 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.appendChild(bubbleDiv);
         chatMessagesContainer.appendChild(messageDiv);
         chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-
         return messageDiv;
     }
 
-    // Render diagnostic structure (symptoms, products, recommendations)
+    function createReportButton(data) {
+        const reportBtn = document.createElement("button");
+        reportBtn.className = "report-btn";
+        reportBtn.type = "button";
+        reportBtn.title = "Báo cáo vấn đề";
+        reportBtn.textContent = "Report";
+        reportBtn.onclick = () => window.openReportModal(data.message || "No message content");
+        return reportBtn;
+    }
+
+    function renderMarkdown(markdown) {
+        if (window.marked) {
+            return marked.parse(markdown);
+        }
+        return escapeHtml(markdown).replace(/\n/g, "<br>");
+    }
+
+    function buildLongTextControls() {
+        return `
+            <div class="action-row">
+                <button class="content-toggle" type="button" data-action="summary">Tóm tắt nội dung dài</button>
+                <button class="content-toggle" type="button" data-action="full">Xem đầy đủ</button>
+            </div>
+        `;
+    }
+
+    function summarizeMarkdownTable(markdown) {
+        const lines = markdown.split("\n").filter((line) => line.trim().startsWith("|"));
+        if (lines.length < 3) return "";
+
+        const rows = lines.slice(2).map((line) => line
+            .split("|")
+            .slice(1, -1)
+            .map((cell) => cell.replace(/\*\*/g, "").replace(/\s+/g, " ").trim()));
+
+        const items = rows.map((cells) => {
+            const [drug, use, sourceUsage, safety, sideEffects, source] = cells;
+            return `
+                <div class="summary-card">
+                    <h4>${escapeHtml(drug || "Thuốc")}</h4>
+                    <p><strong>Dùng để làm gì:</strong> ${escapeHtml(shortenSentence(use))}</p>
+                    <p><strong>Cách dùng:</strong> ${escapeHtml(shortenSentence(sourceUsage))}</p>
+                    <p><strong>Lưu ý:</strong> ${escapeHtml(shortenSentence(safety || sideEffects || source))}</p>
+                </div>
+            `;
+        }).join("");
+
+        return `<div class="summary-grid">${items}</div>`;
+    }
+
+    function shortenSentence(text) {
+        const clean = String(text || "").replace(/\s+/g, " ").trim();
+        if (!clean) return "Chưa có dữ liệu trong database demo.";
+        const withoutLongChauPrefix = clean
+            .replace(/^Trước khi sử dụng thuốc bạn cần đọc kỹ hướng dẫn sử dụng và tham khảo thông tin bên dưới\.?\s*/i, "")
+            .replace(/^Thông báo cho thầy thuốc các tác dụng không mong muốn gặp phải khi sử dụng thuốc\.?\s*/i, "");
+        const clauses = withoutLongChauPrefix
+            .split(/(?<=[.!?。])\s+|;\s+|\.\s*Chống chỉ định\s+/i)
+            .map((part) => part.trim())
+            .filter(Boolean);
+        const firstMeaningful = clauses.find((part) => part.length >= 18) || clauses[0] || withoutLongChauPrefix;
+        const words = firstMeaningful.split(" ");
+        if (words.length <= 32) return firstMeaningful;
+        return `${words.slice(0, 32).join(" ")}. Xem đầy đủ để đọc toàn bộ chi tiết.`;
+    }
+
+    function attachContentToggles(wrapper, markdown) {
+        const markdownNode = wrapper.querySelector(".markdown-content");
+        const summaryHtml = summarizeMarkdownTable(markdown);
+        if (!markdownNode || !summaryHtml) return;
+
+        wrapper.querySelectorAll("[data-action]").forEach((button) => {
+            button.addEventListener("click", () => {
+                if (button.dataset.action === "summary") {
+                    markdownNode.innerHTML = summaryHtml;
+                    addLog("rule", "Rendered semantic summary for long prescription output.");
+                } else {
+                    markdownNode.innerHTML = renderMarkdown(markdown);
+                    addLog("rule", "Rendered full prescription output.");
+                }
+            });
+        });
+    }
+
     function appendDiagnosticMessage(data) {
         const messageDiv = document.createElement("div");
         messageDiv.className = "message system-message";
 
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
-        avatarDiv.textContent = "🤖";
+        avatarDiv.textContent = "AI";
 
         const bubbleDiv = document.createElement("div");
         bubbleDiv.className = "message-bubble";
 
-        let htmlContent = `<p>${data.message}</p>`;
+        const message = escapeHtml(data.message || "");
+        const prescriptionMarkdown = String(data.prescription_explanation || "").trim();
+        const hasPrescription = Boolean(prescriptionMarkdown);
 
-        // 1. Emergency Case Render
+        let htmlContent = `<p>${message}</p>`;
+
         if (data.is_emergency) {
             htmlContent = `
                 <div class="emergency-alert-card">
-                    <div class="emergency-header">
-                        <div class="emergency-icon">!</div>
-                        <div class="emergency-title">Cảnh Báo Cấp Cứu</div>
-                    </div>
-                    <div class="emergency-body">
-                        <p>${data.message}</p>
-                        <div class="result-section-title">Khuyến cáo khẩn cấp:</div>
-                        <ul class="warning-list" style="margin-bottom: 16px;">
-                            ${data.warnings.map(w => `<li><strong>${w}</strong></li>`).join("")}
-                            ${data.recommendations.map(r => `<li>${r}</li>`).join("")}
-                        </ul>
-                    </div>
-                    <div class="emergency-actions">
-                        <a href="tel:115" class="emergency-btn call-btn">
-                            📞 Gọi Cấp Cứu 115
-                        </a>
-                        <a href="https://www.google.com/maps/search/bệnh+viện+gần+nhất" target="_blank" class="emergency-btn map-btn">
-                            📍 Tìm Bệnh Viện Gần Nhất
-                        </a>
-                    </div>
+                    <div class="result-section-title">Cảnh báo khẩn cấp</div>
+                    <p>${message}</p>
+                    ${renderList(data.warnings, "warning-list")}
+                    ${renderList(data.recommendations, "advice-list")}
                 </div>
             `;
-            addLog("rule", "HIỂN THỊ CẢNH BÁO CẤP CỨU MÀU ĐỎ (SAFETY GUARDRAIL).");
-        }
-        // 2. Low Confidence / Ask for clarification
-        else if (data.confidence === "low") {
+            addLog("rule", "Emergency guardrail response rendered.");
+        } else if (hasPrescription) {
             htmlContent += `
                 <div class="diagnostic-container">
-                    <div class="result-section-title">Vui lòng cung cấp thêm thông tin:</div>
-                    <div class="hint-chips">
-                        ${data.clarifying_questions.map(q => `
-                            <button class="hint-chip" onclick="setInputValue('${q.replace('Bạn có ', 'Tôi bị ').replace('không?', '')}')">${q}</button>
-                        `).join("")}
+                    <div class="prescription-explanation">
+                        <div class="result-section-title">Bảng giải thích đơn thuốc</div>
+                        <div class="markdown-content">${renderMarkdown(prescriptionMarkdown)}</div>
+                        ${buildLongTextControls()}
                     </div>
+                    ${renderCombinedEffect(data.combined_effect)}
+                    ${renderSectionList("Tác dụng phụ cần chú ý", data.side_effects, "side-effects-list")}
+                    ${renderSectionList("Cảnh báo an toàn", data.warnings, "warning-list")}
                 </div>
             `;
-            addLog("rule", "Nhận diện độ tin cậy thấp. Hiển thị các câu hỏi gợi ý làm rõ.");
-        }
-        // 3. Happy Path / Normal OTC Suggestion
-        else {
-            function isMeaningfulArray(arr) {
-                if (!arr || !Array.isArray(arr) || arr.length === 0) return false;
-                return arr.some(item => {
-                    if (typeof item !== 'string') return true;
-                    const text = item.trim().toLowerCase();
-                    return text !== "" && text !== "none" && text !== "không" && text !== "không có" && text !== "n/a" && text !== "null";
-                });
-            }
-
-            const hasSymptoms = isMeaningfulArray(data.symptoms);
-            const hasCategories = isMeaningfulArray(data.categories);
-            const hasPrescription = data.prescription_explanation && data.prescription_explanation.trim() !== "";
-
-            if (!hasSymptoms && !hasCategories && !hasPrescription) {
-                // General conversation or out-of-scope response
-                if (data.clarifying_questions && data.clarifying_questions.length > 0) {
-                    htmlContent += `
-                        <div class="diagnostic-container">
-                            <div class="hint-chips" style="margin-top: 10px;">
-                                ${data.clarifying_questions.map(q => `
-                                    <button class="hint-chip" onclick="setInputValue('${q.replace('Bạn có ', 'Tôi bị ').replace('không?', '')}')">${q}</button>
-                                `).join("")}
-                            </div>
-                        </div>
-                    `;
-                }
-                addLog("rule", "Giao tiếp chung hoặc câu hỏi ngoài phạm vi y tế, chỉ hiển thị lời nhắn.");
-            } else {
-                const symptomTags = hasSymptoms
-                    ? data.symptoms.filter(s => s && s.trim() !== "" && s.toLowerCase() !== "không có").map(s => `<span class="symptom-tag safe-tag">${s}</span>`).join(" ")
-                    : "";
-
-                let adviceList = "";
-                if (isMeaningfulArray(data.recommendations)) {
-                    adviceList = `
-                        <div class="result-section-title">Lời khuyên chăm sóc ban đầu:</div>
-                        <ul class="advice-list">
-                            ${data.recommendations.filter(r => r && r.trim() !== "" && r.toLowerCase() !== "không có").map(r => `<li>${r}</li>`).join("")}
-                        </ul>
-                    `;
-                }
-
-                let prescriptionExplanation = "";
-                if (data.prescription_explanation && data.prescription_explanation.trim() !== "") {
-                    // Use marked to parse markdown table if available, else fallback to text
-                    const parsedHtml = window.marked ? marked.parse(data.prescription_explanation) : data.prescription_explanation.replace(/\n/g, '<br>');
-                    prescriptionExplanation = `
-                        <div class="prescription-explanation">
-                            <div class="result-section-title" style="color: var(--primary);">💊 Giải Thích Đơn Thuốc:</div>
-                            <div class="markdown-content">${parsedHtml}</div>
-                        </div>
-                    `;
-                }
-
-                let combinedEffectHtml = "";
-                if (data.combined_effect && data.combined_effect.trim() !== "") {
-                    combinedEffectHtml = `
-                        <div class="combined-effect-section">
-                            <strong style="color: var(--primary);">🩺 Tác dụng kết hợp:</strong>
-                            <p style="margin-top: 5px; font-size: 0.95rem;">${data.combined_effect.replace(/\n/g, '<br>')}</p>
-                        </div>
-                    `;
-                }
-
-                let sideEffectsList = "";
-                if (isMeaningfulArray(data.side_effects)) {
-                    sideEffectsList = `
-                        <div class="result-section-title" style="color: #ff9800; margin-top: 15px;">⚠️ Tác Dụng Phụ Cần Lưu Ý:</div>
-                        <ul class="side-effects-list" style="color: #ff9800; list-style-type: none; padding-left: 0;">
-                            ${data.side_effects.filter(s => s && s.trim() !== "" && s.toLowerCase() !== "không có").map(s => `<li style="margin-bottom: 5px;">• ${s}</li>`).join("")}
-                        </ul>
-                    `;
-                }
-
-                let warningList = "";
-                if (isMeaningfulArray(data.warnings)) {
-                    warningList = `
-                        <div class="result-section-title">Cảnh báo an toàn:</div>
-                        <ul class="warning-list">
-                            ${data.warnings.filter(w => w && w.trim() !== "" && w.toLowerCase() !== "không có").map(w => `<li>${w}</li>`).join("")}
-                        </ul>
-                    `;
-                }
-
-                let referencesList = "";
-                if (data.references && data.references.length > 0) {
-                    referencesList = `
-                        <div class="result-section-title" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.85rem;">
-                            📚 Dữ liệu trích xuất từ:
-                        </div>
-                        <ul class="references-list" style="font-size: 0.85rem; color: var(--text-light); padding-left: 20px; margin-top: 5px; list-style-type: disc;">
-                            ${data.references.map(ref => `<li><a href="${ref.url}" target="_blank" style="color: var(--primary-light); text-decoration: none;">${ref.name}</a></li>`).join("")}
-                        </ul>
-                    `;
-                }
-
-                // Build products grid only for legacy responses. Prescription explainer never suggests OTC products.
-                let productsGridHtml = "";
-                if (!hasPrescription && data.products && data.products.length > 0) {
-                    productsGridHtml = `
-                        <div class="result-section-title">Sản phẩm gợi ý tại nhà thuốc Long Châu:</div>
-                        <div class="product-suggestions-grid">
-                            ${data.products.map(p => `
-                                <div class="product-card">
-                                    <div class="product-image-placeholder" style="background: ${p.image_gradient || 'var(--primary-gradient)'}">
-                                        ${p.name}
-                                    </div>
-                                    <div class="product-details">
-                                        <h4>${p.name}</h4>
-                                        <div class="price">${p.price}</div>
-                                        <div class="desc">${p.description}</div>
-                                        <div class="usage">HDSD: ${p.usage}</div>
-                                    </div>
-                                    <a href="https://nhathuoclongchau.com.vn/tim-kiem?s=${encodeURIComponent(p.name).replace(/%20/g, '+')}" target="_blank" class="product-action-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">Xem trên Long Châu</a>
-                                </div>
-                            `).join("")}
-                        </div>
-                    `;
-                } else if (!hasPrescription) {
-                    productsGridHtml = `<p style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">Không có sản phẩm OTC tự dùng trực tiếp cho triệu chứng này.</p>`;
-                }
-
-                htmlContent += `
-                    <div class="diagnostic-container">
-                        ${symptomTags ? `
-                        <div class="symptom-tags">
-                            <span class="result-section-title">Triệu chứng ghi nhận:</span>
-                            ${symptomTags}
-                        </div>
-                        ` : ''}
-                        
-                        ${prescriptionExplanation}
-                        ${combinedEffectHtml}
-                        ${sideEffectsList}
-                        
-                        ${adviceList}
-                        ${warningList}
-                        ${productsGridHtml}
-                        ${referencesList}
+            addLog("database", "Prescription explanation rendered from matched medicine data.");
+        } else if (data.confidence === "low") {
+            htmlContent += `
+                <div class="diagnostic-container">
+                    <div class="notice-card warning">
+                        <strong>Vui lòng cung cấp thêm thông tin</strong>
+                        <p>Nhập tên thuốc cụ thể trong đơn hoặc dán nguyên đơn thuốc. Nếu hỏi theo triệu chứng, hệ thống sẽ không kê đơn hoặc đề xuất thuốc mới.</p>
                     </div>
-                `;
-                addLog("database", `Đã trích xuất ${data.symptoms ? data.symptoms.length : 0} triệu chứng và gợi ý ${data.products ? data.products.length : 0} sản phẩm. Nguồn: ${data.references ? data.references.length : 0}.`);
-            }
+                    ${renderClarifyingQuestions(data.clarifying_questions)}
+                </div>
+            `;
+            addLog("rule", "Low confidence response rendered without suggesting replacement medicine.");
+        } else {
+            htmlContent += `
+                <div class="diagnostic-container">
+                    ${renderSectionList("Lưu ý", data.recommendations, "advice-list")}
+                    ${renderSectionList("Cảnh báo an toàn", data.warnings, "warning-list")}
+                </div>
+            `;
+            addLog("rule", "General safety response rendered.");
         }
-        
-        // Add Medical Disclaimer to all AI responses
+
         htmlContent += `
-            <div class="medical-disclaimer" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); font-size: 0.8rem; color: #9ca3af; font-style: italic;">
-                ⚠️ Lưu ý: Thông tin chỉ mang tính chất tham khảo, không thay thế chỉ định của Bác sĩ.
+            <div class="medical-disclaimer">
+                Lưu ý: Thông tin chỉ mang tính tham khảo để hiểu đơn thuốc, không thay thế chỉ định của bác sĩ hoặc tư vấn trực tiếp từ dược sĩ.
             </div>
         `;
 
         bubbleDiv.innerHTML = htmlContent;
-
-        // Add Report Button to AI messages
-        const reportBtn = document.createElement("button");
-        reportBtn.className = "report-btn";
-        reportBtn.title = "Báo cáo vấn đề";
-        reportBtn.innerHTML = "🚩";
-        reportBtn.onclick = function() {
-            window.openReportModal(data.message || "No message content");
-        };
-        bubbleDiv.appendChild(reportBtn);
-
+        bubbleDiv.appendChild(createReportButton(data));
         messageDiv.appendChild(avatarDiv);
         messageDiv.appendChild(bubbleDiv);
         chatMessagesContainer.appendChild(messageDiv);
+        attachContentToggles(bubbleDiv, prescriptionMarkdown);
         chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
     }
 
-    // Append Typing Indicator
+    function renderList(items, className) {
+        if (!isMeaningfulArray(items)) return "";
+        return `<ul class="${className}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+    }
+
+    function renderSectionList(title, items, className) {
+        if (!isMeaningfulArray(items)) return "";
+        return `
+            <div class="notice-card">
+                <div class="result-section-title">${escapeHtml(title)}</div>
+                ${renderList(items, className)}
+            </div>
+        `;
+    }
+
+    function renderCombinedEffect(text) {
+        if (!text || !String(text).trim()) return "";
+        return `
+            <div class="combined-effect-section">
+                <strong>Tác dụng kết hợp</strong>
+                <p>${escapeHtml(text).replace(/\n/g, "<br>")}</p>
+            </div>
+        `;
+    }
+
+    function renderClarifyingQuestions(questions) {
+        if (!isMeaningfulArray(questions)) return "";
+        return `
+            <div class="hint-chips">
+                ${questions.map((q) => `<button class="hint-chip" type="button" onclick="setInputValue('${escapeHtml(q)}')">${escapeHtml(q)}</button>`).join("")}
+            </div>
+        `;
+    }
+
     function showTypingIndicator() {
         const indicatorDiv = document.createElement("div");
         indicatorDiv.className = "message system-message typing-indicator-wrapper";
@@ -363,15 +295,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
-        avatarDiv.textContent = "🤖";
+        avatarDiv.textContent = "AI";
 
         const bubbleDiv = document.createElement("div");
         bubbleDiv.className = "message-bubble";
         bubbleDiv.innerHTML = `
             <div class="typing-indicator">
-                <span class="typing-dot"></span>
-                <span class="typing-dot"></span>
-                <span class="typing-dot"></span>
+                <span class="typing-line"></span>
+                <span class="typing-line"></span>
             </div>
         `;
 
@@ -386,20 +317,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function removeTypingIndicator() {
         const node = document.getElementById("typing-indicator-node");
-        if (node) {
-            node.remove();
-        }
+        if (node) node.remove();
         userInput.disabled = false;
         sendBtn.disabled = false;
         userInput.focus();
     }
 
-    // Send Message core function
     async function sendMessage(text) {
         if (!text.trim()) return;
 
-        appendMessage("user", text);
-        addLog("input", `Gửi: "${text}"`);
+        appendMessage("user", escapeHtml(text));
+        addLog("input", `Sent ${text.length} chars.`);
         showTypingIndicator();
 
         const payload = {
@@ -408,203 +336,117 @@ document.addEventListener("DOMContentLoaded", () => {
             chat_history: chatHistory
         };
 
-        // Cập nhật chatHistory tạm thời cho request tiếp theo
         chatHistory.push({ role: "user", content: text });
-
-        addLog("api", `Đang gọi API endpoint /api/chat (${aiProvider.value.toUpperCase()})...`);
+        addLog("api", `Calling /api/chat with ${aiProvider.value}.`);
 
         try {
             const response = await fetch("/api/chat", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
             if (!response.ok) {
-                throw new Error(`Mã lỗi HTTP: ${response.status}`);
+                throw new Error(`HTTP ${response.status}`);
             }
 
             const data = await response.json();
-            
-            // Lưu lại context phản hồi của model
             chatHistory.push({ role: "assistant", content: data.message });
 
-            addLog("api", `Phản hồi 200 OK. Confidence: "${data.confidence}", Emergency: ${data.is_emergency}`);
-
+            addLog("api", `Response OK. Confidence=${data.confidence}; prescription=${Boolean(data.prescription_explanation)}.`);
             removeTypingIndicator();
             appendDiagnosticMessage(data);
-
         } catch (error) {
-            console.error("API Call failed:", error);
+            console.error("API call failed:", error);
             removeTypingIndicator();
-            addLog("error", `Lỗi gọi API: ${error.message}`);
-            appendMessage("system", `⚠️ Rất tiếc, đã xảy ra lỗi kết nối với máy chủ AI: ${error.message}. Vui lòng kiểm tra lại dịch vụ backend.`);
+            addLog("error", error.message);
+            appendMessage("system", `<p>Không kết nối được backend: ${escapeHtml(error.message)}. Kiểm tra lại server rồi thử lại.</p>`);
         }
     }
 
-    // Handle form submit
-    chatForm.addEventListener("submit", (e) => {
-        e.preventDefault();
+    chatForm.addEventListener("submit", (event) => {
+        event.preventDefault();
         const text = userInput.value.trim();
-        if (text) {
-            sendMessage(text);
-            userInput.value = "";
-        }
+        if (!text) return;
+        userInput.value = "";
+        sendMessage(text);
     });
 
-    window.setInputValue = function (value) {
-        let processedValue = value;
-        const normalized = value.trim().replace(/\s+/g, ' ');
-        if (normalized === "Tôi bị bị đau, sốt hay ho") {
-            processedValue = "Tôi bị ";
-        } else if (normalized === "Tôi bị thể mô tả chi tiết hơn cảm giác khó chịu của bạn") {
-            processedValue = "tôi cảm thấy ";
-        }
-        userInput.value = processedValue;
+    window.setInputValue = function(value) {
+        userInput.value = value;
         userInput.focus();
     };
 
-    // --- PRESET SCENARIO TRIGGERS ---
-
-    // Happy Path
     presetHappy.addEventListener("click", () => {
-        addLog("system", "Khởi động kịch bản Happy Path (Tương tác Thuốc-Thức ăn)...");
-        userInput.value = "";
-        sendMessage("Thuốc Agi-Neurin có uống cùng với cà phê được không bạn?");
+        sendMessage("Allopurinol");
     });
 
-    // Low Confidence
     presetLowConf.addEventListener("click", () => {
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
-                </div>
-            </div>
-        `;
-        
-        addLog("system", "Khởi động kịch bản Low Confidence (Thuốc không có thật)...");
-        userInput.value = "";
-        sendMessage("Thuốc XZ-999 trị bệnh gì vậy?");
+        sendMessage("bác sĩ kê đơn thuốc Azopt Alcon cho tôi thì nên lưu ý những điều gì");
     });
 
-    // Safety Case (Failure Mode)
     presetSafety.addEventListener("click", () => {
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
-                </div>
-            </div>
-        `;
-        
-        addLog("system", "Khởi động kịch bản Failure Mode (Hỏi liều lượng)...");
-        userInput.value = "";
-        sendMessage("Mình đang bị mệt mỏi, ngày uống 10 viên Agi-Neurin được không?");
+        sendMessage("tôi bị gout nên uống thuốc gì");
     });
 
-    // Correction Path
     presetCorrection.addEventListener("click", () => {
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p><strong>[DEMO: Correction Path]</strong> Bắt đầu bằng ho rát họng, sau đó cập nhật thêm dị ứng da nổi mẩn.</p>
-                </div>
-            </div>
-        `;
-
-        addLog("system", "Khởi động kịch bản Correction Path...");
-        userInput.value = "";
-
-        sendMessage("Tôi bị ho rát họng khó chịu");
-
-        setTimeout(() => {
-            userInput.value = "À tôi còn nổi mẩn đỏ dị ứng ngứa toàn thân nữa";
-            addLog("system", "Auto-type: Người dùng bổ sung triệu chứng nổi mẩn ngứa.");
-        }, 3500);
+        sendMessage("1. CEFUROXIM 500MG ngày uống 2 lần. 2. BROMHEXIN 8MG ngày uống 3 lần. 3. PARACETAMOL 500MG + CAFFEINE 65MG ngày uống 3 lần.");
     });
-    // Combined (Đủ dữ liệu)
+
     presetCombinedFull.addEventListener("click", () => {
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p><strong>[DEMO: Đơn thuốc đầy đủ]</strong> Bắt đầu kiểm tra tính năng tổng hợp đơn thuốc.</p>
-                </div>
-            </div>
-        `;
-        addLog("system", "Khởi động kịch bản Combined (Đủ dữ liệu)...");
-        userInput.value = "";
-        sendMessage("Vui lòng giải thích đơn thuốc này giúp tôi: 1. Agi-Neurin, uống 2 viên/ngày. 2. A.T Ascorbic Syrup 100mg, uống 1 ống/ngày.");
+        sendMessage("Azopt Alcon");
     });
 
-    // Combined (Thiếu dữ liệu)
     presetCombinedMissing.addEventListener("click", () => {
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p><strong>[DEMO: Đơn thuốc thiếu dữ liệu]</strong> Bắt đầu kiểm tra tính năng cảnh báo dữ liệu ngoài CSDL.</p>
-                </div>
-            </div>
-        `;
-        addLog("system", "Khởi động kịch bản Combined (Thiếu dữ liệu)...");
-        userInput.value = "";
-        sendMessage("Bạn giải thích giúp mình đơn thuốc này với: 1. Thuốc Tiên Khí Xanh 500mg, uống 2 viên/ngày. 2. Thần Đan Bạch Kim, uống 1 viên/ngày.");
+        sendMessage("Thuốc Tiên Khí Xanh 500mg trong đơn của tôi dùng để làm gì?");
     });
 });
 
-// Global Report Functions
 window.currentReportMessage = "";
 
 window.openReportModal = function(msg) {
     window.currentReportMessage = msg;
     document.getElementById("report-feedback").value = "";
-    document.getElementById("report-modal").style.display = "flex";
+    document.getElementById("report-status").textContent = "";
+    document.getElementById("report-modal").hidden = false;
 };
 
 window.closeReportModal = function() {
-    document.getElementById("report-modal").style.display = "none";
+    document.getElementById("report-modal").hidden = true;
 };
 
 window.submitReport = async function() {
     const feedback = document.getElementById("report-feedback").value.trim();
+    const status = document.getElementById("report-status");
+    const reportBtn = document.querySelector(".modal-actions .primary-btn");
+
     if (!feedback) {
-        alert("Vui lòng nhập lý do báo cáo!");
+        status.textContent = "Vui lòng nhập lý do báo cáo.";
         return;
     }
-    
-    const reportBtn = document.querySelector("#report-modal button:last-child");
+
     const originalText = reportBtn.textContent;
     reportBtn.textContent = "Đang gửi...";
     reportBtn.disabled = true;
-    
+
     try {
-        const response = await fetch('/api/report', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+        const response = await fetch("/api/report", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 message: window.currentReportMessage,
                 user_feedback: feedback
             })
         });
-        
-        if (response.ok) {
-            alert("Cảm ơn bạn! Báo cáo đã được ghi nhận thành công.");
-            window.closeReportModal();
-        } else {
-            alert("Có lỗi xảy ra khi gửi báo cáo.");
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
+
+        status.textContent = "Đã ghi nhận báo cáo. Cảm ơn bạn.";
+        setTimeout(() => window.closeReportModal(), 900);
     } catch (error) {
-        console.error("Report error:", error);
-        alert("Có lỗi xảy ra khi kết nối đến server.");
+        status.textContent = `Không gửi được báo cáo: ${error.message}`;
     } finally {
         reportBtn.textContent = originalText;
         reportBtn.disabled = false;
