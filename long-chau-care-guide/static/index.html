@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=10">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
@@ -47,21 +47,22 @@
                 <div class="message system-message">
                     <div class="avatar">🤖</div>
                     <div class="message-bubble">
-                        <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
-                        <p>Hãy mô tả triệu chứng của bạn (ví dụ: <em>"Tôi bị ho khan, đau họng nhẹ 2 ngày nay..."</em>). Tôi sẽ giúp trích xuất triệu chứng, gợi ý nhóm sản phẩm không kê đơn (OTC) phù hợp và đưa ra lời khuyên an toàn.</p>
+                        <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI giải thích đơn thuốc.</p>
+                        <p>Bạn có thể <strong>nhập tên thuốc</strong> hoặc <strong>paste đơn thuốc</strong> (ví dụ: <em>"1. Agi-Neurin, uống 2 viên/ngày. 2. A.T Ascorbic 100mg, uống 1 ống/ngày."</em>). Tôi sẽ giải thích công dụng, cách dùng và lưu ý an toàn theo đúng dữ liệu từ nhà thuốc Long Châu.</p>
                         <div class="hint-chips">
-                            <button class="hint-chip" onclick="setInputValue('Tôi bị ho rát họng và sổ mũi')">Ho & sổ mũi</button>
-                            <button class="hint-chip" onclick="setInputValue('Tôi bị nổi mẩn ngứa dị ứng da')">Nổi mẩn ngứa</button>
-                            <button class="hint-chip" onclick="setInputValue('Tôi mệt quá')">Thấy mệt trong người</button>
+                            <button class="hint-chip" onclick="setInputValue('Agi-Neurin 1 viên/ngày')">Agi-Neurin</button>
+                            <button class="hint-chip" onclick="setInputValue('1. Agi-Neurin, uống 2 viên/ngày. 2. A.T Ascorbic Syrup 100mg, uống 1 ống/ngày.')">Paste đơn thuốc mẫu</button>
+                            <button class="hint-chip" onclick="setInputValue('Thuốc Seacaminfort uống như thế nào?')">Seacaminfort</button>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <!-- Input Box -->
             <footer class="chat-input-area">
                 <form id="chat-form" class="input-container">
-                    <input type="text" id="user-input" placeholder="Mô tả triệu chứng của bạn ở đây..." autocomplete="off" required>
+                    <input type="text" id="user-input" placeholder="Nhập tên thuốc hoặc paste đơn thuốc vào đây..." autocomplete="off" required>
                     <button type="submit" id="send-btn" title="Gửi tin nhắn">
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -76,7 +77,7 @@
         <aside class="control-panel">
             <div class="panel-header">
                 <h2>Bảng Điều Khiển Demo</h2>
-                <p>Thử nghiệm nhanh các kịch bản kiểm thử (Day 05/06)</p>
+                <p>Thử nghiệm nhanh các kịch bản kiểm thử đơn thuốc</p>
             </div>
 
             <!-- Scenarios Section -->
@@ -86,43 +87,36 @@
                     <button class="preset-btn happy" id="preset-happy">
                         <span class="icon">🟢</span>
                         <div class="btn-text">
-                            <strong>Happy Path (Interaction)</strong>
-                            <span>"Agi-Neurin + Cà phê?"</span>
+                            <strong>Happy Path (Đơn thuốc đầy đủ)</strong>
+                            <span>Agi-Neurin + A.T Ascorbic</span>
                         </div>
                     </button>
                     <button class="preset-btn low-conf" id="preset-low-conf">
                         <span class="icon">🟡</span>
                         <div class="btn-text">
-                            <strong>Low Confidence (Unknown)</strong>
-                            <span>"Thuốc XZ-999 trị gì?"</span>
+                            <strong>Low Confidence (Thuốc bịa)</strong>
+                            <span>"Tiên Khí Xanh 500mg"</span>
                         </div>
                     </button>
                     <button class="preset-btn safety" id="preset-safety">
                         <span class="icon">🔴</span>
                         <div class="btn-text">
-                            <strong>Failure Mode (Dosage)</strong>
+                            <strong>Failure Mode (Hỏi tăng liều)</strong>
                             <span>"Ngày uống 10 viên Agi-Neurin?"</span>
-                        </div>
-                    </button>
-                    <button class="preset-btn correction" id="preset-correction">
-                        <span class="icon">🔵</span>
-                        <div class="btn-text">
-                            <strong>Correction Path</strong>
-                            <span>Ho rát họng → Nổi mẩn đỏ</span>
                         </div>
                     </button>
                     <button class="preset-btn happy" id="preset-combined-full">
                         <span class="icon">🟣</span>
                         <div class="btn-text">
-                            <strong>Combined (Đủ dữ liệu)</strong>
-                            <span>Đơn thuốc Agi-Neurin, A.T Ascorbic</span>
+                            <strong>Đơn thuốc có thật (Đủ dữ liệu)</strong>
+                            <span>Agi-Neurin, A.T Ascorbic Syrup</span>
                         </div>
                     </button>
                     <button class="preset-btn low-conf" id="preset-combined-missing">
                         <span class="icon">🟠</span>
                         <div class="btn-text">
-                            <strong>Combined (Thiếu dữ liệu)</strong>
-                            <span>Đơn thuốc có thuốc lạ</span>
+                            <strong>Đơn thuốc bịa (Thiếu dữ liệu)</strong>
+                            <span>Tiên Khí Xanh, Thần Đan Bạch Kim</span>
                         </div>
                     </button>
                 </div>
@@ -170,6 +164,6 @@
         </div>
     </div>
     
-    <script src="app.js?v=9"></script>
+    <script src="app.js?v=10"></script>
 </body>
 </html>

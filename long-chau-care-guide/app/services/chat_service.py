@@ -89,11 +89,17 @@ def _normalize(text: str) -> str:
 
 
 def _tokens(text: str) -> list[str]:
-    normalized = _normalize(text)
-    normalized = re.sub(r"\d+(?:[,.]\d+)?\s*(mg|mcg|g|ml|vien|viên|lan|lần)", " ", normalized)
+    raw = text or ""
+    # Split camelCase BEFORE normalizing so uppercase boundaries are visible
+    raw = re.sub(r"([a-z])([A-Z])", r"\1 \2", raw)
+    normalized = _normalize(raw)
+    # Strip dosage quantities (e.g. 500mg, 10ml)
+    normalized = re.sub(r"\d+(?:[,.]\d+)?\s*(mg|mcg|g|ml|vien|viẻn|lan|lần)", " ", normalized)
+    # Also expand hyphens to spaces
+    normalized = normalized.replace("-", " ")
     found = []
     for token in re.findall(r"[a-z0-9]+", normalized):
-        if len(token) < 4 or token.isdigit() or token in STOPWORDS:
+        if len(token) < 3 or token.isdigit() or token in STOPWORDS:
             continue
         found.append(token)
     return list(dict.fromkeys(found))
@@ -208,21 +214,41 @@ def _extract_requested_drugs(message: str) -> list[dict]:
     return candidates[:8]
 
 
+def _get_short_name(text: str) -> str:
+    name = re.sub(r"\([^()]*\)", " ", text or "")
+    name = re.split(r"(?i)\b(điều trị|trị|bổ sung|phòng|cải thiện|dự phòng|tiêu|giảm|hỗ trợ|giúp|chống|cung cấp|ngăn ngừa|long đờm|làm dịu)\b", name, maxsplit=1)[0]
+    return re.sub(r"\s+", " ", name).strip(" .:-;,")
+
+
 def _score_drug(query: str, drug_name: str) -> int:
-    query_norm = _normalize(query)
-    name_norm = _normalize(drug_name)
+    short_drug_name = _get_short_name(drug_name)
+    name_norm = _normalize(short_drug_name)
+    # Build a set of whole words in the drug name for exact word matching
+    name_words = set(re.findall(r"[a-z0-9]+", name_norm))
+
     query_tokens = _tokens(query)
     if not query_tokens:
         return 0
 
-    token_hits = sum(1 for token in query_tokens if token in name_norm)
+    # Count how many query tokens appear as WHOLE WORDS in the drug name
+    token_hits = sum(1 for token in query_tokens if token in name_words)
     if token_hits == len(query_tokens):
+        # All tokens matched as whole words -> strong match
         return 100 + token_hits
+
+    query_norm = _normalize(query)
     if query_norm in name_norm:
         return 95
-    fuzzy = fuzz.token_set_ratio(query_norm, name_norm)
-    coverage = int((token_hits / len(query_tokens)) * 100)
-    return max(fuzzy, coverage)
+
+    # Fuzzy only when there are token hits; purely fuzzy alone is too noisy
+    if token_hits > 0:
+        fuzzy = fuzz.token_set_ratio(query_norm, name_norm)
+        coverage = int((token_hits / len(query_tokens)) * 100)
+        return max(fuzzy, coverage)
+
+    # No token overlap at all: fall back to partial ratio but cap it
+    fuzzy = fuzz.partial_ratio(query_norm, name_norm)
+    return min(fuzzy, 74)  # cap below threshold so it never auto-matches
 
 
 def _find_drug(query: str) -> dict | None:
@@ -233,7 +259,7 @@ def _find_drug(query: str) -> dict | None:
         if score > best_score:
             best_score = score
             best_drug = drug
-    return best_drug if best_score >= 75 else None
+    return best_drug if best_score >= 80 else None
 
 
 def _sentences(text: str) -> list[str]:

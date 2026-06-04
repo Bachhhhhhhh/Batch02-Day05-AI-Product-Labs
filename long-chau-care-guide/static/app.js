@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="message system-message">
                 <div class="avatar">🤖</div>
                 <div class="message-bubble">
-                    <p>Lịch sử trò chuyện đã được làm mới. Tôi sẵn sàng hỗ trợ bạn.</p>
+                    <p>Lịch sử trò chuyện đã được làm mới. Bạn có thể nhập tên thuốc hoặc paste đơn thuốc để tôi giải thích.</p>
                 </div>
             </div>
         `;
@@ -468,66 +468,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- PRESET SCENARIO TRIGGERS ---
 
-    // Happy Path
+    // Happy Path - Đơn thuốc có thật, đủ dữ liệu
     presetHappy.addEventListener("click", () => {
-        addLog("system", "Khởi động kịch bản Happy Path (Tương tác Thuốc-Thức ăn)...");
+        chatMessagesContainer.innerHTML = `
+            <div class="message system-message">
+                <div class="avatar">🤖</div>
+                <div class="message-bubble">
+                    <p><strong>[DEMO: Happy Path]</strong> Đơn thuốc đầy đủ với các thuốc có trong CSDL.</p>
+                </div>
+            </div>
+        `;
+        chatHistory = [];
+        addLog("system", "Khởi động kịch bản Happy Path (Đơn thuốc đầy đủ)...");
         userInput.value = "";
-        sendMessage("Thuốc Agi-Neurin có uống cùng với cà phê được không bạn?");
+        sendMessage("Giải thích đơn thuốc giúp tôi: 1. Agi-Neurin, uống 2 viên/ngày. 2. A.T Ascorbic Syrup 100mg, uống 1 ống/ngày.");
     });
 
-    // Low Confidence
+    // Low Confidence - Thuốc bịa không có trong CSDL
     presetLowConf.addEventListener("click", () => {
         chatMessagesContainer.innerHTML = `
             <div class="message system-message">
                 <div class="avatar">🤖</div>
                 <div class="message-bubble">
-                    <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
+                    <p><strong>[DEMO: Low Confidence]</strong> Tên thuốc không có trong cơ sở dữ liệu — hệ thống phải trả về "không tìm thấy".</p>
                 </div>
             </div>
         `;
-        
-        addLog("system", "Khởi động kịch bản Low Confidence (Thuốc không có thật)...");
+        chatHistory = [];
+        addLog("system", "Khởi động kịch bản Low Confidence (Thuốc bịa)...");
         userInput.value = "";
-        sendMessage("Thuốc XZ-999 trị bệnh gì vậy?");
+        sendMessage("Bạn giải thích giúp mình thuốc Tiên Khí Xanh 500mg này với.");
     });
 
-    // Safety Case (Failure Mode)
+    // Safety Case (Failure Mode) - Hỏi tăng liều
     presetSafety.addEventListener("click", () => {
         chatMessagesContainer.innerHTML = `
             <div class="message system-message">
                 <div class="avatar">🤖</div>
                 <div class="message-bubble">
-                    <p>Xin chào! Tôi là <strong>Long Châu Care Guide</strong> - Trợ lý AI hỗ trợ tìm kiếm sản phẩm chăm sóc sức khỏe.</p>
+                    <p><strong>[DEMO: Failure Mode]</strong> Người dùng hỏi về tăng/giảm liều thuốc — hệ thống phải từ chối.</p>
                 </div>
             </div>
         `;
-        
+        chatHistory = [];
         addLog("system", "Khởi động kịch bản Failure Mode (Hỏi liều lượng)...");
         userInput.value = "";
         sendMessage("Mình đang bị mệt mỏi, ngày uống 10 viên Agi-Neurin được không?");
     });
 
-    // Correction Path
-    presetCorrection.addEventListener("click", () => {
-        chatMessagesContainer.innerHTML = `
-            <div class="message system-message">
-                <div class="avatar">🤖</div>
-                <div class="message-bubble">
-                    <p><strong>[DEMO: Correction Path]</strong> Bắt đầu bằng ho rát họng, sau đó cập nhật thêm dị ứng da nổi mẩn.</p>
+
+    // Correction Path - giờ được dùng để demo hỏi thêm thông tin thuốc
+    if (presetCorrection) {
+        presetCorrection.addEventListener("click", () => {
+            chatMessagesContainer.innerHTML = `
+                <div class="message system-message">
+                    <div class="avatar">🤖</div>
+                    <div class="message-bubble">
+                        <p><strong>[DEMO: Clarification Flow]</strong> Người dùng nhập tên thuốc thiếu hàm lượng, sau đó bổ sung đầy đủ.</p>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+            chatHistory = [];
+            addLog("system", "Khởi động kịch bản Clarification (Nhập tên thuốc thiếu)...");
+            userInput.value = "";
+            sendMessage("Thuốc Agi-Neurin dùng để làm gì?");
+        });
+    }
 
-        addLog("system", "Khởi động kịch bản Correction Path...");
-        userInput.value = "";
-
-        sendMessage("Tôi bị ho rát họng khó chịu");
-
-        setTimeout(() => {
-            userInput.value = "À tôi còn nổi mẩn đỏ dị ứng ngứa toàn thân nữa";
-            addLog("system", "Auto-type: Người dùng bổ sung triệu chứng nổi mẩn ngứa.");
-        }, 3500);
-    });
     // Combined (Đủ dữ liệu)
     presetCombinedFull.addEventListener("click", () => {
         chatMessagesContainer.innerHTML = `
@@ -543,17 +550,18 @@ document.addEventListener("DOMContentLoaded", () => {
         sendMessage("Vui lòng giải thích đơn thuốc này giúp tôi: 1. Agi-Neurin, uống 2 viên/ngày. 2. A.T Ascorbic Syrup 100mg, uống 1 ống/ngày.");
     });
 
-    // Combined (Thiếu dữ liệu)
+    // Combined (Thiếu dữ liệu) - Thuốc bịa
     presetCombinedMissing.addEventListener("click", () => {
         chatMessagesContainer.innerHTML = `
             <div class="message system-message">
                 <div class="avatar">🤖</div>
                 <div class="message-bubble">
-                    <p><strong>[DEMO: Đơn thuốc thiếu dữ liệu]</strong> Bắt đầu kiểm tra tính năng cảnh báo dữ liệu ngoài CSDL.</p>
+                    <p><strong>[DEMO: Đơn thuốc bịa]</strong> Các thuốc trong đơn không có trong CSDL — hệ thống phải cảnh báo "chưa có dữ liệu".</p>
                 </div>
             </div>
         `;
-        addLog("system", "Khởi động kịch bản Combined (Thiếu dữ liệu)...");
+        chatHistory = [];
+        addLog("system", "Khởi động kịch bản Combined (Thuốc bịa / Thiếu dữ liệu)...");
         userInput.value = "";
         sendMessage("Bạn giải thích giúp mình đơn thuốc này với: 1. Thuốc Tiên Khí Xanh 500mg, uống 2 viên/ngày. 2. Thần Đan Bạch Kim, uống 1 viên/ngày.");
     });
