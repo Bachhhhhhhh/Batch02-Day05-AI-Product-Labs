@@ -335,8 +335,7 @@ def _explain_drugs(message: str) -> dict:
     requested_items = _extract_requested_drugs(message)
     if not requested_items:
         response = _base_response(
-            f"{DISCLAIMER}\n\nBạn hãy nhập tên thuốc hoặc paste đơn thuốc để mình giải thích. "
-            "Mình không hỏi thêm triệu chứng và không kê đơn mới.",
+            "Bạn hãy nhập tên thuốc hoặc paste đơn thuốc để mình giải thích.",
             confidence="low",
         )
         response["clarifying_questions"] = [
@@ -358,8 +357,7 @@ def _explain_drugs(message: str) -> dict:
                 references.append({"name": drug.get("drug_name", item["name"]), "url": source_url})
 
     response = _base_response(
-        f"{DISCLAIMER}\n\nMình đã tách được {len(rows)} thuốc/tên thuốc và chỉ đối chiếu đúng tên thuốc trong database demo Long Châu. "
-        "Nếu không tìm thấy đúng thuốc, mình ghi rõ là chưa có dữ liệu và không thay bằng thuốc tương tự.",
+        "" if matched else "Không tìm thấy thuốc nào trong CSDL demo. Hãy kiểm tra lại tên thuốc trong đơn.",
         confidence="high" if matched else "low",
     )
     response["prescription_explanation"] = _markdown_table(rows)

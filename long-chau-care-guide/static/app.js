@@ -139,7 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const bubbleDiv = document.createElement("div");
         bubbleDiv.className = "message-bubble";
 
-        let htmlContent = `<p>${data.message}</p>`;
+        let htmlContent = data.message ? `<p>${data.message}</p>` : ``;
+
 
         // 1. Emergency Case Render
         if (data.is_emergency) {
