@@ -1580,3 +1580,6 @@ google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message
 2026-06-04 17:25:45 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
 2026-06-04 17:25:45 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 10.21ms
 2026-06-04 17:25:48 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
+2026-06-04 17:25:53 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 4416.80ms
+2026-06-04 17:28:37 [INFO] [LongChauApp] Path: /api/chat | Method: POST | Status: 200 | Time: 0.00ms
+2026-06-04 17:28:52 [INFO] [LongChauApp] Using Gemini RAG prescription explainer.
