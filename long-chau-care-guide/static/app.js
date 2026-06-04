@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const presetLowConf = document.getElementById("preset-low-conf");
     const presetSafety = document.getElementById("preset-safety");
     const presetCorrection = document.getElementById("preset-correction");
+    const presetCombinedFull = document.getElementById("preset-combined-full");
+    const presetCombinedMissing = document.getElementById("preset-combined-missing");
 
     // Chat History State
     let chatHistory = [];
@@ -524,6 +526,35 @@ document.addEventListener("DOMContentLoaded", () => {
             userInput.value = "À tôi còn nổi mẩn đỏ dị ứng ngứa toàn thân nữa";
             addLog("system", "Auto-type: Người dùng bổ sung triệu chứng nổi mẩn ngứa.");
         }, 3500);
+    });
+    // Combined (Đủ dữ liệu)
+    presetCombinedFull.addEventListener("click", () => {
+        chatMessagesContainer.innerHTML = `
+            <div class="message system-message">
+                <div class="avatar">🤖</div>
+                <div class="message-bubble">
+                    <p><strong>[DEMO: Đơn thuốc đầy đủ]</strong> Bắt đầu kiểm tra tính năng tổng hợp đơn thuốc.</p>
+                </div>
+            </div>
+        `;
+        addLog("system", "Khởi động kịch bản Combined (Đủ dữ liệu)...");
+        userInput.value = "";
+        sendMessage("Vui lòng giải thích đơn thuốc này giúp tôi: 1. Paracetamol 500mg, uống 2 viên/ngày. 2. Vitamin C 500mg, uống 1 viên/ngày.");
+    });
+
+    // Combined (Thiếu dữ liệu)
+    presetCombinedMissing.addEventListener("click", () => {
+        chatMessagesContainer.innerHTML = `
+            <div class="message system-message">
+                <div class="avatar">🤖</div>
+                <div class="message-bubble">
+                    <p><strong>[DEMO: Đơn thuốc thiếu dữ liệu]</strong> Bắt đầu kiểm tra tính năng cảnh báo dữ liệu ngoài CSDL.</p>
+                </div>
+            </div>
+        `;
+        addLog("system", "Khởi động kịch bản Combined (Thiếu dữ liệu)...");
+        userInput.value = "";
+        sendMessage("Bạn giải thích giúp mình đơn thuốc này với: 1. Thuốc Tiên Khí Xanh 500mg, uống 2 viên/ngày. 2. Thần Đan Bạch Kim, uống 1 viên/ngày.");
     });
 });
 
