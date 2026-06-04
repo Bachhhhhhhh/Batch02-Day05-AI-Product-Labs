@@ -3,6 +3,7 @@ import logging
 from google import genai
 from openai import OpenAI
 from app.core.config import OPENAI_API_KEY, GEMINI_API_KEY, MODEL_TEMPERATURE, ALLOW_OUT_OF_SCOPE, MAX_TOKENS
+from app.core.model_settings import model_settings
 from app.services.agent_tools import SearchHealthcareProductTool, AnalyzeIngredientsTool, ComparePriceTool
 
 logger = logging.getLogger("HealthcareAgent.Agent")
@@ -70,7 +71,7 @@ class HealthcareAgent:
             try:
                 client = genai.Client(api_key=GEMINI_API_KEY)
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model=model_settings.GEMINI_MODEL_NAME,
                     contents=prompt,
                     config=genai.types.GenerateContentConfig(
                         temperature=MODEL_TEMPERATURE,
@@ -91,7 +92,7 @@ class HealthcareAgent:
             try:
                 client = OpenAI(api_key=OPENAI_API_KEY)
                 response = client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model=model_settings.OPENAI_MODEL_NAME,
                     messages=[{"role": "user", "content": prompt}],
                     temperature=MODEL_TEMPERATURE,
                     max_tokens=MAX_TOKENS

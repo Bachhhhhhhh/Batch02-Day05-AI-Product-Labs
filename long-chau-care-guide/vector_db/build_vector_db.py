@@ -9,7 +9,7 @@ if sys.platform == "win32":
     sys.stdout.reconfigure(encoding='utf-8')
 
 # Cấu hình đường dẫn
-DATA_PATH = "data/sample_drugs.json" # Có thể thay bằng drugs_clean.json khi có data thật
+DATA_PATH = "data/drugs_clean.json" # Có thể thay bằng drugs_clean.json khi có data thật
 DB_PATH = "vector_db/chroma_db"
 
 def build_vector_db(json_file):

@@ -49,6 +49,9 @@ def search_drugs(query: str, top_k: int = 5) -> list[dict]:
         return []
 
 if __name__ == "__main__":
+    import sys
+    if sys.platform == 'win32':
+        sys.stdout.reconfigure(encoding='utf-8')
     # Test thử hàm search
     test_query = "Paracetamol dùng như thế nào?"
     res = search_drugs(test_query)

@@ -3,6 +3,7 @@ import re
 from typing import List, Optional
 from app.data.products_db import get_products_by_category
 from app.core.config import MODEL_TEMPERATURE, ALLOW_OUT_OF_SCOPE, MAX_TOKENS, OPENAI_API_KEY, GEMINI_API_KEY
+from app.core.model_settings import model_settings
 from app.core.logger import system_logger
 
 EMERGENCY_KEYWORDS = [
@@ -213,9 +214,9 @@ def process_gemini_ai(message: str) -> dict:
         
         from app.core.ai_tracker import AIResourceTracker
         
-        with AIResourceTracker(model_name="gemini-2.5-flash") as tracker:
+        with AIResourceTracker(model_name=model_settings.GEMINI_MODEL_NAME) as tracker:
             response = client.models.generate_content(
-                model="gemini-2.5-flash",
+                model=model_settings.GEMINI_MODEL_NAME,
                 contents=message,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
@@ -316,9 +317,9 @@ def process_openai_ai(message: str) -> dict:
             
         from app.core.ai_tracker import AIResourceTracker
         
-        with AIResourceTracker(model_name="gpt-4o-mini") as tracker:
+        with AIResourceTracker(model_name=model_settings.OPENAI_MODEL_NAME) as tracker:
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model=model_settings.OPENAI_MODEL_NAME,
                 messages=[{"role": "user", "content": prompt}],
                 response_format={"type": "json_object"},
                 temperature=MODEL_TEMPERATURE,
