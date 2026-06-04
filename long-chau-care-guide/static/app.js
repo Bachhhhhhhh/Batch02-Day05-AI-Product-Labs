@@ -131,7 +131,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Render diagnostic structure (symptoms, products, recommendations)
     function appendDiagnosticMessage(data) {
         const messageDiv = document.createElement("div");
-        messageDiv.className = "message system-message";
+        const hasPrescription = data.prescription_explanation && data.prescription_explanation.trim() !== "";
+        if (hasPrescription) {
+            messageDiv.className = "message system-message prescription-message";
+        } else {
+            messageDiv.className = "message system-message";
+        }
 
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
@@ -198,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const hasSymptoms = isMeaningfulArray(data.symptoms);
             const hasCategories = isMeaningfulArray(data.categories);
-            const hasPrescription = data.prescription_explanation && data.prescription_explanation.trim() !== "";
 
             if (!hasSymptoms && !hasCategories && !hasPrescription) {
                 // General conversation or out-of-scope response
@@ -274,11 +278,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 let referencesList = "";
                 if (data.references && data.references.length > 0) {
                     referencesList = `
-                        <div class="result-section-title" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.85rem;">
+                        <div class="result-section-title" style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.85rem;">
                             📚 Dữ liệu trích xuất từ:
                         </div>
-                        <ul class="references-list" style="font-size: 0.85rem; color: var(--text-light); padding-left: 20px; margin-top: 5px; list-style-type: disc;">
-                            ${data.references.map(ref => `<li><a href="${ref.url}" target="_blank" style="color: var(--primary-light); text-decoration: none;">${ref.name}</a></li>`).join("")}
+                        <ul class="references-list" style="font-size: 0.85rem; color: var(--text-muted); padding-left: 20px; margin-top: 5px; list-style-type: disc;">
+                            ${data.references.map(ref => `<li><a href="${ref.url}" target="_blank" style="color: var(--primary-color); font-weight: 500; text-decoration: underline;">${ref.name}</a></li>`).join("")}
                         </ul>
                     `;
                 }
