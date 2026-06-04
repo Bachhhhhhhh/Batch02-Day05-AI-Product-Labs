@@ -3,4 +3,12 @@
 Thumbs.db
 .idea/
 .vscode/
-.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Env config
+.env
+.venv
+venv/

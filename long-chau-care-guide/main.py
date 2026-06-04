@@ -6,6 +6,10 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 # Import mock catalog
 from products_db import PRODUCT_CATALOG, get_products_by_category
@@ -173,7 +177,7 @@ def process_gemini_ai(message: str, api_key: str) -> dict:
         """
         
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-3.5-flash",
             generation_config={"response_mime_type": "application/json"},
             system_instruction=system_instruction
         )
@@ -260,11 +264,15 @@ async def chat_endpoint(request: ChatRequest = Body(...)):
             "clarifying_questions": []
         }
     else:
+        # Resolve API keys (fallback to environment variables if not provided via UI)
+        gemini_api_key = request.api_key or os.getenv("GEMINI_API_KEY")
+        openai_api_key = request.api_key or os.getenv("OPENAI_API_KEY")
+        
         # 2. Call AI engines
-        if request.provider == "gemini" and request.api_key:
-            result = process_gemini_ai(user_msg, request.api_key)
-        elif request.provider == "openai" and request.api_key:
-            result = process_openai_ai(user_msg, request.api_key)
+        if request.provider == "gemini" and gemini_api_key:
+            result = process_gemini_ai(user_msg, gemini_api_key)
+        elif request.provider == "openai" and openai_api_key:
+            result = process_openai_ai(user_msg, openai_api_key)
         else:
             result = process_mock_ai(user_msg)
             
