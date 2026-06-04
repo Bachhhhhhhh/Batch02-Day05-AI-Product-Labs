@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const presetSafety = document.getElementById("preset-safety");
     const presetCorrection = document.getElementById("preset-correction");
 
+    // Chat History State
+    let chatHistory = [];
+
     // Load saved Provider from LocalStorage
     if (localStorage.getItem("longchau_api_provider")) {
         aiProvider.value = localStorage.getItem("longchau_api_provider");
@@ -190,8 +193,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const hasSymptoms = isMeaningfulArray(data.symptoms);
             const hasCategories = isMeaningfulArray(data.categories);
+            const hasPrescription = data.prescription_explanation && data.prescription_explanation.trim() !== "";
 
-            if (!hasSymptoms && !hasCategories) {
+            if (!hasSymptoms && !hasCategories && !hasPrescription) {
                 // General conversation or out-of-scope response
                 if (data.clarifying_questions && data.clarifying_questions.length > 0) {
                     htmlContent += `
@@ -216,6 +220,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="result-section-title">Lời khuyên chăm sóc ban đầu:</div>
                         <ul class="advice-list">
                             ${data.recommendations.filter(r => r && r.trim() !== "" && r.toLowerCase() !== "không có").map(r => `<li>${r}</li>`).join("")}
+                        </ul>
+                    `;
+                }
+
+                let prescriptionExplanation = "";
+                if (data.prescription_explanation && data.prescription_explanation.trim() !== "") {
+                    // Use marked to parse markdown table if available, else fallback to text
+                    const parsedHtml = window.marked ? marked.parse(data.prescription_explanation) : data.prescription_explanation.replace(/\n/g, '<br>');
+                    prescriptionExplanation = `
+                        <div class="prescription-explanation">
+                            <div class="result-section-title" style="color: var(--primary);">💊 Giải Thích Đơn Thuốc:</div>
+                            <div class="markdown-content">${parsedHtml}</div>
+                        </div>
+                    `;
+                }
+
+                let sideEffectsList = "";
+                if (isMeaningfulArray(data.side_effects)) {
+                    sideEffectsList = `
+                        <div class="result-section-title" style="color: #ff9800; margin-top: 15px;">⚠️ Tác Dụng Phụ Cần Lưu Ý:</div>
+                        <ul class="side-effects-list" style="color: #ff9800; list-style-type: none; padding-left: 0;">
+                            ${data.side_effects.filter(s => s && s.trim() !== "" && s.toLowerCase() !== "không có").map(s => `<li style="margin-bottom: 5px;">• ${s}</li>`).join("")}
                         </ul>
                     `;
                 }
@@ -270,14 +296,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 htmlContent += `
                     <div class="diagnostic-container">
-                        ${symptomTags ? `<div class="result-section-title">Triệu chứng nhận diện:</div><div class="symptoms-tags">${symptomTags}</div>` : ''}
+                        ${symptomTags ? `
+                        <div class="symptom-tags">
+                            <span class="result-section-title">Triệu chứng ghi nhận:</span>
+                            ${symptomTags}
+                        </div>
+                        ` : ''}
                         
-                        ${productsGridHtml}
+                        ${prescriptionExplanation}
+                        ${sideEffectsList}
                         
                         ${adviceList}
-                        
                         ${warningList}
-                        
+                        ${productsGridHtml}
                         ${referencesList}
                     </div>
                 `;
@@ -348,8 +379,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const payload = {
             message: text,
-            provider: aiProvider.value
+            provider: aiProvider.value,
+            chat_history: chatHistory
         };
+
+        // Cập nhật chatHistory tạm thời cho request tiếp theo
+        chatHistory.push({ role: "user", content: text });
 
         addLog("api", `Đang gọi API endpoint /api/chat (${aiProvider.value.toUpperCase()})...`);
 
@@ -367,6 +402,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const data = await response.json();
+            
+            // Lưu lại context phản hồi của model
+            chatHistory.push({ role: "assistant", content: data.message });
 
             addLog("api", `Phản hồi 200 OK. Confidence: "${data.confidence}", Emergency: ${data.is_emergency}`);
 
